@@ -15,7 +15,9 @@ Contents
 --------
 
 .. toctree::
-
+   :hidden:
+   :caption: Hello  🚀 
+   
    usage
    api
    installation
