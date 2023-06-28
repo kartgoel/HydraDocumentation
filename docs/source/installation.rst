@@ -5,6 +5,8 @@ To Install Hydra you need a computer.
 
 --------------------------------
 
+.. _quick start:
+
 Quick Start
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
