@@ -11,13 +11,12 @@ how to :ref:`quick start` the project.
 
    This project is under active development.
 
-Contents
---------
+
 
 .. toctree::
    :hidden:
    :caption: Hello  🚀 
-   
+
    usage
    api
    installation
