@@ -31,6 +31,15 @@ templates_path = ['_templates']
 
 html_theme = 'sphinx_rtd_theme'
 html_logo = 'img/hydra_logo.png'
+html_options = {
+    'collapse_navigation': False,
+    'display_version': False,
+    'navigation-depth': 3,
+    'logo-only': True,
+    'sticky-naivigation': False
+}
+html_show_sphinx = False
+html_show_sourceLink = False
 
 
 # -- Options for EPUB output
