@@ -1,7 +1,9 @@
 Hydra Feeder
 =====
+
 This file formats existing images and directories to desired properties by connecting to the server and using a parser.
 The resized files are stored for Hydra Predict to reference.
+
 .. code-block:: python
    def main(argv):
     global dbhost
@@ -105,21 +107,25 @@ if __name__ == "__main__":
     main(sys.argv[1:])
 
 ---------------------------------------------------------------------------------
-.. _findFiles:
+
+
 find_files(root)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 This function retrieves the files from the image directory and converting them to an absolute pathname.
+
 .. code-block:: python
    def find_files(root):
     for d, dirs, files in os.walk(root):
         for f in files:
             yield os.path.join(d, f)
 -----------------------------------------------------------------------------------
-.. _resizeAndSave:
+
+
 ResizeAndSave(orig_img,model_to_use,force_x,force_y,outputloc)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 This function formats the image path and file name to assign an apropriate Active Model ID based upon the model. 
 The shape of the image is resized based upon the Active Model ID in both the x and y dimensions.
+
 .. code-block:: python
    def ResizeAndSave(orig_img,model_to_use,force_x,force_y,outputloc):
       print("Resizing and saving")
