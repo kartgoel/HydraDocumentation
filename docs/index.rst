@@ -15,8 +15,8 @@ how to :ref:`quick start` the project.
 
 .. toctree::
    :hidden:
-   :caption: Hello  🚀 
+   :caption: 📝Scripts  
 
-   usage
+   hydraFeeder
    api
    installation
