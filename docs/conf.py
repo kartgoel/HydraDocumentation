@@ -34,8 +34,7 @@ html_logo = 'img/hydra_logo.png'
 html_theme_options = {
     'collapse_navigation': False,
     'display_version': False,
-    'navigation-depth': 3,
-    'logo-only': True,
+    'logo-only': False,
     'sticky-naivigation': False
 }
 html_show_sphinx = False
