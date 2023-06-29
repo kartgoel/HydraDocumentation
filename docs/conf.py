@@ -41,6 +41,9 @@ html_theme_options = {
 html_show_sphinx = False
 html_show_sourceLink = False
 
+def setup(app):
+    app.add_css_file('theme_overrides.css')
+
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
