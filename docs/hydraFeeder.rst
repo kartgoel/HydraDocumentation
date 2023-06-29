@@ -102,10 +102,6 @@ The resized files are stored for Hydra Predict to reference.
         else:
             print("input not a found file or directory. exiting")
             exit(1)
-
-if __name__ == "__main__":
-    main(sys.argv[1:])
-
 ---------------------------------------------------------------------------------
 
 
