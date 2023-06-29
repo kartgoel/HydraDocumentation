@@ -5,103 +5,103 @@ This file formats existing images and directories to desired properties by conne
 The resized files are stored for Hydra Predict to reference.
 
 .. code-block:: python
-         def main(argv):
-         global dbhost
-         global dbuser
-         global dbname
-         global dbcnx
-         global dbcursor
+      def main(argv):
+      global dbhost
+      global dbuser
+      global dbname
+      global dbcnx
+      global dbcursor
 
-         pidf= open("/tmp/feederpid",'w')
-         pidf.write(str(os.getpid()))
-         pidf.close()
+      pidf= open("/tmp/feederpid",'w')
+      pidf.write(str(os.getpid()))
+      pidf.close()
 
-         # construct the argument parser and parse the arguments
-         ap = argparse.ArgumentParser()
+      # construct the argument parser and parse the arguments
+      ap = argparse.ArgumentParser()
 
-         ap.add_argument("-i", "--img", required=True,
-         help="target image location")
+      ap.add_argument("-i", "--img", required=True,
+      help="target image location")
 
-         ap.add_argument("-x", "--xsize", required=False,
-         help="desired x size")
-         ap.add_argument("-y", "--ysize", required=False,
-         help="desired y size")
+      ap.add_argument("-x", "--xsize", required=False,
+      help="desired x size")
+      ap.add_argument("-y", "--ysize", required=False,
+      help="desired y size")
+      
+      ap.add_argument("-M", "--model", required=False,
+      help="take the desired shape from model or auto to look it up")
+
+      ap.add_argument("-o", "--output", required=False,
+      help="where feeder should save the resized images")
+
+      ap.add_argument("-c", "--config", required=True,
+      help="path to hydra config file")
+
+      args = vars(ap.parse_args())
+      configPath = args["config"]
+      
+      try:
+         with open(configPath) as parms_json:
+               parms=json.load(parms_json)
+
+         dbhost=parms["DB_CONNECTION"]["Host"]
+         dbuser=parms["DB_CONNECTION"]["User"]
+         dbname=parms["DB_CONNECTION"]["DB"]
+
+      except Exception as e:
+         print(e)
+         exit(1)
          
-         ap.add_argument("-M", "--model", required=False,
-         help="take the desired shape from model or auto to look it up")
+      try:
+         dbcnx=MySQLdb.connect(host=dbhost, user=dbuser, db=dbname)
+         dbcursor=dbcnx.cursor(MySQLdb.cursors.DictCursor)
+      except:
+         print("ERROR: CANNOT CONNECT TO DATABASE")
+         exit(1)
 
-         ap.add_argument("-o", "--output", required=False,
-         help="where feeder should save the resized images")
+      print("CONNECTED to "+dbhost+":"+dbname)
 
-         ap.add_argument("-c", "--config", required=True,
-         help="path to hydra config file")
+      print("begin watch of",args["img"])
 
-         args = vars(ap.parse_args())
-         configPath = args["config"]
+      if(os.path.isfile(args["img"])):
+         ResizeAndSave(args["img"],args["model"],args["xsize"],args["ysize"],args["output"])
+      elif(os.path.isdir(args["img"])):
+         if(not args["output"]):
+               print("To watch a directory you must supply an output -o")
+               exit(1)
+         while(1):
+               files=[]
+               walkfiles=find_files(args["img"])
+
+               for thing in walkfiles:
+                  files.append(thing)
+
+               if(len(files)==0):
+                  #print("waiting for files....")
+                  continue
          
-         try:
-            with open(configPath) as parms_json:
-                  parms=json.load(parms_json)
+               for f in files:
+                  print("==============================================")
+                  print(datetime.datetime.now())
+                  print("file: ", f.split("/"))
+                  print("argument: ",args["output"])
 
-            dbhost=parms["DB_CONNECTION"]["Host"]
-            dbuser=parms["DB_CONNECTION"]["User"]
-            dbname=parms["DB_CONNECTION"]["DB"]
+                  outputLoc=args["output"]
 
-         except Exception as e:
-            print(e)
-            exit(1)
-            
-         try:
-            dbcnx=MySQLdb.connect(host=dbhost, user=dbuser, db=dbname)
-            dbcursor=dbcnx.cursor(MySQLdb.cursors.DictCursor)
-         except:
-            print("ERROR: CANNOT CONNECT TO DATABASE")
-            exit(1)
+                  if(outputLoc[-1]!="/"):
+                     outputLoc+="/"
+                  
+                  outputLoc="/".join(outputLoc.split("/")[:-1])+"/"+f.split("/")[-2]
+                  print("%s -------->  %s" % (f,outputLoc))
 
-         print("CONNECTED to "+dbhost+":"+dbname)
-
-         print("begin watch of",args["img"])
-
-         if(os.path.isfile(args["img"])):
-            ResizeAndSave(args["img"],args["model"],args["xsize"],args["ysize"],args["output"])
-         elif(os.path.isdir(args["img"])):
-            if(not args["output"]):
-                  print("To watch a directory you must supply an output -o")
-                  exit(1)
-            while(1):
-                  files=[]
-                  walkfiles=find_files(args["img"])
-
-                  for thing in walkfiles:
-                     files.append(thing)
-
-                  if(len(files)==0):
-                     #print("waiting for files....")
-                     continue
-            
-                  for f in files:
-                     print("==============================================")
-                     print(datetime.datetime.now())
-                     print("file: ", f.split("/"))
-                     print("argument: ",args["output"])
-
-                     outputLoc=args["output"]
-
-                     if(outputLoc[-1]!="/"):
-                        outputLoc+="/"
-                     
-                     outputLoc="/".join(outputLoc.split("/")[:-1])+"/"+f.split("/")[-2]
-                     print("%s -------->  %s" % (f,outputLoc))
-
-                     status=ResizeAndSave(f,args["model"],args["xsize"],args["ysize"],outputLoc)
-                     try:
-                        os.remove(f)
-                     except Exception as e:
-                        print(e)
-                        pass
-            else:
-                  print("input not a found file or directory. exiting")
-                  exit(1)
+                  status=ResizeAndSave(f,args["model"],args["xsize"],args["ysize"],outputLoc)
+                  try:
+                     os.remove(f)
+                  except Exception as e:
+                     print(e)
+                     pass
+         else:
+               print("input not a found file or directory. exiting")
+               exit(1)
 ---------------------------------------------------------------------------------
 
 
@@ -110,10 +110,10 @@ find_files
 This function retrieves the files from the image directory and converting them to an absolute pathname.
 
 .. code-block:: python
-         def find_files(root):
-         for d, dirs, files in os.walk(root):
-            for f in files:
-                  yield os.path.join(d, f)
+      def find_files(root):
+      for d, dirs, files in os.walk(root):
+         for f in files:
+               yield os.path.join(d, f)
 -----------------------------------------------------------------------------------
 
 
