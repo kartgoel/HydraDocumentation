@@ -1,7 +1,7 @@
 DataPreprocessing
 ======================
 
-This library retrieves labels and correleates them with the plots. 
+This library retrieves labels and correlates them with the plots. 
 
 .. code-block:: python 
 

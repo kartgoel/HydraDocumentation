@@ -164,16 +164,14 @@ This library establishes infrastructure for the data generator to reach inferenc
                 print("preds:",preds)
             except Exception as e:
                 print(e)
-                # logging.error(e)
-                # logging.error("Issue with generating predictions for ", plotTypeName_toUse)
                 continue
 
             predicted_class_indices=np.argmax(preds,axis=1)
             
             output.append([modelInstance.ID, to_pred,labels_of_model,preds])
         
-        return output #self.output = output test
-
+        return output
+        
     def getResults(self):
         return self.output
 

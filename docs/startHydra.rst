@@ -113,7 +113,6 @@ This file loads the Hydra installer environment to boot Hydra, Feeder, and Keepe
                 kpidf.close()
                 os.kill(int(kpid),0)
             except OSError:
-                #print(ose)
                 pass
             else:
                 keeperRunning=True
@@ -159,8 +158,6 @@ This file loads the Hydra installer environment to boot Hydra, Feeder, and Keepe
             else:
                 print("Start Hydra")
                 hostname=os.environ["HOST"].split(".")[0]
-                #hostname.replace(".jlab.org","")
-                #command_for_predict="hdlog -c -o /gluex/log/hydra_predict.py."+hostname+".log -r 10 "+location+"hydra_predict.py -R "+RunPeriod+" -r "+str(RunNumber)+" -w -p -od delete -D /gluonraid2/monitoring/AI/hydra_in/ -mp "+ModelRootPath+" &"
                 command_for_predict="hdlog -c -o /gluex/log/hydra_predict.py."+hostname+".log -r 10 python3 "+location+"/scripts/hydra_predict.py "+"-od delete -D "+feeder_hydra_jointDir+"/ -mp "+ModelRootPath+" -cp "+args["config"] +" &"
                 print(command_for_predict)
                 subprocess.call(command_for_predict,shell=True)
@@ -187,7 +184,7 @@ This file loads the Hydra installer environment to boot Hydra, Feeder, and Keepe
                 print(command_for_keeper)
                 subprocess.call(command_for_keeper,shell=True)
                 time.sleep(5)
-                #subprocess.call("hdlog -r 10 "+location+"hydra_keeper.py -c /group/halld/hydra/scripts/keeper_config.cfg &",shell=True)
+               
             else:
                 print("Start keeper")
                 print("kill and restart keeper")
@@ -211,7 +208,6 @@ This file loads the Hydra installer environment to boot Hydra, Feeder, and Keepe
 
             if(feederRunning):
                 print("feeder detected")
-                #print("kill and restart keeper")
                 try:
                     os.kill(int(kpid),signal.SIGKILL)
                 except Exception as e:
@@ -223,7 +219,6 @@ This file loads the Hydra installer environment to boot Hydra, Feeder, and Keepe
                 command_for_feeder="hdlog -c -o  /gluex/log/hydra_feeder.py."+hostname+".log -r 10 python3 "+location+"/scripts/hydra_feeder.py -i "+inputLoc+"/ -o "+feeder_hydra_jointDir+"/"+str(RunPeriod)+"/"+" -M auto --config "+args["config"]+" &"
                 print(command_for_feeder)
                 subprocess.call(command_for_feeder,shell=True)
-                #subprocess.call("hdlog -r 10 "+location+"hydra_keeper.py -c /group/halld/hydra/scripts/keeper_config.cfg &",shell=True)
             else:
                 print("Start feeder")
                 hostname=os.environ["HOST"].split(".")[0]
@@ -234,14 +229,10 @@ This file loads the Hydra installer environment to boot Hydra, Feeder, and Keepe
                 print(command_for_feeder)
                 subprocess.call(command_for_feeder,shell=True)
                 time.sleep(5)
-            #print(HydraRunning)
-            #python -W ignore /group/halld/hydra/scripts/hydra_predict.py -R RunPeriod -r runnum -D INDIR -od OUTDIR -w
-            # python -W ignore /group/halld/hydra/scripts/hydra_keeper.py -c /group/halld/hydra/scripts/keeper_config.cfg 
         else:
             print("Killing Hydra")
             try:
                 if(hpid!=-1):
-                    #os.killpg(int(hpid),signal.SIGKILL) # hdlog ruins this
                     subprocess.call("pkill -9 -f hydra_predict",shell=True)
             except Exception as e:
                 print("could not kill Hydra")
@@ -250,7 +241,6 @@ This file loads the Hydra installer environment to boot Hydra, Feeder, and Keepe
             print("Killing Keeper")
             try:
                 if(kpid != -1):
-                    #os.killpg(int(hpid),signal.SIGKILL)
                     subprocess.call("pkill -9 -f hydra_keeper",shell=True)
             except Exception as e:
                 print("could not kill Keeper")
@@ -259,7 +249,6 @@ This file loads the Hydra installer environment to boot Hydra, Feeder, and Keepe
             try:
                 print("feeder pid",fpid)
                 if(fpid != -1):
-                    #os.killpg(int(hpid),signal.SIGKILL)
                     subprocess.call("pkill -9 -f hydra_feeder",shell=True)
             except Exception as e:
                 print("could not kill feeder")
