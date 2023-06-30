@@ -27,7 +27,7 @@ how to :ref:`quick start` the project.
    :hidden:
    :caption: 📝Scripts  
 
-   
+   schemaSync
    startHydra
    hydraCleaner
    hydraFeeder
