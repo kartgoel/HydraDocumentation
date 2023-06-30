@@ -1,4 +1,4 @@
-Hydra Feeder
+hydra_feeder
 =====
 
 This file formats existing images and directories to desired properties by connecting to the server and using a parser.
