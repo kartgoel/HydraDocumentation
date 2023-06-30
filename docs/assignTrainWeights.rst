@@ -1,27 +1,22 @@
 assign_train_weights
 =======================================
 
-This file...
+This file contains methods that assign varying weights to plots based on their importance. 
 
 -------------------------------------------
 
 RandomTrainingTestingSplit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This function
+This function executes training weight queries and assigns valuable plots more influence over the report. Plots that are deemed more important are present more times than typical plots. 
 
 .. code-block:: python
 
     def RandomTrainingTestingSplit(runPeriodSubstring,  Trainingfraction):
-        # getNumberOfImages_query = 'SELECT count(*) FROM Plots where RunPeriod like "'+str(runPeriodSubstring)+'%"'
-        # dbcursor.execute(getNumberOfImages_query)
-        # result = dbcursor.fetchall()
-        # n = result[0]['count(*)']
 
         getIds_query = 'SELECT ID FROM Plots where RunPeriod like "'+str(runPeriodSubstring)+'%"'
         dbcursor.execute(getIds_query)
         result = dbcursor.fetchall()
-        # print(result)
         n = len(result)
         numTrainingSamples = int(n*Trainingfraction)
         numTestingSamples = n - numTrainingSamples
@@ -37,9 +32,6 @@ This function
             else:
                 trainingIds.append(result[i]['ID'])
 
-        # print("Testing ids length: ", len(testingIds))
-        # print("Testing ids: ", testingIds)
-
         updateTrainingWeights_query = 'UPDATE Plots SET TrainingWeight=0 WHERE ID in '+str(tuple(testingIds))
         dbcursor.execute(updateTrainingWeights_query)
         dbcnx.commit()
@@ -53,7 +45,7 @@ This function
 TrainTestSplit2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This function
+This function executes training weight queries based upon training and testing boards. 
 
 .. code-block:: python
 
@@ -66,7 +58,6 @@ This function
             if len(line) <= 0:
                 break
             words = line.split(' ')
-            # print(words)
             board = words[5][3:]
             name = words[0]
             name = 'CDC_occupancy/'+name[:-4]
@@ -95,23 +86,6 @@ This function
         print("Boards set to 1: ", trainingBoards)
         print("Boards set to 0: ", testingBoards)
         
-        # # print(id_board)
-        # for key in id_board:
-        #     length = len(id_board[key])
-        #     if length != 9:
-        #         print(length, " ", key)
-        #     # print("=======================================")
-        #     # print("Board: ", key)
-        #     # print("Number of images: ", length)
-        #     trainingNames = []
-        #     testingNames = []
-        #     trainingIds = random.sample(range(0, length), int(length*trainingFraction))
-        #     for i in range(length):
-        #         if i in trainingIds:
-        #             trainingNames.append(id_board[key][i])
-        #         else:
-        #             testingNames.append(id_board[key][i])
-        #     print(key)
         print("Training: ", trainingNames)
         print("Testing: ", testingNames)
 
@@ -122,10 +96,6 @@ This function
         updateTrainingWeights_query = 'UPDATE Plots SET TrainingWeight=0 WHERE RunPeriod in '+str(tuple(testingNames))
         dbcursor.execute(updateTrainingWeights_query)
         dbcnx.commit()
-
-            # print(key)
-            # print(len(id_board[key]))
-            # print(id_board[key])
 
         
         TrainTestSplit2("/work/halld2/home/davidl/2020.09.08.Hydra_CDC_Training/hydra_cdc/images/origin_log.txt", 0.6)

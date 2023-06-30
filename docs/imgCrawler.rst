@@ -1,7 +1,7 @@
 imgCrawler
 =================
 
-This file 
+This file scans present directories for plots to analyze in the JLab halls. 
 
 .. code-block:: python 
     
@@ -38,7 +38,6 @@ This file
         pidf.write(str(os.getpid()))
         pidf.close()
 
-    # root_loc="/work/halld2/data_monitoring/"
     root_loc = "/work/halld/online_monitoring/AI/keeper/"
 
     RunPeriod_to_scan = ""
@@ -57,18 +56,13 @@ This file
     ScanLocations(root_loc, locations_to_scan)
 
 
-if __name__ == "__main__":
-    main(sys.argv[1:])
-
-
-# DOCUMENTATION: Extracts plots, Ids them, and inserts them into plot files
 
 -----------------
 
 ScanLocations
 ~~~~~~~~~~~~~~~~
 
-This function 
+This function scans locales for image retrieval in different halls at JLab. 
 
 .. code-block:: python
 
@@ -77,11 +71,8 @@ This function
         for locale in locations:
             print(locale)
             if locale[0:3] == "Run":
-                #locale= RunPeriod root_loc = "/work/halld/online_monitoring/AI/keeper/"
                 subloc = root_loc+"/"+locale+"/rawdata_ver00/"
                 Runs_list = os.listdir(subloc)
-                # print(Runs_list)
-                #Run= Run012345
                 for Run in Runs_list:
 
                     if (not str(Run.replace("Run", "")).isnumeric()):
@@ -89,12 +80,10 @@ This function
                         continue
 
                     RunNumber = int(Run.replace("Run", ""))
-                    # print(RunNumber)
                     if RunNumber < 10000:
                         continue
 
                     plots_list = os.listdir(subloc+Run)
-                    # print(plots_list)
                     for plot in plots_list:
                         Name = plot.split(".")[0]
                         FileType = plot.split(".")[1]
@@ -102,12 +91,11 @@ This function
                         if Name.split("_")[-1].isnumeric():
                             chunked = True
                             Name = "_".join(Name.split("_")[:-1])
-                        # print(chunked)
 
                         if ("-" in Name):
                             padNum = Name.rsplit("-", 1)[1]
                             if (padNum.isnumeric()):
-                                Name = "-".join(Name.split("-")[:-1])  # RF-TOF
+                                Name = "-".join(Name.split("-")[:-1])
 
                         print("EXTRACTED NAME", Name)
                         if chunked:
@@ -124,7 +112,6 @@ This function
                         if (len(Plot_Type_ID) != 1):
                             continue
 
-                        # print(Plot_Type_ID[0]["ID"])
                         already_inserted = False
                         if chunked:
                             chunkNum = int(plot.split(".")[0].split("_")[-1])
@@ -135,12 +122,10 @@ This function
                             str(Plot_Type_ID[0]["ID"])+" && RunNumber="+str(RunNumber) + \
                             " && RunPeriod=\""+subloc+"Run" + \
                             "\" && Chunk="+str(chunkNum)
-                        #print("check if already inserted:", already_inserted_q)
                         dbcursor.execute(already_inserted_q)
                         Plot = dbcursor.fetchall()
                         print("check if already inserted, plots found:", len(Plot))
                         if (len(Plot) == 0):
-                            # print(Name)
                             insert_plot_q = "INSERT into Plots (Plot_Types_ID,RunPeriod,RunNumber,Chunk) VALUES("+str(
                                 Plot_Type_ID[0]["ID"])+", \""+subloc+"Run"+"\","+str(RunNumber)+","+str(chunkNum)+")"
                             print(insert_plot_q)
@@ -153,7 +138,6 @@ This function
 
                 Plot_Types_list = os.listdir(
                     "/work/halld2/data_monitoring/"+locale)
-                # print(Plot_Types_list)
                 for plot_type in Plot_Types_list:
                     Name = plot_type
                     chunked = False
@@ -166,9 +150,8 @@ This function
                     if ("-" in Name):
                         padNum = Name.rsplit("-", 1)[1]
                         if (padNum.isnumeric()):
-                            Name = "-".join(Name.split("-")[:-1])  # RF-TOF
+                            Name = "-".join(Name.split("-")[:-1]) 
                     print("EXTRACTED NAME:", Name)
-                    # print(chunked)
                     if chunked:
 
                         Plot_Type_ID_q = "SELECT ID FROM Plot_Types where Name=\"" + \
@@ -196,13 +179,11 @@ This function
                             chunkNum = 0
 
                         RunPeriod = Name+"/"+plot.split(".")[0]
-                        # print(RunPeriod)
 
                         already_inserted_q = "SELECT * from Plots where Plot_Types_ID=" + \
                             str(Plot_Type_ID[0]["ID"])+" && RunNumber="+RunNum + \
                             " && RunPeriod=\"" + \
                             root_loc+"/simulated/"+str(RunPeriod)+"\" && Chunk="+str(chunkNum)
-                        # print(already_inserted_q)
                         dbcursor.execute(already_inserted_q)
                         Plot = dbcursor.fetchall()
                         if (len(Plot) == 0):

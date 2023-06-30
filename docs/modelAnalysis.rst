@@ -1,13 +1,12 @@
 model_analysis
 ======================
 
-This file 
+This file validates and evaluates the AI models by using confusion matrixes and adding their results to the data base.
 
 .. code-block:: python 
 
     def main(argv):
-     """
-     """
+
      global dbhost
      global dbuser
      global dbname
@@ -78,19 +77,15 @@ This file
                json_report=json.load(report_json)
           
           for datum in json_report['DATA']:
-               #print(datum['inDATA'])
                RunPeriod=datum['inDATA'].split("//")[1].split("/")[0]
                RunNumber=int(datum['inDATA'].split("/")[-2].split("Run")[1])
                chunkNum=0
                if(datum['inDATA'].split("/")[-1].split(".")[0].split("_")[-1].isnumeric()):
                     chunkNum=datum['inDATA'].split("/")[-1].split(".")[0].split("_")[-1]
 
-               #print(RunNumber)
                getPlotID_q="SELECT ID FROM Plots where Plot_Types_ID="+args["model"]+" && RunPeriod=\""+RunPeriod+"\" && RunNumber="+str(RunNumber)+" && Chunk="+str(chunkNum)
-               #print(getPlotID_q)
                dbcursor.execute(getPlotID_q)
                Plot_ID= dbcursor.fetchall()[0]['ID']
-               #print(Plot_ID)
                getUserClass_q="SELECT Classification from Plot_Classifications where ID in (SELECT Plot_Classification_ID from Users_Plots where Plot_ID="+str(Plot_ID)+")"
                dbcursor.execute(getUserClass_q)
                Plot_Classification_return= dbcursor.fetchall()
@@ -99,9 +94,7 @@ This file
 
                Plot_Classification=Plot_Classification_return[0]['Classification']
 
-               #print(Plot_Classification+"  |  "+datum['Verdict'])
                if(Plot_Classification != datum['Verdict']):
-                    #Plot_Types.Name, Plot_Types.FileType
                     differences_list.append({"UClass":Plot_Classification,"AIClass":datum['Verdict'],"Confidence": datum["VerdictConfidence"],"RunPeriod":RunPeriod,"RunNumber":str(RunNumber),"Name":datum['inDATA'].split("/")[-1].split(".")[-1],"FileType":datum['inDATA'].split(".")[-1]})
 
      
@@ -109,8 +102,6 @@ This file
      print(model_line)
      
      LookAtDifferences(model_line["ID"],differences_list,RunNumber_padding)
-     #ViewAll(model_line["ID"])
-     #MakeConfusionMatrix(model_line["ID"],model_line["Labels"],doScaling)#DEPRECATED!
      valid_labels_q="SELECT pc.Classification FROM Models m JOIN Valid_Classifications vc ON m.PlotType_ID = vc.Plot_Types_ID JOIN Plot_Classifications pc ON vc.Plot_Classifications_ID = pc.ID WHERE pc.Classification != 'Ignore' && m.ID ="+str(model_line["ID"])
      valid_labels_r=DBConnector.FetchAll(valid_labels_q)
 
@@ -132,8 +123,6 @@ This file
           optimal_threshold=-1
           f1_scores=f1_scores[::-1]
           for s in f1_scores:
-               #print(s[0])
-               #print(s,"v",max_f1)
                if(s[1]>max_f1):
                     max_f1=s[1]
                     optimal_threshold=s[0]
@@ -148,8 +137,6 @@ This file
           if do_threshold_update:
                update_q="UPDATE ModelThresholds SET Threshold="+str(optimal_threshold)+", ThresholdMethod='max_f1' WHERE Model_ID="+str(modelID)+" && Plot_Classification_ID="+str(Plot_Classification_ID)+";"
                DBConnector.Update(update_q)
-     #plot_metrics(results)
-
      
      #MakeDanielConfidenceDistributionMatrix(model_line["ID"],model_line["Labels"])
      return
@@ -159,7 +146,7 @@ This file
 LookAtDifference
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This function
+This function compares the plot analysis accuracy of various trained models. 
 
 .. code-block:: python 
 
@@ -170,7 +157,6 @@ This function
      if(len(difference_list)==0):
      
           differences_list_q="SELECT Plot_Classifications.Classification AS UClass, AIClasses.Classification AS AIClass, AIP.Confidence, Plots.RunPeriod, Plots.RunNumber, Plots.Chunk, Plot_Types.Name, Plot_Types.FileType FROM AI_Plots_Top_Classification_View AIP LEFT JOIN Users_Plots ON Users_Plots.Plot_ID = AIP.Plot_ID INNER JOIN Plot_Classifications ON Users_Plots.Plot_Classification_ID = Plot_Classifications.ID INNER JOIN Plot_Classifications AIClasses ON AIP.Plot_Classification_ID = AIClasses.ID INNER JOIN Plots ON Plots.ID = AIP.Plot_ID INNER JOIN Plot_Types ON Plots.Plot_Types_ID=Plot_Types.ID WHERE Users_Plots.Plot_Classification_ID != AIP.Plot_Classification_ID AND Users_Plots.Plot_Classification_ID != 6 AND AIP.Model_ID ="+str(id)+" ORDER BY Plots.RunNumber ASC;"
-          #print(differences_list_q)
           dbcursor.execute(differences_list_q)
           differences_list= dbcursor.fetchall()
 
@@ -202,7 +188,7 @@ This function
 ViewAll
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This function
+This function retrieves all of the plots for one tained model. 
 
 .. code-block:: python
 
@@ -227,7 +213,7 @@ This function
 MakeConfusionMatrix
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This function
+This function returns a 2D array confusion matrix along with a list of the labels given to the plots analyzed by the AI. 
 
 .. code-block:: python
 
@@ -237,7 +223,6 @@ This function
      dbcursor.execute(getPlots_q)
      Plots_list= dbcursor.fetchall()
      Labels_list=ast.literal_eval(str(labels,"utf-8"))
-     #print(Labels_list)
      Labels_from_indice=[]
      for lab in Labels_list.keys():
           Labels_from_indice.append(Labels_list[lab])
@@ -251,13 +236,8 @@ This function
                row.append(0.)
           data2d.append(row)
 
-     #print(data2d)
-
      data_dataframe=pd.DataFrame(columns=["UClass","AIClass"])
      for entry in Plots_list:
-          #[User][AI]
-          #if(entry["UClass"] != entry["AIClass"]):
-          #     print(entry["UClass"]+"  v  "+entry["AIClass"])
           data2d[invLabels_list[entry["AIClass"]]][invLabels_list[entry["UClass"]]]+=1
           data_dataframe=data_dataframe.append({"UClass":entry["UClass"],"AIClass":entry["AIClass"]}, ignore_index=True)
 
@@ -323,16 +303,14 @@ This function
      )
      fig.show()
      print(data2d)
-     #fig = go.Figure(go.Histogram2d(x=data_dataframe["UClass"],y=data_dataframe["AIClass"]))
-     #fig.show()
-     
 
 -------------------------
 
 MakeConfusionDistributionMatrix
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This function
+ 
+This function plots and displays the confusion matrix on a histogram based on the figure of a 2D array.
 
 .. code-block:: python
 
@@ -341,21 +319,8 @@ This function
      print(getPlots_q)
      dbcursor.execute(getPlots_q)
      Plots_list= dbcursor.fetchall()
-     #print(labels)
-     Labels_list=labels#ast.literal_eval(str(labels,"utf-8"))
-     #print(Labels_list)
-     #Labels_from_indice=[]
-     #for lab in Labels_list.keys():
-     #     Labels_from_indice.append(Labels_list[lab])
-     #invLabels_list={y:x for x,y in Labels_list.items()}
+     Labels_list=labels\
      print("HOW MANY PLOTS?",len(Plots_list))
-    
-     #data2d=[]
-     #for i in range(0,len(Labels_list)):
-     #     row=[]
-     #     for j in range(0,len(Labels_list)):
-     #          row.append([])
-     #     data2d.append(row)
 
      data2d = {}
      for i in Labels_list:
@@ -364,25 +329,17 @@ This function
 
 
      print("empty data2d",data2d)
-     #print(Labels_list)
      for entry in Plots_list:
-          #data2d[invLabels_list[entry["AIClass"]]][invLabels_list[entry["UClass"]]].append(entry["Confidence"])
           key = (entry["AIClass"], entry["UClass"])
           data2d[key].append(entry["Confidence"])
 
 
      gridN=len(Labels_list)
      titles=()
-     #for i in range(0,len(Labels_list)):
-     #     for j in range(0,len(Labels_list)):
-     #          titles = titles + (str(len(data2d[j][i])),)
      
      for i in Labels_list:
           for j in Labels_list:
-               #titles = titles + (str(str(j)+","+str(i)),) #(str(len(data2d[(i, j)])),)
                titles = titles + (str(len(data2d[(j, i)])),)
-    
-     #print("Titles",titles)
 
      plotdata=[]
    
@@ -395,8 +352,7 @@ This function
           for j in range(0,len(Labels_list)):
           
                minval=int(100*(1./gridN))/100.
-               hist=go.Histogram(x=data2d[(Labels_list[i],Labels_list[j])], nbinsx=100) #int((1.0-minval)*100))
-               #plotdata.append(hist)
+               hist=go.Histogram(x=data2d[(Labels_list[i],Labels_list[j])], nbinsx=100) 
                grid_figure.add_trace(hist,col=i+1,row=j+1)
             
                grid_figure.update_xaxes(range=[0.0, 1.0], row=gridN-i,col=j+1)
@@ -414,27 +370,23 @@ This function
                          family="Courier New, monospace",
                          size=30,
                          color="black"
-                         ),title_text=""+Labels_list[i],type="log",row=i+1,col=j+1)#Expert
-
-            #fig = go.Figure(data=[hist])
-            #plotly.offline.plot(fig,filename='plot'+str(i)+'_'+str(j)+'.html')
+                         ),title_text=""+Labels_list[i],type="log",row=i+1,col=j+1)
      
      grid_figure.update_layout(
           title=go.layout.Title(
           text="Model "+str(id)+" - "+Plots_list[0]["Name"]+": AI Confidence Distributions"
           )
      )
-     #grid_figure.write_image("/work/halld2/tbritton/ConfusionMatrix.png")
+
      plotly.offline.plot(grid_figure,filename='Grid.html',image = 'png', image_filename='ConfusionMatrix')
      print("Confusion Matrix Made")
      Grid_string=plotly.io.to_html(grid_figure, full_html=True, include_plotlyjs='cdn')
-     #strin="<html><body>hello world</body></html>"
+
      Grid_string=Grid_string.replace("'",'"') #replace single quotes with double quotes for mysql
      conf_mtx_q="update Models Set ConfusionMtx='"+Grid_string+"' where ID="+str(id)+";"
-     #print(conf_mtx_q)
+
      dbcursor.execute(conf_mtx_q)
      dbcnx.commit()
-     #grid_figure.show()
      return data2d, Labels_list
      
 
@@ -443,7 +395,7 @@ This function
 DoThresholdOptimization
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This function
+This function uses confidence levels to evaluate the model's precision, recall, and accuracy within a threshold. 
 
 .. code-block:: python
 
@@ -457,10 +409,8 @@ This function
      tp,fp, tn, fn =0,0,0,0 
      
      for threshold in thresholds:
-          #print(threshold)
           for i in range(len(Labels_list)):
                label = Labels_list[i]
-               #print('label: ', label)
                fp =0
                fp_count_less =0
                for j in range(len(Labels_list)):
@@ -479,12 +429,7 @@ This function
 
                tn = sum([len(data2d[(Labels_list[j],Labels_list[k])]) for j in range(len(Labels_list)) for k in range(len(Labels_list)) if j != i and k != i]) + fp_count_less
                fn = sum([len(data2d[(Labels_list[j],Labels_list[i])]) for j in range(len(Labels_list)) if j != i]) + tp_count_less
-               
-               #print('label: ', label)
-               #print('tp: ', tp)
-               #print('fp: ', fp)
-               #print('tn: ', tn)
-               #print('fn: ', fn)
+
                
                #calculate precision, accuracy, and recall
                precision = tp / (tp + fp) if (tp + fp) > 0 else 0
@@ -544,7 +489,7 @@ This function
 MakeDanielConfigurationDistributionMatrix
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This function
+This function is a tool for developers to see what plots are being excluded from the confusion matrix.
 
 .. code-block:: python
 
@@ -569,12 +514,7 @@ This function
                row.append([])
           data2d.append(row)
 
-     #print(data2d)
-     #print(Labels_list)
      for entry in Plots_list:
-         #[User][AI]
-         #if(entry["UClass"] != entry["AIClass"]):
-         #     print(entry["UClass"]+"  v  "+entry["AIClass"])
           data2d[invLabels_list[entry["AIClass"]]][invLabels_list[entry["UClass"]]].append(entry["Confidence"])
 
      gridN=len(Labels_list)
@@ -583,7 +523,6 @@ This function
           for j in range(0,len(Labels_list)):
                titles = titles + (str(len(data2d[gridN-i-1][j])),)
     
-     #print(titles)
 
      plotdata=[]
    
@@ -610,20 +549,17 @@ This function
                          binned_count[l]=binned_count[l]/float(len(data2d[i][j]))
                print(binned_count)
                print(len(data2d[i][j]))
-               #print(data2d[i][j])
 
 -------------------------------
 
 DoInference
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This function
+This function reaches a conclusion about the model's performance using the validation generator and inserts results into the data base.
 
 .. code-block:: python
 
     def DoInference(modelInstance,model_line,DBConnector,RunNumber_padding):
-     #model=load_model(model_line["Location"]+model_line['Name'])
-     #print(model_line)
      All_data_q="SELECT Plot_Types.Name, Plot_Types.IsChunked, Plot_Types.FileType, Plots.RunPeriod, Plots.RunNumber, Plots.Chunk, Plots.TrainingWeight, Plot_Classifications.Classification FROM Plots inner join Plot_Types on Plot_Types.id = Plots.Plot_types_id inner join Users_Plots on Users_Plots.plot_id = Plots.id left join Plot_Classifications on Plot_Classifications.id = Users_Plots.Plot_classification_id where Plot_Types.ID = "+str(model_line["PlotType_ID"])+" && Plot_Classifications.Classification != \'Ignore\' and (Users_Plots.id) = (select max(Users_Plots2.id) from Users_Plots Users_Plots2 where Users_Plots2.plot_id = Plots.id) ORDER BY Plots.RunNumber asc"
      print(All_data_q)
      All_img=DBConnector.FetchAll(All_data_q)
@@ -640,7 +576,6 @@ This function
                     All_img=All_img+All_other_img
 
      print("how many images in total?",len(All_img))
-     #print(All_img[0])
      plot_is_chunked=False
      
      DATA_dataframe=pd.DataFrame(columns=["img","label"])
@@ -653,8 +588,6 @@ This function
                
                     location=location+"_"+str(datum["Chunk"]).zfill(4)
                location=location+"."+datum["FileType"]
-            #if not os.path.isfile(location):
-            #    location=location.replace(rootloc,"/work/halld/online_monitoring/AI/keeper/")
           else:
             location=datum["RunPeriod"]+"."+datum["FileType"]
 
@@ -687,7 +620,6 @@ This function
           print("recording prediction",pred,"of",len(preds),"predictions")
           datum=DATA_dataframe.iloc[pred]['img']
           chunknum=0
-          #see if last bit after _ but before . is a number
           if(datum.split("_")[-1].split(".")[0].isnumeric()):
                chunknum=datum.split("_")[-1].split(".")[0]
           else:
@@ -718,7 +650,6 @@ This function
                return
 
           Plot_Type_ID=Plot_IDr[0]["ID"]
-          #print("plot ID",Plot_Type_ID)
 
           plots_ID_q="SELECT ID FROM Plots WHERE RunNumber = "+str(prunnum)+" && Plot_types_id = "+str(Plot_Type_ID)+" && Chunk = "+str(chunknum)
           plots_ID_r=DBConnector.FetchAll(plots_ID_q)
@@ -731,12 +662,9 @@ This function
           Plot_ID=plots_ID_r[0]["ID"]
 
           for p in range(0,len(preds[pred])):
-               #print(labels[p]+":",preds[pred][p])
                Classification_line_q="SELECT * from Plot_Classifications where Classification = \'"+labels[p]+"\'"
-               #print(Classification_line_q)
                Classification_line_r=DBConnector.FetchAll(Classification_line_q)
                if(len(Classification_line_r) != 1):
-                    #print(Classification_line_r)
                     print("ambiguous classification")
                     return
                Classification_line=Classification_line_r[0]
@@ -747,7 +675,7 @@ This function
                AIplots_r=DBConnector.FetchAll(AIplots_q)
                if(len(AIplots_r) == 0):
                     AI_plot_insert_q="INSERT INTO AI_Plots (Model_ID,Plot_ID,Plot_Classification_ID,Classification_Type_ID,Confidence) VALUES ("+str(model_line["ID"])+","+str(Plot_ID)+","+str(Classification_ID)+","+str(Classification_type_ID)+","+str(preds[pred][p])+")"
-                    #print(AI_plot_insert_q)
+
                     DBConnector.Update(AI_plot_insert_q)
 
 
