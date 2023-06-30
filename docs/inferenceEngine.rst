@@ -16,14 +16,12 @@ This library establishes infrastructure for the data generator to reach inferenc
             now = int(time.time()*1000)
             if(len(plots)!=0):
                 print("Retrieved "+str(len(plots))+" plots from directory in "+str(now-then)+" ms")
-            #logging.info("Retrieved "+str(len(plots))+" plots from directory in "+str(now-then)+" ms")
         elif os.path.isfile(data):
             #print("A single file?!?!")
             #then = int(time.time()*1000)
             plots = pd.DataFrame(columns=["img"])
             plots=plots.append({"img":data}, ignore_index=True)
             #now = int(time.time()*1000)
-            #logging.info("Retrieved single plot as file in "+str(now-then)+" ms")
         else:
             # logging.error("Data path is broken!")
             print("Data path is broken!")
@@ -34,10 +32,6 @@ This library establishes infrastructure for the data generator to reach inferenc
             self.ANAset = self.DoDataANA(DBConnector, plots, debug_mode,ForceModel_ID, hydraHeads=hydraHeads)
             print("ANAset: ", self.ANAset)
         now = int(time.time()*1000)
-        # if len(plots) > 0:
-            # logging.info("DoDataANA on "+str(len(plots))+" plots took "+str(now-then)+" ms")
-
-
 
 
     def DoDataANA(self, DBConnector, plots, debug_mode, ForceModel_ID=-1, outdir="", hydraHeads=None):
@@ -75,7 +69,6 @@ This library establishes infrastructure for the data generator to reach inferenc
             Functions - LoadModel, WriteReport, DB_Record, SnagAndTag
         '''
         data_list = list(plots['img'])
-        #print("Number of files found: ", len(data_list)) 
         if len(data_list)==0:
             return None
         
