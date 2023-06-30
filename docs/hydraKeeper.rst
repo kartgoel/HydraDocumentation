@@ -330,6 +330,7 @@ AnalyzeReport
 ~~~~~~~~~~~~~~~~~~
 
 This function
+
 .. code-block:: python
 
    def AnalyzeReport(DBConnector, Model_config, AIReport, outputlocation, RunPeriod, RunNumber_padding,RunNumber, reportMetaData, beam_current_name, beam_current_threshold, epics_root):
