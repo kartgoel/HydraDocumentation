@@ -1,7 +1,7 @@
 hydra_cleaner
 ==============
 
-This file
+This file cleans the queue for runtime. 
 
 .. code-block:: python
 

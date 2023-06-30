@@ -1,7 +1,7 @@
 start_hydra
 =====================
 
-This file 
+This file loads the Hydra installer environment to boot Hydra, Feeder, and Keeper.
 
 .. code-block:: python 
 
@@ -68,9 +68,7 @@ This file
             print("ERROR: no run period found or given use -R or set $RUN_PERIOD")
             exit(1)
 
-        #RunPeriod=args["runperiod"]
         RunNumber=args["runnumber"]
-        #InDir=args["data"]
 
         hydrapidFile="/tmp/hydrapid"
         keeperpidFile="/tmp/keeperpid"

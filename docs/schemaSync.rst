@@ -1,7 +1,7 @@
 schema_sync
 ===================
 
-This file 
+This file initiates schema sync through backing up the database. It retrieves the list of tables in each database and compares the schemas between databases A and B. 
 
 .. code-block:: python
 
@@ -90,14 +90,12 @@ This file
         
         schema_a = cursor_a.fetchone()[1]
         schema_b = cursor_b.fetchone()[1]
-        schema_a="\n".join(schema_a.split("\n")[:-1]) #remove ENGINE=InnoDB AUTO_INCREMENT=XXXXX DEFAULT CHARSET=latin1
-        schema_b="\n".join(schema_b.split("\n")[:-1]) #remove ENGINE=InnoDB AUTO_INCREMENT=XXXXX DEFAULT CHARSET=latin1
+        schema_a="\n".join(schema_a.split("\n")[:-1]) 
+        schema_b="\n".join(schema_b.split("\n")[:-1]) 
 
         if schema_a != schema_b:
             print("Schema for table {} is different between databases A and B.".format(table))
-            
-            #print("A: {}".format(schema_a))
-            #print("B: {}".format(schema_b))
+
             columns_a = [line.strip() for line in schema_a.split('\n')[1:-1]]
             columns_b = [line.strip() for line in schema_b.split('\n')[1:-1]]
 

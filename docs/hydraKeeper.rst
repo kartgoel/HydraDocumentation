@@ -1,7 +1,7 @@
 hydra_keeper
 ===========
 
-This file
+This file uses the report from Hydra Predict to evaluate whether to keep the plot and moves it to its respective output location. 
 
 .. code-block:: python
 
@@ -111,9 +111,7 @@ This file
             now = int(time.time()*1000)
             logging.info("Report generated in "+str(now-then)+" ms")
 
-            # print("\n")
-            # print("\n")
-            # print("Message "+str(i)+": "+message)
+
             Header=message_parse[0]
 
             ifile=reportMetaData['inDATA'].split("/")[-1]
@@ -252,7 +250,7 @@ This file
 KeeperAnnounce
 ~~~~~~~~~~~~~~~~~~~
 
-This function
+This function configures bindings and signifies the start of the keeper. 
 
 .. code-block:: python
 
@@ -273,7 +271,6 @@ This function
 
 
     while True:
-        #print("A hello")
         transsocket.send_string("Hello Hydra")
         time.sleep(.5)
     
@@ -283,7 +280,7 @@ This function
 getKeepPercent
 ~~~~~~~~~~~~~~~~~~~~~
 
-This function
+This function calculates the percent of data that is valid.
 
 .. code-block:: python
 
@@ -298,8 +295,6 @@ This function
 
     try:
         CollectPercent = DBConnector.FetchAll(Percent_q)
-        #print(CollectPercent)
-        #print(CollectPercent[0])
         if(len(CollectPercent)==1):
             return CollectPercent[0]["ID"],float(CollectPercent[0]["CollectPercent"])
         else:
@@ -312,7 +307,7 @@ This function
 ConfirmVerdict
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-This function
+This function retrieves a report on whether or not the validated data should be kept.
 
 .. code-block:: python
 
@@ -329,7 +324,7 @@ This function
 AnalyzeReport
 ~~~~~~~~~~~~~~~~~~
 
-This function
+This function uses the confidence of the AI report and ensures an acceptable confirmed verdict.
 
 .. code-block:: python
 
@@ -341,14 +336,9 @@ This function
     print("EPICS:",EPICS)
     print("REPORT META DATA:",reportMetaData)
     if(reportMetaData['plotType_ID']!=-1):
-        #print("=====")
-        #print(reportMetaData)
-        #print("----")
-        #AIReport.printAnalysis()
-        #print("=====")
+
         print("FORMING HISTORY INSERT")
         result_dict={}
-        #print("will write into RunHistory")
         labels_array=AIReport.getModelLabels()
         conf_array=AIReport.getConfidences()
         for k in labels_array.keys():
@@ -377,7 +367,7 @@ This function
             if("-" in filename_string):
                 padNum=filename_string.rsplit("-",1)[1]
                 if(padNum.isnumeric()):
-                    filename_string="-".join(filename_string.split("-")[:-1]) #RF-TOF DROP PAD NUMBER IF IT EXISTS
+                    filename_string="-".join(filename_string.split("-")[:-1]) 
                     
             caput(epics_root+filename_string,epics_value)
         except Exception as e:
@@ -388,11 +378,9 @@ This function
     if(Confirmation == "Unconfirmed"):
         print("GET SECOND OPINION")
         print("Message:",reportMetaData['inDATA'])
-        #add ChunkNumber, Plot_Type_ID, IsConfirmed and IsTransition
         Plot_Type_ID=reportMetaData['plotType_ID']
         ChunkNumber=reportMetaData['inDATA'].split("/")[-1].split(".")[0].split("_")[-1]
         IsConfirmed=0
-        #get last row with this plot type id
         last_row_q="SELECT * FROM MonitoringLog WHERE Plot_Type_ID="+str(Plot_Type_ID)+" ORDER BY ID DESC LIMIT 1"
         last_row=DBConnector.FetchAll(last_row_q)
         IsTransition=0
@@ -448,7 +436,7 @@ This function
                 update_q="UPDATE MonitoringLog SET IsTransition="+str(last_row_trans)+"WHERE ID="+str(last_row["ID"])
                 DBConnector.Update(update_q)
             insert_log_q="INSERT INTO MonitoringLog (DateTime,RunPeriod,RunNumber,ChunkNumber,Plot_Type_ID,PlotName,ModelID,VerdictLabel,VerdictConfidence,IsConfirmed,IsTransition) VALUES (\""+reportMetaData["datetime"]+"\",\""+RunPeriod+"\","+str(RunNumber)+","+str(ChunkNumber)+","+str(Plot_Type_ID)+",\""+reportMetaData['inDATA'].split("/")[-1]+"\","+str(reportMetaData['modelID'])+",\""+verdict+"\","+str(max(reportConfidences))+","+str(IsConfirmed)+","+str(IsTransition)+")"
-            #insert_log_q="INSERT INTO MonitoringLog (DateTime,RunPeriod,RunNumber,PlotName,ModelID,VerdictLabel,VerdictConfidence) VALUES (\""+reportMetaData["datetime"]+"\",\""+RunPeriod+"\","+str(RunNumber)+",\""+reportMetaData['inDATA'].split("/")[-1]+"\","+str(reportMetaData['modelID'])+",\""+verdict+"\","+str(max(reportConfidences))+")"
+            
             if(beam_current >= beam_current_threshold or beam_current == -1.0):
                 print("log query:",insert_log_q)
                 DBConnector.Update(insert_log_q)
@@ -462,7 +450,7 @@ This function
 SetStore
 ~~~~~~~~~~~~~~~~
 
-This function
+This function decides whether or not to keep a file to prevent repeats. 
 
 .. code-block:: python
 
@@ -486,7 +474,7 @@ This function
 GetKeeperConfig
 ~~~~~~~~~~~~~~~~
 
-This function
+This function reteives configurations of keeper files from the database such as labels and thresholds. 
 
 .. code-block:: python
 
@@ -499,7 +487,6 @@ This function
     models_q="SELECT Distinct Model_ID from ModelThresholds order by Model_ID asc;"
     models=DBConnector.FetchAll(models_q)
     for m in models:
-        #print(m["Model_ID"])
         json_dict["Models"][str(m["Model_ID"])]={}
         main_q="SELECT Model_ID,labels,Classification,Threshold from ModelThresholds as mt inner join Plot_Classifications as pc on pc.ID=mt.Plot_Classification_ID inner join Models on Model_ID=Models.ID where Models.ID="+str(m["Model_ID"])+";"
         thresholds=DBConnector.FetchAll(main_q)
@@ -521,12 +508,11 @@ This function
 moveFile
 ~~~~~~~~~
 
-This function
+This function copies the file from the input location to the output location.
 
 .. code-block:: python
 
    def moveFile(outputlocation, RunPeriod,RunNumber_padding, RunNumber, item):
-    """ To move file from input location to outputlocation """
 
     if(outputlocation!="NULL"):
         os.makedirs(outputlocation+str(RunNumber).zfill(RunNumber_padding)+"/",exist_ok=True)

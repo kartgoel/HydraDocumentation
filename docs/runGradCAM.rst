@@ -1,7 +1,7 @@
 run_gradCAM
 =====================
 
-This file
+This file uses a parser to insert gradCAM into runtime based on the AI model. 
 
 .. code-block:: python 
 
@@ -33,12 +33,9 @@ This file
             model_r=DBConnector.FetchAll(model_q)[0]
 
             modelInstance = Model(DBConnector, modelID=modelID, modelRootPath=model_r["Location"])
-            #print("DO I HAVE A MODEL?")
-            #print(modelInstance.model)
             model_used=modelInstance.model
             grad=GradCAM(model_used,"mixed10")
 
 
-            #print("made a grad")
             grad.insert_into_runtime(args["input"],model_r["PlotType_ID"],args["model"],runnum)
 

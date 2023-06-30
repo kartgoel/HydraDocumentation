@@ -60,7 +60,6 @@ The resized files are stored for Hydra Predict to reference.
                 print("%s -------->  %s" % (f,outputLoc))
 
                 status=ResizeAndSave(f,args["model"],args["xsize"],args["ysize"],outputLoc)
-                #if(status==0):
                 os.remove(f)
         else:
             print("input not a found file or directory. exiting")
@@ -116,8 +115,7 @@ The shape of the image is resized based upon the Active Model ID in both the x a
     xsize=-1
     ysize=-1
     
-    #if(fileName == "CDC_occupancy"):
-    #    model_to_use="8"
+
     print("using sizing info from ", model_to_use)
     if(model_to_use):
         activeModelID=-1
