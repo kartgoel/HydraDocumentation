@@ -21,3 +21,6 @@ how to :ref:`quick start` the project.
    hydraFeeder
    hydraPredict
    hydraKeeper
+   HydraTrain
+   gradCAM
+   assignWeightTrain

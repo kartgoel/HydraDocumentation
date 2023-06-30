@@ -1,4 +1,4 @@
-hydra_train
+gradCAM
 ===============================
 
 This file
@@ -536,14 +536,14 @@ moveDataAllButOne
 
     def moveDataAllButOne(from_dataset,to_dataset,label):
     
-    foundFirst = False
-    for index, row in from_dataset.iterrows():
-        if row['label'] == label and not foundFirst:
-            foundFirst == True
-        elif row['label'] == label and foundFirst:
-            to_dataset=to_dataset.append(row, ignore_index=True)
-            from_dataset.drop(index, inplace=True)
-    return from_dataset,to_dataset
+        foundFirst = False
+        for index, row in from_dataset.iterrows():
+            if row['label'] == label and not foundFirst:
+                foundFirst == True
+            elif row['label'] == label and foundFirst:
+                to_dataset=to_dataset.append(row, ignore_index=True)
+                from_dataset.drop(index, inplace=True)
+        return from_dataset,to_dataset
 
 
 ------------------------------------
@@ -554,13 +554,13 @@ moveDataOne
 .. code-block:: python
 
     def moveDataOne(from_dataset,to_dataset,label):
-    foundFirst = False
-    for index, row in from_dataset.iterrows():
-        if row['label'] == label and not foundFirst:
-            foundFirst == True
-            to_dataset=to_dataset.append(row, ignore_index=True)
-            from_dataset.drop(index, inplace=True)
-            break
-    return from_dataset,to_dataset
+        foundFirst = False
+        for index, row in from_dataset.iterrows():
+            if row['label'] == label and not foundFirst:
+                foundFirst == True
+                to_dataset=to_dataset.append(row, ignore_index=True)
+                from_dataset.drop(index, inplace=True)
+                break
+        return from_dataset,to_dataset
 
 ------------------------------------
