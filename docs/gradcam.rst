@@ -1,4 +1,4 @@
-gradCAM
+gradcam
 ===============================
 
 This file

@@ -12,17 +12,31 @@ how to :ref:`quick start` the project.
    This project is under active development.
 
 
+.. toctree::
+   :hidden:
+   :caption: 📚Libraries
+   
+   connectToDB
+   aiReport
+   hydraTrain
+   dataPreprocessing
+   inferenceEngine
+
 
 .. toctree::
    :hidden:
    :caption: 📝Scripts  
 
+   startHydra
    hydraCleaner
    hydraFeeder
    hydraPredict
    hydraKeeper
-   HydraTrain
+   helpers
+   imgCrawler
    gradCAM
    runGradCAM
    modelAnalysis
    assignTrainWeights
+   simulateRunTime
+
