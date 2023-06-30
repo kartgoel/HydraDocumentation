@@ -261,26 +261,26 @@ KeeperAnnounce
 .. code-block:: python 
 
     def KeeperAnnounce(context,announcePort):
-    """ To Announce Keeper """
-    
-    print("KEEPER ANNOUNCE")
-    zmqport=announcePort
-    zmqconnection="tcp://*"
-    transcontext = context
-    transsocket = transcontext.socket(zmq.PUB)
-    toBind=zmqconnection+":%s" % str(zmqport)
-    print(toBind)
-    try:
-        transsocket.bind(toBind)
-    except Exception as e:
-        print(e)
+        """ To Announce Keeper """
+        
+        print("KEEPER ANNOUNCE")
+        zmqport=announcePort
+        zmqconnection="tcp://*"
+        transcontext = context
+        transsocket = transcontext.socket(zmq.PUB)
+        toBind=zmqconnection+":%s" % str(zmqport)
+        print(toBind)
+        try:
+            transsocket.bind(toBind)
+        except Exception as e:
+            print(e)
 
 
-    while True:
-        transsocket.send_string("Hello Hydra")
-        time.sleep(.5)
-    
-    return
+        while True:
+            transsocket.send_string("Hello Hydra")
+            time.sleep(.5)
+        
+        return
 
 getKeepPercent
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -314,13 +314,13 @@ ConfirmVerdict
 .. code-block:: python
 
     def ConfirmVerdict(Model_config, AIReport, VerdictConfidence):
-    """ To confirm the verdict from the model """
-    verdict=AIReport.getVerdict()
-    ConfirmationThreshold = Model_config['Thresholds'][verdict]
-    if(VerdictConfidence>=ConfirmationThreshold):
-        return "Confirmed", verdict
-    else:
-        return "Unconfirmed", verdict
+        """ To confirm the verdict from the model """
+        verdict=AIReport.getVerdict()
+        ConfirmationThreshold = Model_config['Thresholds'][verdict]
+        if(VerdictConfidence>=ConfirmationThreshold):
+            return "Confirmed", verdict
+        else:
+            return "Unconfirmed", verdict
 
 ---------------------------------------------
 
@@ -463,20 +463,20 @@ SetStore
 .. code-block:: python
 
     def SetStore(DBConnector, Plot_Type_ID,chunkNum,item,percent,RunPeriod,RunNumber_padding,RunNumber,outputlocation,test_mode):
-    """ To keep or remove the file """
+        """ To keep or remove the file """
 
-    print("Checking", Plot_Type_ID,"against", float(percent))
-    if(random.random()>=float(percent) or test_mode):
-        return
-    else:
-        already_exists_q="SELECT * FROM Plots where Plot_Types_ID="+str(Plot_Type_ID)+" && RunPeriod=\""+RunPeriod+"\" && RunNumber="+str(RunNumber)+" && Chunk="+str(chunkNum)
-        Existing_entry = DBConnector.FetchAll(already_exists_q)
-
-        if(len(Existing_entry)==0):
-            print("moving",item,"-------------->",outputlocation)
-            moveFile(outputlocation, RunPeriod, RunNumber_padding,RunNumber, item)
+        print("Checking", Plot_Type_ID,"against", float(percent))
+        if(random.random()>=float(percent) or test_mode):
+            return
         else:
-            print("already exists")
+            already_exists_q="SELECT * FROM Plots where Plot_Types_ID="+str(Plot_Type_ID)+" && RunPeriod=\""+RunPeriod+"\" && RunNumber="+str(RunNumber)+" && Chunk="+str(chunkNum)
+            Existing_entry = DBConnector.FetchAll(already_exists_q)
+
+            if(len(Existing_entry)==0):
+                print("moving",item,"-------------->",outputlocation)
+                moveFile(outputlocation, RunPeriod, RunNumber_padding,RunNumber, item)
+            else:
+                print("already exists")
 
 ---------------------------------------------
 
@@ -485,31 +485,32 @@ GetKeeperConfig
 
 .. code-block:: python
 
-    """ To get the keeper config from the database """
+    def GetKeeperConfig(DBConnector):
+        """ To get the keeper config from the database """
 
-    json_dict={}
+        json_dict={}
 
-    json_dict["Models"]={}
-    models_q="SELECT Distinct Model_ID from ModelThresholds order by Model_ID asc;"
-    models=DBConnector.FetchAll(models_q)
-    for m in models:
-        #print(m["Model_ID"])
-        json_dict["Models"][str(m["Model_ID"])]={}
-        main_q="SELECT Model_ID,labels,Classification,Threshold from ModelThresholds as mt inner join Plot_Classifications as pc on pc.ID=mt.Plot_Classification_ID inner join Models on Model_ID=Models.ID where Models.ID="+str(m["Model_ID"])+";"
-        thresholds=DBConnector.FetchAll(main_q)
-        Thresholds_dict={}
+        json_dict["Models"]={}
+        models_q="SELECT Distinct Model_ID from ModelThresholds order by Model_ID asc;"
+        models=DBConnector.FetchAll(models_q)
+        for m in models:
+            #print(m["Model_ID"])
+            json_dict["Models"][str(m["Model_ID"])]={}
+            main_q="SELECT Model_ID,labels,Classification,Threshold from ModelThresholds as mt inner join Plot_Classifications as pc on pc.ID=mt.Plot_Classification_ID inner join Models on Model_ID=Models.ID where Models.ID="+str(m["Model_ID"])+";"
+            thresholds=DBConnector.FetchAll(main_q)
+            Thresholds_dict={}
 
-        if(len(thresholds)>0):
-            original_dict_string=str(thresholds[0]["labels"],'utf-8')
-            original_dict = eval(original_dict_string)
-            labels = {v: k for k, v in original_dict.items()}
-            for t in thresholds:
-                Thresholds_dict[t["Classification"]]=t["Threshold"]
+            if(len(thresholds)>0):
+                original_dict_string=str(thresholds[0]["labels"],'utf-8')
+                original_dict = eval(original_dict_string)
+                labels = {v: k for k, v in original_dict.items()}
+                for t in thresholds:
+                    Thresholds_dict[t["Classification"]]=t["Threshold"]
 
-            json_dict["Models"][str(m["Model_ID"])]["Labels"]=labels
-            json_dict["Models"][str(m["Model_ID"])]["Thresholds"]=Thresholds_dict
-    
-    return json_dict
+                json_dict["Models"][str(m["Model_ID"])]["Labels"]=labels
+                json_dict["Models"][str(m["Model_ID"])]["Thresholds"]=Thresholds_dict
+        
+        return json_dict
 
 ---------------------------------------------
 
