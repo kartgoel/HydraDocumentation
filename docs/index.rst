@@ -17,6 +17,7 @@ how to :ref:`quick start` the project.
    :hidden:
    :caption: 📝Scripts  
 
+   hydraCleaner
    hydraFeeder
-   api
-   installation
+   hydraPredict
+   hydraKeeper
