@@ -23,4 +23,6 @@ how to :ref:`quick start` the project.
    hydraKeeper
    HydraTrain
    gradCAM
-   assignWeightTrain
+   runGradCAM
+   modelAnalysis
+   assignTrainWeights

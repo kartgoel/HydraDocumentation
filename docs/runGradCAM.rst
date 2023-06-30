@@ -1,4 +1,4 @@
-runGradCAM
+run_gradCAM
 =====================
 
 This file

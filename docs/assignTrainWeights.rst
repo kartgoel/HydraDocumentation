@@ -1,16 +1,14 @@
-Assign Weight Train
+assign_train_weights
 =======================================
 
 This file...
-
-.. code-block:: python
-
-    
 
 -------------------------------------------
 
 RandomTrainingTestingSplit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This function
 
 .. code-block:: python
 
@@ -55,7 +53,7 @@ RandomTrainingTestingSplit
 TrainTestSplit2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This file 
+This function
 
 .. code-block:: python
 
