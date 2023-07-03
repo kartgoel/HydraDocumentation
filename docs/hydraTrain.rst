@@ -1,38 +1,11 @@
 hydra_train
 ======================
 
-This library trains Hydra models based on GPU availability.
+This file trains Hydra models based on GPU availability.
 It prepares the data by normalizing pixel values and loads the models on avaiable GPUs.
 Loss and accuracy of training and validation are used to evaluate training. 
 
 .. code-block:: python
-
-    def removeLabelfromDataset(dataset, label):
-    for index, row in dataset.iterrows():
-        if row['label'] == label:
-            dataset.drop(index, inplace=True)
-    return dataset
-
-    def moveDataAllButOne(from_dataset,to_dataset,label):
-        
-        foundFirst = False
-        for index, row in from_dataset.iterrows():
-            if row['label'] == label and not foundFirst:
-                foundFirst == True
-            elif row['label'] == label and foundFirst:
-                to_dataset=to_dataset.append(row, ignore_index=True)
-                from_dataset.drop(index, inplace=True)
-        return from_dataset,to_dataset
-
-    def moveDataOne(from_dataset,to_dataset,label):
-        foundFirst = False
-        for index, row in from_dataset.iterrows():
-            if row['label'] == label and not foundFirst:
-                foundFirst == True
-                to_dataset=to_dataset.append(row, ignore_index=True)
-                from_dataset.drop(index, inplace=True)
-                break
-        return from_dataset,to_dataset
 
     def main(argv):
         """Main Function, takes below command line arguments...
@@ -495,3 +468,57 @@ Loss and accuracy of training and validation are used to evaluate training.
 
         print("Training Complete")
         print("closing connection")
+
+--------------------
+
+removeLabelfromDataset
+~~~~~~~~~~~~~~~~~~~~~~~
+
+This function
+
+.. code-block:: python
+
+    def removeLabelfromDataset(dataset, label):
+    for index, row in dataset.iterrows():
+        if row['label'] == label:
+            dataset.drop(index, inplace=True)
+    return dataset
+
+------------------
+
+moveDataAllButOne
+~~~~~~~~~~~~~~~~~~~
+
+This function
+
+.. code-block:: python
+
+    def moveDataAllButOne(from_dataset,to_dataset,label):
+        
+        foundFirst = False
+        for index, row in from_dataset.iterrows():
+            if row['label'] == label and not foundFirst:
+                foundFirst == True
+            elif row['label'] == label and foundFirst:
+                to_dataset=to_dataset.append(row, ignore_index=True)
+                from_dataset.drop(index, inplace=True)
+        return from_dataset,to_dataset
+
+-------------------
+
+moveDataOne
+~~~~~~~~~~~~~~~~~~~~
+
+This function 
+
+.. code-block:: python
+
+    def moveDataOne(from_dataset,to_dataset,label):
+        foundFirst = False
+        for index, row in from_dataset.iterrows():
+            if row['label'] == label and not foundFirst:
+                foundFirst == True
+                to_dataset=to_dataset.append(row, ignore_index=True)
+                from_dataset.drop(index, inplace=True)
+                break
+        return from_dataset,to_dataset

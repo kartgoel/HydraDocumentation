@@ -1,5 +1,5 @@
 hydra_feeder
-=====
+====================================
 
 This file formats existing images and directories to desired properties by connecting to the server and using a parser.
 The resized files are stored for hydra_predict to reference.
@@ -65,7 +65,6 @@ The resized files are stored for hydra_predict to reference.
             exit(1)
 
 ---------------------------------------------------------------------------------
-
 
 find_files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

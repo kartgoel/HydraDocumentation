@@ -18,9 +18,9 @@ how to :ref:`quick start` the project.
    
    connectToDB
    aiReport
-   hydraTrain
    dataPreprocessing
    inferenceEngine
+   gradcam
 
 
 .. toctree::
@@ -29,13 +29,13 @@ how to :ref:`quick start` the project.
 
    schemaSync
    startHydra
+   hydraTrain
    hydraCleaner
    hydraFeeder
    hydraPredict
    hydraKeeper
    helpers
    imgCrawler
-   gradCAM
    runGradCAM
    modelAnalysis
    assignTrainWeights
