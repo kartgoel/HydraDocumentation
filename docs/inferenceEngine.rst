@@ -8,24 +8,17 @@ This library establishes infrastructure for the data generator to reach inferenc
     class InferenceEngine:
  
     def __init__(self, DBConnector, data, debug_mode=False, ModelRootPath="DB", ChunkNumber=0, ForceModel_ID=-1, forcedPlotType=None, outfile="", hydraHeads=None):
-        #print("init of inf engine", data)
         if os.path.isdir(data):
             then = int(time.time()*1000)
-            #print("obtaining plots from directory")
             plots = Plots(DBConnector, isInference=True, directory=data).DATA_dataframe
             now = int(time.time()*1000)
             if(len(plots)!=0):
                 print("Retrieved "+str(len(plots))+" plots from directory in "+str(now-then)+" ms")
         elif os.path.isfile(data):
-            #print("A single file?!?!")
-            #then = int(time.time()*1000)
             plots = pd.DataFrame(columns=["img"])
             plots=plots.append({"img":data}, ignore_index=True)
-            #now = int(time.time()*1000)
         else:
-            # logging.error("Data path is broken!")
             print("Data path is broken!")
-        # print("Plots: ", len(plots.index))
         then = int(time.time()*1000)
         self.ANAset = None
         if(len(plots) != 0):
@@ -90,12 +83,8 @@ This library establishes infrastructure for the data generator to reach inferenc
             
             if("-" in plotTypeName_toUse):
                 padNum=plotTypeName_toUse.rsplit("-",1)[1]
-                #print("padNum:",padNum)
                 if(padNum.isnumeric()):
-                    #print("current plotTypeName: ", plotTypeName_toUse)
-                    #print(plotTypeName_toUse.split("-"))
                     plotTypeName_toUse="-".join(plotTypeName_toUse.split("-")[:-1])
-                    #print("plotTypeName_toUse: ", plotTypeName_toUse)
 
             if isChunked:
                 plotTypeName_toUse = plotTypeName_toUse+"_1"
@@ -113,11 +102,9 @@ This library establishes infrastructure for the data generator to reach inferenc
                     to_pred=to_pred.append({"datum":str(datum,"utf-8")}, ignore_index=True)
                     break
                 else:
-                    # logging.warning("image not found")
                     continue
             
             if len(to_pred.index) == 0:
-                # logging.warning("file already gone for plotTypeName: ", plotTypeName_toUse)
                 continue
 
             if hydraHeads != None and plotTypeName_toUse in hydraHeads:
@@ -125,7 +112,6 @@ This library establishes infrastructure for the data generator to reach inferenc
             else:
                 modelInstance = Model(DBConnector, plotTypeName=plotTypeName_toUse,fileType=fileType,modelID=ForceModel_ID)
                 if modelInstance.model == None:
-                    # logging.warning("Model could not be loaded for PlotType: ", plotTypeName_toUse)
                     print("Model could not be loaded for PlotType: ", plotTypeName_toUse)
                     print(hydraHeads)
                     output.append([-1, to_pred, b"{0: 'NoModel'}",[[1]]])

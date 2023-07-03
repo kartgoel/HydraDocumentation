@@ -1,7 +1,7 @@
 hydra_keeper
 ===========
 
-This file uses the report from Hydra Predict to evaluate whether to keep the plot and moves it to its respective output location. 
+This file uses the report from hydra_predict to evaluate whether to keep the plot and moves it to its respective output location. 
 
 .. code-block:: python
 
@@ -68,13 +68,8 @@ This file uses the report from Hydra Predict to evaluate whether to keep the plo
     now = int(time.time()*1000)
     logging.info("Keeper connected to DB in "+str(now-then)+" ms")
 
-    # Get the configurations from the config file
-    #with open(config_file) as config_json:
-    #    config=json.load(config_json)
-
     config=GetKeeperConfig(DBConnector)
 
-    # Print the configurations    
     print(config)
 
     context= zmq.Context()
@@ -130,10 +125,7 @@ This file uses the report from Hydra Predict to evaluate whether to keep the plo
                           
                 try:
                     os.makedirs("/tmp/keeper_tmpout",exist_ok=True)
-                    # print("Copying %s to %s" % (reportMetaData['inDATA'],"/tmp/keeper_tmpout"+"/"+ifile))
-                    #os.makedirs("/tmp/keeper_tmpout",exist_ok=True)
                     copyfile(reportMetaData['inDATA'], "/tmp/keeper_tmpout"+"/"+ifile)
-                    #print("Removing "+reportMetaData['inDATA'])
                     try:
                         os.remove(reportMetaData['inDATA'])
                     except Exception as e:
@@ -141,30 +133,21 @@ This file uses the report from Hydra Predict to evaluate whether to keep the plo
                         pass
                     print("I removed ", reportMetaData['inDATA'])
                     reportMetaData['inDATA']="/tmp/keeper_tmpout/"+"/"+ifile
-                    #print(reportMetaData['inDATA'])
-                    #print("reportMetaData", reportMetaData)
                     if(reportMetaData['modelID'] != -1):
                         if(str(reportMetaData['modelID']) not in config["Models"]):
                             print("Model ID: "+str(reportMetaData['modelID'])+" not found in config file")
-                            #with open(config_file) as config_json:
-                            #    config=json.load(config_json)
                             config=GetKeeperConfig(DBConnector)
                         Model_config=config["Models"][str(reportMetaData['modelID'])]
                     
-                    # print("mod conf",Model_config)
                     ischunk=False
-                    #print(reportMetaData['inDATA'])
-                    ifile=reportMetaData['inDATA'].rsplit("/",1)[1] #/gluonraid2/monitoring/AI/hydra_in_converted/RunPeriod-2021-08/Run80464/RF_TOF_selftiming-02_0037.png ---> RF_TOF_selftiming-02_0037.png
-                    rootfilename=ifile.split(".")[0] #RF_TOF_selftiming-02_0037.png ---> RF_TOF_selftiming-02_0037
+                    ifile=reportMetaData['inDATA'].rsplit("/",1)[1]
                     fileType=ifile.split(".")[1]
-                    #print(ifile)
-                    #print(rootfilename)
                     
                     chunkNum=str(ifile.split(".")[0].split("_")[-1])
                     print("chunk num?: "+chunkNum)
                     if(chunkNum.isnumeric()):
                         ischunk=True
-                        rootfilename="_".join(ifile.split(".")[0].split("_")[:-1]) #RF_TOF_selftiming-02_0037.png --> RF_TOF_selftiming-02
+                        rootfilename="_".join(ifile.split(".")[0].split("_")[:-1])
                     else:
                         ischunk=False
                         chunkNum=0
@@ -173,7 +156,7 @@ This file uses the report from Hydra Predict to evaluate whether to keep the plo
                     if("-" in rootfilename):
                         padNum=rootfilename.rsplit("-",1)[1]
                         if(padNum.isnumeric()):
-                            rootfilename="-".join(rootfilename.split("-")[:-1]) #RF-TOF
+                            rootfilename="-".join(rootfilename.split("-")[:-1])
 
                     now = int(time.time()*1000)
                     logging.info("Directory check and file moving in "+str(now-then)+" ms")
@@ -352,7 +335,7 @@ This function uses the confidence of the AI report and ensures an acceptable con
         model_labels = AIReport.getModelLabels()
         print(model_labels)
         print(reportConfidences)
-        index =  list(model_labels.keys())[list(model_labels.values()).index('Good')] #model_labels["Good"]
+        index =  list(model_labels.keys())[list(model_labels.values()).index('Good')] 
         index_bad =  list(model_labels.keys())[list(model_labels.values()).index('Bad')]
         print("indicies:",index,index_bad)
         print("entering try")

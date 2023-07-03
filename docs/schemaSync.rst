@@ -1,7 +1,8 @@
 schema_sync
 ===================
 
-This file initiates schema sync through backing up the database. It retrieves the list of tables in each database and compares the schemas between databases A and B. 
+This file initiates schema sync through backing up the database. 
+It retrieves the list of tables in each database and compares the schemas between databases A and B. 
 
 .. code-block:: python
 
@@ -109,7 +110,7 @@ This file initiates schema sync through backing up the database. It retrieves th
                         col_name = col_a.split()[0]
                         if col_name in missing_columns:
                             print("col_a:",col_a)
-                            col_a = col_a.rstrip(',')  # remove trailing comma
+                            col_a = col_a.rstrip(',') 
                             print("ALTER TABLE {} ADD COLUMN {}".format(table, col_a))
                             cursor_b.execute("ALTER TABLE {} ADD COLUMN {}".format(table, col_a))
                             print("  Adding column {} to database B".format(col_name))
