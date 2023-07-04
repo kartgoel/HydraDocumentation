@@ -29,13 +29,15 @@ Function 1
 Parameters
 ~~~~~~~~~~~~~~~
 
-runPeriodSubstring (string): A substring used to filter the run periods in the database. Only run periods that contain this substring will be considered.
-Trainingfraction (float): The fraction of data to be used for training. The remaining fraction will be used for testing.
+- runPeriodSubstring (string): A substring used to filter the run periods in the database. Only run periods that contain this substring will be considered.
+- Trainingfraction (float): The fraction of data to be used for training. The remaining fraction will be used for testing.
 
 Usage
 ~~~~~~~~~~
 
-Trainingfraction (float): The fraction of data to be used for training. The remaining fraction will be used for testing.
-
+1. Call the function RandomTrainingTestingSplit with the desired parameters.
+2. The function will randomly split the data into training and testing sets based on the provided run period substring and training fraction.
+3. The function will update the TrainingWeight column in the MySQL database accordingly.
+4. The function does not return any value.
 
 
