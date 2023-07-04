@@ -1,7 +1,15 @@
 model_analysis
 ======================
 
-This file validates and evaluates the AI models by using confusion matrixes and adding their results to the data base.
+This file analyzes and reports various characteristics about the trained AI model. 
+
+It ensures that the trained AI model is consistently labeling the same plots  
+
+It compares the classification of plots by Experts versus the trained AI model to identify agreements and discrepancies. 
+This data is added to an array that contains the Expert’s opinion (Good/Bad) on one axis and the AI’s label (Good/Bad) on the other, and number of overlaps are seen in each cell. 
+The data on each cell of the array is also visualized with histograms.  
+
+It quantifies the number of true/false positives/negatives and uses these values to calculate and analyze the AI model’s precision, accuracy, recall, and F1 score.  
 
 .. code-block:: python 
 
@@ -148,7 +156,7 @@ This file validates and evaluates the AI models by using confusion matrixes and 
 LookAtDifference
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This function compares the plot analysis accuracy of various trained models. 
+This function compares the classification of plots by AI vs Expert to determine accuracy of a trained model. 
 
 .. code-block:: python 
 
@@ -190,7 +198,7 @@ This function compares the plot analysis accuracy of various trained models.
 ViewAll
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This function retrieves all of the plots for one trained model. 
+This function retrieves classification information about all of the plots for a trained model and reports the data. 
 
 *Note: This function has been commented out in the main argument.*
 
@@ -218,7 +226,8 @@ MakeConfusionMatrix
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This function returns a 2D array confusion matrix along with a list of the labels given to the plots analyzed by the AI. 
-*Note: This function has been commented out in the main argument.*
+
+*Note: This function has been commented out of the main argument.*
 
 .. code-block:: python
 
@@ -399,7 +408,9 @@ This function plots and displays the confusion matrix on a histogram based on th
 DoThresholdOptimization
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This function uses confidence levels to evaluate the model's precision, recall, and accuracy within a threshold. 
+This function labels the plots based on whether they were a true/false positive/negative.
+It uses these values to analyze the precision, accuracy, recall, and F1 score. 
+These evalutation metrics are them plotted as an array.
 
 .. code-block:: python
 
@@ -495,7 +506,7 @@ MakeDanielConfigurationDistributionMatrix
 
 This function is a tool for developers to see what plots are being excluded from the confusion matrix.
 
-*Note: This function has been commented out in the main argument.*
+*Note: This function has been commented out of the main argument.*
 
 .. code-block:: python
 
