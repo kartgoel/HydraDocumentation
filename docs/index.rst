@@ -38,6 +38,11 @@ how to :ref:`quick start` the project.
    imgCrawler
    runGradCAM
    modelAnalysis
+   .. toctreee::
+      :hidden:
+
+      test
+      
    assignTrainWeights
    simulateRunTime
 

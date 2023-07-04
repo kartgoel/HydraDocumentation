@@ -151,10 +151,11 @@ It quantifies the number of true/false positives/negatives and uses these values
      #MakeDanielConfidenceDistributionMatrix(model_line["ID"],model_line["Labels"])
      return
 
-----------------------
+-------------------
 
 LookAtDifference
-~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+
 
 This function compares the classification of plots by AI vs Expert to determine accuracy of a trained model. 
 
@@ -193,7 +194,7 @@ This function compares the classification of plots by AI vs Expert to determine 
           print(row["RunPeriod"]+str(row["RunNumber"]).zfill(zpad)+"/"+str(row["Name"])+"_"+str(row['Chunk']).zfill(4)+"  |  "+row["UClass"]+" v "+row["AIClass"]+" @ "+str(row["Confidence"]))
      
 
--------------------
+----------------------
 
 ViewAll
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
