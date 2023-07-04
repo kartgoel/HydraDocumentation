@@ -18,10 +18,12 @@ Database Connection Configuration
 Before using the functions, the database connection configuration needs to be set. Modify the following variables to match your MySQL database credentials and host information
 
 .. code-block:: python
+
     dbhost = "hallddb.jlab.org"
     dbuser = 'aimon'
     dbpass = ''
     dbname = 'hydra'
+    
 ------------
 
 Function 1
