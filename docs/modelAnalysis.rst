@@ -191,6 +191,7 @@ ViewAll
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This function retrieves all of the plots for one trained model. 
+
 *Note: This function has been commented out in the main argument.*
 
 .. code-block:: python
@@ -493,6 +494,7 @@ MakeDanielConfigurationDistributionMatrix
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This function is a tool for developers to see what plots are being excluded from the confusion matrix.
+
 *Note: This function has been commented out in the main argument.*
 
 .. code-block:: python
