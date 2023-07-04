@@ -22,6 +22,7 @@ Before using the functions, the database connection configuration needs to be se
     dbuser = 'aimon'
     dbpass = ''
     dbname = 'hydra'
+------------
 
 Function 1
 --------------------
