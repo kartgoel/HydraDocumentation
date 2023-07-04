@@ -457,7 +457,7 @@ This function decides whether or not to keep a file to prevent repeats.
 GetKeeperConfig
 ~~~~~~~~~~~~~~~~
 
-This function reteives configurations of keeper files from the database such as labels and thresholds. 
+This function retrieves configurations of keeper files from the database such as labels and thresholds. 
 
 .. code-block:: python
 

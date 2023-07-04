@@ -165,6 +165,9 @@ Loss and accuracy of training and validation are used to evaluate training.
 
         #noDataFlag = False
         clsnm = []
+            #removeLabelfromDataset(training_dataframe,className)
+            #removeLabelfromDataset(validation_dataframe,className)
+            #moveDataAllButOne(training_dataframe,validation_dataframe,className)
         print("Class |\t Train |\t Valid")
         for Class in Plot_Classifications:
             className=Class["Classification"]

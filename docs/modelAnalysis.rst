@@ -102,6 +102,8 @@ This file validates and evaluates the AI models by using confusion matrixes and 
      print(model_line)
      
      LookAtDifferences(model_line["ID"],differences_list,RunNumber_padding)
+     #ViewAll(model_line["ID"])
+     #MakeConfusionMatrix(model_line["ID"],model_line["Labels"],doScaling)#DEPRECATED!
      valid_labels_q="SELECT pc.Classification FROM Models m JOIN Valid_Classifications vc ON m.PlotType_ID = vc.Plot_Types_ID JOIN Plot_Classifications pc ON vc.Plot_Classifications_ID = pc.ID WHERE pc.Classification != 'Ignore' && m.ID ="+str(model_line["ID"])
      valid_labels_r=DBConnector.FetchAll(valid_labels_q)
 
@@ -138,6 +140,7 @@ This file validates and evaluates the AI models by using confusion matrixes and 
                update_q="UPDATE ModelThresholds SET Threshold="+str(optimal_threshold)+", ThresholdMethod='max_f1' WHERE Model_ID="+str(modelID)+" && Plot_Classification_ID="+str(Plot_Classification_ID)+";"
                DBConnector.Update(update_q)
      
+     #MakeDanielConfidenceDistributionMatrix(model_line["ID"],model_line["Labels"])
      return
 
 ----------------------
@@ -188,6 +191,7 @@ ViewAll
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This function retrieves all of the plots for one trained model. 
+*Note: This function has been commented out in the main argument.*
 
 .. code-block:: python
 
@@ -213,6 +217,7 @@ MakeConfusionMatrix
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This function returns a 2D array confusion matrix along with a list of the labels given to the plots analyzed by the AI. 
+*Note: This function has been commented out in the main argument.*
 
 .. code-block:: python
 
@@ -308,7 +313,6 @@ This function returns a 2D array confusion matrix along with a list of the label
 MakeConfidenceDistributionMatrix
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
- 
 This function plots and displays the confusion matrix on a histogram based on the figure of a 2D array.
 
 .. code-block:: python
@@ -489,6 +493,7 @@ MakeDanielConfigurationDistributionMatrix
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This function is a tool for developers to see what plots are being excluded from the confusion matrix.
+*Note: This function has been commented out in the main argument.*
 
 .. code-block:: python
 

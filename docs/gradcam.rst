@@ -1,7 +1,7 @@
 gradcam
 ================
 
-This library 
+This library prepares data by converting heatmap images to text strings and storing them for later processing. 
 
 .. code-block:: python
 

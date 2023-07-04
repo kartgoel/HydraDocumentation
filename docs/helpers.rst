@@ -1,14 +1,14 @@
-helpers
+Helpers
 ===================
 
-This file 
+This file provides several functions to prepare data and create data generators for training, validation, and test datasets. 
 
 ------------------
 
 setTFConfig
 ~~~~~~~~~~~~~~~~~~~
 
-This function delegates an appropriate amount of tasks to GPU and assign memory space. 
+This function delegates an appropriate amount of tasks to GPU and assigns memory space. 
 
 .. code-block:: python 
 
