@@ -1,7 +1,7 @@
 run_gradCAM
 =====================
 
-This file uses a parser to insert gradCAM into runtime based on the AI model. 
+This file uses a parser to insert gradcam into runtime based on the AI model. 
 
 .. code-block:: python 
 

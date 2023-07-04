@@ -1,7 +1,8 @@
 hydra_predict
 ====================================================
 
-This file generates a report using the gradCAm and AI model. The results of the model are stored in the appropriate location for the keeper.
+This file generates a report using the gradcam and AI model. 
+The results of the model are stored in the appropriate location for the keeper.
 
 .. code-block:: python
 
@@ -203,7 +204,7 @@ This file generates a report using the gradCAm and AI model. The results of the 
 WriteReport
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This function writes a report based on the trained AI model and gradCAM heat map.
+This function writes a report based on the trained AI model and gradcam heat map.
 
 .. code-block:: python
 

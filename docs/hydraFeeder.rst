@@ -1,8 +1,8 @@
 hydra_feeder
-=====
+====================================
 
 This file formats existing images and directories to desired properties by connecting to the server and using a parser.
-The resized files are stored for Hydra Predict to reference.
+The resized files are stored for hydra_predict to reference.
 
 .. code-block:: python
 
@@ -47,7 +47,6 @@ The resized files are stored for Hydra Predict to reference.
                 files.append(thing)
 
             if(len(files)==0):
-                #print("waiting for files....")
                 continue
         
             for f in files:
@@ -66,7 +65,6 @@ The resized files are stored for Hydra Predict to reference.
             exit(1)
 
 ---------------------------------------------------------------------------------
-
 
 find_files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -96,7 +94,7 @@ The shape of the image is resized based upon the Active Model ID in both the x a
     fileName_full=img_pth_parse[-1].split(".")[0]
     print("full file name: ",fileName_full)
     print("split 1:", "_".join(fileName_full.split("_")[:-1]))
-    fileName_parse="_".join(fileName_full.split("_")[:-1]).split("-") #remove pad number which is preceeded by a '-'
+    fileName_parse="_".join(fileName_full.split("_")[:-1]).split("-") 
 
     
     if(len(fileName_parse)>1):

@@ -1,10 +1,55 @@
 schema_sync
 ===================
 
-This file initiates schema sync through backing up the database. It retrieves the list of tables in each database and compares the schemas between databases A and B. 
+This file initiates schema sync through backing up the database. 
+It retrieves the list of tables in each database and compares the schemas between databases A and B. 
 
 .. code-block:: python
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-an",'--db_a_name', required=True)
+    parser.add_argument("-au",'--db_a_user', required=True)
+    parser.add_argument("-ah",'--db_a_host', required=True)
+    parser.add_argument("-ap",'--db_a_pass', action='store_true', help='Prompt for database A password')
+    parser.add_argument("-bn",'--db_b_name', required=True)
+    parser.add_argument("-bu",'--db_b_user', required=True)
+    parser.add_argument("-bh",'--db_b_host', required=True)
+    parser.add_argument("-bp",'--db_b_pass', action='store_true', help='Prompt for database B password')
+    args = parser.parse_args()
+
+    if args.db_a_pass:
+        db_a_pass = getpass.getpass(prompt='Enter database A password:')
+    else:
+        db_a_pass = ""
+
+    if args.db_b_pass:
+        db_b_pass = getpass.getpass(prompt='Enter database B password:')
+    else:
+        db_b_pass = ""
+
+    db_a_name=args.db_a_name
+    db_b_name=args.db_b_name
+    db_b_user=args.db_b_user
+    db_b_host=args.db_b_host
+
+    db_a = MySQLdb.connect(
+        host=args.db_a_host,
+        user=args.db_a_user,
+        password=db_a_pass,
+        database=db_a_name
+    )
+
+    db_b = MySQLdb.connect(
+        host=db_b_host,
+        user=db_b_user,
+        password=db_b_pass,
+        database=db_b_name
+    )
+    print("BACKING UP DATABASE "+db_b_name+" TO DB_b_bkup.sql")
+
+    if(os.path.isfile("DB_b_bkup.sql")):
+        os.system("rm DB_b_bkup.sql")
+    
     bkcmd="mysqldump -u "+db_b_user+" -p -h "+db_b_host+" "+db_b_name+" > DB_b_bkup.sql"
     print(bkcmd)
     try:
@@ -109,7 +154,7 @@ This file initiates schema sync through backing up the database. It retrieves th
                         col_name = col_a.split()[0]
                         if col_name in missing_columns:
                             print("col_a:",col_a)
-                            col_a = col_a.rstrip(',')  # remove trailing comma
+                            col_a = col_a.rstrip(',') 
                             print("ALTER TABLE {} ADD COLUMN {}".format(table, col_a))
                             cursor_b.execute("ALTER TABLE {} ADD COLUMN {}".format(table, col_a))
                             print("  Adding column {} to database B".format(col_name))

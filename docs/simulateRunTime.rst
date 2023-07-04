@@ -43,13 +43,11 @@ This file simulates runtime by generating random queues and queries.
                 file_parse=selected_file.split("/")
                 file_type=file_parse[-1].split(".")[1]
                 filename_parse=file_parse[-1].split(".")[0].split("_")
-                #print(filename_parse)
                 if(filename_parse[-1].isnumeric()):
                     filename_parse=filename_parse[:-1]
 
                 filename_subparse=filename_parse[-1].split("-")
                 
-                #print(filename_subparse)
                 if(filename_subparse[-1].isnumeric()):
                     filename_subparse=filename_subparse[:-1]
 
@@ -58,7 +56,6 @@ This file simulates runtime by generating random queues and queries.
                 filename="_".join(filename_parse)
 
                 model_ID_q="SELECT ID,Active_Model_ID from Plot_Types where Name=\""+filename+"\" && FileType=\""+file_type+"\" && IsChunked=1"
-                #print(model_ID_q)
                 model_id_r=DBConnector.FetchAll(model_ID_q)
                 if(len(model_id_r)==1):
                     model_id=model_id_r[0]["Active_Model_ID"]

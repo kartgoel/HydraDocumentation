@@ -1,40 +1,11 @@
 hydra_train
 ======================
 
-This library trains Hydra models based on GPU availability.
+This file trains Hydra models based on GPU availability.
 It prepares the data by normalizing pixel values and loads the models on avaiable GPUs.
 Loss and accuracy of training and validation are used to evaluate training. 
 
 .. code-block:: python
-
-    def removeLabelfromDataset(dataset, label):
-    #dataset = dataset[dataset['label'] != label]
-    #iterate through pandas dataframe row and remove rows with label
-    for index, row in dataset.iterrows():
-        if row['label'] == label:
-            dataset.drop(index, inplace=True)
-    return dataset
-
-    def moveDataAllButOne(from_dataset,to_dataset,label):
-        
-        foundFirst = False
-        for index, row in from_dataset.iterrows():
-            if row['label'] == label and not foundFirst:
-                foundFirst == True
-            elif row['label'] == label and foundFirst:
-                to_dataset=to_dataset.append(row, ignore_index=True)
-                from_dataset.drop(index, inplace=True)
-        return from_dataset,to_dataset
-
-    def moveDataOne(from_dataset,to_dataset,label):
-        foundFirst = False
-        for index, row in from_dataset.iterrows():
-            if row['label'] == label and not foundFirst:
-                foundFirst == True
-                to_dataset=to_dataset.append(row, ignore_index=True)
-                from_dataset.drop(index, inplace=True)
-                break
-        return from_dataset,to_dataset
 
     def main(argv):
         """Main Function, takes below command line arguments...
@@ -64,7 +35,7 @@ Loss and accuracy of training and validation are used to evaluate training.
         print("Using Data: ", data_to_use)
 
 
-        EPOCHS = 1000 # num epochs
+        EPOCHS = 1000 
         if(args["epochs"] is not None):
             EPOCHS=int(args["epochs"])
 
@@ -87,24 +58,21 @@ Loss and accuracy of training and validation are used to evaluate training.
         # ------------ CLI parameters setting done -------------------------------
 
         # ------------ Setting other parameters -----------------------------
-        EARLY_STOPPING_MIN_DELTA=.005 #UNUSED
-        EARLY_STOPPING_PATIENCE=5*GPUS #DEFAULT VALUE
-        BS=int(16*GPUS) #DEFAULT VALUE         
+        EARLY_STOPPING_MIN_DELTA=.005 
+        EARLY_STOPPING_PATIENCE=5*GPUS 
+        BS=int(16*GPUS)         
         DATACHOKE=-1 
-        rootloc="../data_monitoring/" #DEFAULT VALUE
+        rootloc="../data_monitoring/" 
         TrainFraction=.95
 
-        INIT_LR = 0.01 #.01*BS #0.05*BS # Learning rate
-        ROOT_MODEL_OUT="../Hydra_models/" #DEFAULT VALUE
+        INIT_LR = 0.01 
+        ROOT_MODEL_OUT="../Hydra_models/" 
         SAMPLING_SCHEME="undersample"
         runnum_zfill=6
         try:
             with open(config_file_path) as parms_json:
                 parms=json.load(parms_json)
-                #print(parms.keys())
 
-                #"INITIAL_LEARNING_RATE": 0.01,
-                #"ROOT_MODEL_OUT": "/group/halld/Hydra_models/"
                 EARLY_STOPPING_PATIENCE=int(parms["TRAINING_PARAMS"]["EARLY_STOPPING_PATIENCE_SCALE"])*GPUS
                 BS=int(int(parms["TRAINING_PARAMS"]["BATCH_SIZE_SCALE"])*GPUS)
                 DATACHOKE=parms["TRAINING_PARAMS"]["DATACHOKE"]
@@ -129,12 +97,10 @@ Loss and accuracy of training and validation are used to evaluate training.
         if( ("chunk" in data_to_use.lower() or "chunks" in data_to_use.lower()) and not mergeAll):
             name=data_to_use.replace("Chunks","").replace("chunks","").replace("chunk","").replace("Chunk","")
             Plot_Type_ID_q="SELECT ID FROM Plot_Types where IsChunked=1 && Name=\""+name+"\""
-            # dbcursor.execute(Plot_Type_ID_q)
             Plot_Type_ID = connector.FetchAll(Plot_Type_ID_q)[0]["ID"]
         else:
             name=data_to_use.replace("Chunks","").replace("chunks","").replace("chunk","").replace("Chunk","")
             Plot_Type_ID_q="SELECT ID FROM Plot_Types where Name=\""+name+"\""
-            # dbcursor.execute(Plot_Type_ID_q)
             Plot_Type_ID = connector.FetchAll(Plot_Type_ID_q)
         print("Query to get Plot_Type_ID: ", Plot_Type_ID_q)
         print("Working on Plot Type ID: ", Plot_Type_ID)
@@ -153,14 +119,11 @@ Loss and accuracy of training and validation are used to evaluate training.
                     Classifications_q+="|| Plot_Types_ID="+str(Plot_Type_ID[i]['ID'])
             Classifications_q+=") ORDER BY ID asc"
         print("Get Plot_Classification Query: ", Classifications_q)
-        # dbcursor.execute(Classifications_q)
         Plot_Classifications = connector.FetchAll(Classifications_q)
         original_Plot_Classifications=Plot_Classifications
         print(len(Plot_Classifications))
-        # ------------------------------------------------------------------
 
         # -------------- Get Data ----------------------------------
-
         All_data_q="SELECT Plots.ID,Plot_Types.Name, Plot_Types.FileType, Plots.ID,Plots.RunPeriod, Plots.RunNumber, Plots.Chunk, Plot_Types.IsChunked, Plots.TrainingWeight, Plot_Classifications.Classification FROM Plots inner join Plot_Types on Plot_Types.id = Plots.Plot_types_id inner join Users_Plots on Users_Plots.plot_id = Plots.id left join Plot_Classifications on Plot_Classifications.id = Users_Plots.Plot_classification_id where Plot_Types.name = \'"+data_to_use+"\' && Plot_Classifications.Classification != \'Ignore\' and (Users_Plots.id) = (select max(Users_Plots2.id) from Users_Plots Users_Plots2 where Users_Plots2.plot_id = Plots.id) ORDER BY Plots.RunNumber asc"
 
         if("chunk" in data_to_use.lower() or "chunks" in data_to_use.lower()):
@@ -168,10 +131,8 @@ Loss and accuracy of training and validation are used to evaluate training.
             All_data_q="SELECT Plot_Types.Name, Plot_Types.FileType, Plots.ID, Plots.RunPeriod, Plots.RunNumber, Plots.Chunk, Plot_Types.IsChunked, Plots.TrainingWeight, Plot_Classifications.Classification FROM Plots inner join Plot_Types on Plot_Types.id = Plots.Plot_types_id inner join Users_Plots on Users_Plots.plot_id = Plots.id left join Plot_Classifications on Plot_Classifications.id = Users_Plots.Plot_classification_id where Plot_Types.IsChunked=1 && Plot_Types.name = \'"+name+"\' && Plot_Classifications.Classification != \'Ignore\' and (Users_Plots.id) = (select max(Users_Plots2.id) from Users_Plots Users_Plots2 where Users_Plots2.plot_id = Plots.id) ORDER BY Plots.RunNumber asc"
 
         print("Fetching all data with the Query: ", All_data_q)
-        # dbcursor.execute(All_data_q)
         DATA = connector.FetchAll(All_data_q)
         print("Number of data samples: ", len(DATA))
-        # -----------------------------------------------------------
 
         # --------------- Prepare Data -----------------------------------
         DATA_dataframe=pd.DataFrame(columns=["img","label"])
@@ -182,7 +143,7 @@ Loss and accuracy of training and validation are used to evaluate training.
                     location=location+"_"+str(datum["Chunk"]).zfill(4)
                 location=location+"."+datum["FileType"]
                 if not os.path.isfile(location):
-                    location=location.replace(rootloc,"/work/halld/online_monitoring/AI/keeper/") ## EVENTUALLY REPLACE THIS WITH CONFIG PARAM
+                    location=location.replace(rootloc,"/work/halld/online_monitoring/AI/keeper/") 
             else:
                 location=rootloc+"/simulated/"+datum["RunPeriod"]+"."+datum["FileType"]
 
@@ -204,6 +165,9 @@ Loss and accuracy of training and validation are used to evaluate training.
 
         #noDataFlag = False
         clsnm = []
+            #removeLabelfromDataset(training_dataframe,className)
+            #removeLabelfromDataset(validation_dataframe,className)
+            #moveDataAllButOne(training_dataframe,validation_dataframe,className)
         print("Class |\t Train |\t Valid")
         for Class in Plot_Classifications:
             className=Class["Classification"]
@@ -214,10 +178,6 @@ Loss and accuracy of training and validation are used to evaluate training.
             if(trainCount+validCount >= 2):
                 #noDataFlag = True
                 clsnm.append(str(className))
-                #Plot_Classifications = [x for x in Plot_Classifications if x["Classification"] != className]
-                #removeLabelfromDataset(training_dataframe,className)
-                #removeLabelfromDataset(validation_dataframe,className)
-                #moveDataAllButOne(training_dataframe,validation_dataframe,className)
                 if(trainCount == 0 and validCount != 0):
                 validation_dataframe,training_dataframe= moveDataAllButOne(validation_dataframe,training_dataframe,className)
                 elif(validCount == 0 and trainCount != 0):
@@ -244,24 +204,9 @@ Loss and accuracy of training and validation are used to evaluate training.
         valid_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1./255)
         test_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1./255)
 
-        #YOU NEED TO ADD THE RIGHT PAD NUMBER BACK IN. THIS IS A HACK TO GET IT TO WORK
-        #loop over training_dataframe and replace img
-        #for i in range(0,training_dataframe.shape[0]):
-        #    img=training_dataframe.iloc[i]["img"]
-        #    img=img.replace("selftiming","selftiming-02")
-        #    training_dataframe.iloc[i]["img"]=img
-
-        #loop over validation_dataframe and replace img
-        #for i in range(0,validation_dataframe.shape[0]):
-        #    img=validation_dataframe.iloc[i]["img"]
-        #    img=img.replace("selftiming","selftiming-02")
-        #    validation_dataframe.iloc[i]["img"]=img
-        
-        #print(training_dataframe.iloc[0]["img"])
-
         imgshape=cv2.imread(str(training_dataframe.iloc[0]["img"])).shape
-        imgheight=imgshape[0] #128
-        imgwidth=imgshape[1] #128
+        imgheight=imgshape[0] 
+        imgwidth=imgshape[1] 
 
         print("Using images of size %sx%s" % (imgwidth,imgheight) )
 
@@ -290,11 +235,9 @@ Loss and accuracy of training and validation are used to evaluate training.
 
         strategy = tf.distribute.MirroredStrategy()
         
-        #print("TF Version: ", TF_VERSION)
         if(TF_VERSION == "2.7.1"):
-            atexit.register(strategy._extended._collective_ops._pool.close) # type: ignore
+            atexit.register(strategy._extended._collective_ops._pool.close) 
         else:
-        #    atexit.register(strategy._extended._collective_ops._pool.close) # type: ignore
             pass
 
         print("Number of devices: {}".format(strategy.num_replicas_in_sync))
@@ -304,7 +247,6 @@ Loss and accuracy of training and validation are used to evaluate training.
         # validation_dataset = tf.data.Dataset.from_tensor_slices(validation_generator)
         # ------------------------------------------------------------------------------------
 
-        #with strategy.scope():
         input_tensor = Input(shape=(imgheight,imgwidth,3))
         model = InceptionV3(include_top=True, weights=None, input_tensor=input_tensor, input_shape=None, pooling=None, classes=len(Plot_Classifications))
 
@@ -316,7 +258,6 @@ Loss and accuracy of training and validation are used to evaluate training.
         if(args["loadmodel"]):
             print("LOADING MODEL: ", args["loadmodel"])
             Model_q="SELECT * FROM Models where ID="+str(args["loadmodel"])
-            # dbcursor.execute(Model_q)
             Model_to_load_line=connector.FetchAll(Model_q)
             if(len(Model_to_load_line)!=1):
                 print("Cannot find Model with ID "+str(args["loadmodel"])+". Training from scratch...")
@@ -337,10 +278,9 @@ Loss and accuracy of training and validation are used to evaluate training.
 
         opt=None
         if(TF_VERSION=="2.7.1"):
-            opt = SGD(lr=INIT_LR, decay=INIT_LR / EPOCHS)#, momentum=.2, nesterov=True)
+            opt = SGD(lr=INIT_LR, decay=INIT_LR / EPOCHS)
         else:
             opt = SGD(learning_rate=INIT_LR, momentum=.2, nesterov=True)
-        #opt = Adadelta()
         
         # -------------------- Set Mirrored Strategy if more than 1 GPUs are available -------------
         if GPUS<=1 :
@@ -384,11 +324,9 @@ Loss and accuracy of training and validation are used to evaluate training.
         fit_success=False
 
         try:
-            #parallel_model.summary()
             print('Plot_Classifications: ',Plot_Classifications)
             print('len(Plot_Classifications): ',len(Plot_Classifications))
-            H = parallel_model.fit(train_generator, steps_per_epoch=STEP_SIZE_TRAIN, validation_data=validation_generator, validation_steps=STEP_SIZE_VALID, epochs=EPOCHS,callbacks=[early_stopping])#,model_checkpoint])
-            # H = parallel_model.fit(train_dataset, steps_per_epoch=STEP_SIZE_TRAIN, validation_data=validation_dataset, validation_steps=STEP_SIZE_VALID, epochs=EPOCHS,callbacks=[tensorboard,early_stopping])#,model_checkpoint])
+            H = parallel_model.fit(train_generator, steps_per_epoch=STEP_SIZE_TRAIN, validation_data=validation_generator, validation_steps=STEP_SIZE_VALID, epochs=EPOCHS,callbacks=[early_stopping])
             fit_success=True
         except Exception as e:
             print("fitting threw exception:",e)
@@ -400,8 +338,6 @@ Loss and accuracy of training and validation are used to evaluate training.
         Numepochs=H.history[early_stopping_var].index(model_value)+1
 
         labels = (validation_generator.class_indices)
-        # print("Labels: ", labels)
-        #results=pd.DataFrame(columns=["Filename","Predictions"])
         to_pred=pd.DataFrame(columns=["plot"])
         for f in validation_generator.filenames:
             to_pred=to_pred.append({"plot":f}, ignore_index=True)
@@ -421,7 +357,6 @@ Loss and accuracy of training and validation are used to evaluate training.
         preds=parallel_model.predict_generator(test_generator,verbose=1,steps=test_generator.n)
 
         predicted_class_indices=np.argmax(preds,axis=1)
-        #print(preds)
         labels = (train_generator.class_indices)
         labels = dict((v,k) for k,v in labels.items())
         predictions = [labels[k] for k in predicted_class_indices]
@@ -492,7 +427,6 @@ Loss and accuracy of training and validation are used to evaluate training.
             Model_ID_q="SELECT * FROM Models where Name=\""+str(model_name)+"\" && Location=\""+str(ROOT_MODEL_OUT)+"\""
             
             print("\n\n"+Model_ID_q)
-            # dbcursor.execute(Model_ID_q)
             Model=connector.FetchAll(Model_ID_q)
             print("Returned Model: ",Model)
             if(len(Model)!=1):
@@ -522,11 +456,6 @@ Loss and accuracy of training and validation are used to evaluate training.
 
 
         else:
-            # print(K.eval(parallel_model.optimizer.lr * 1. / (1. + parallel_model.optimizer.decay*tf.cast(parallel_model.optimizer.iterations,tf.float32))))
-            # print("Saving to local")
-            # parallel_model.save("/home/tbritton/Hydra_temp/"+model_name)
-            # label_file=open("/home/tbritton/Hydra_temp/"+model_name+"_LABELS","w+")
-            # label_file.write(str(labels))
             parallel_model.save(ROOT_MODEL_OUT+"/"+model_name)
             plt_ID=-1
             if not str(Plot_Type_ID).isnumeric():
@@ -542,3 +471,57 @@ Loss and accuracy of training and validation are used to evaluate training.
 
         print("Training Complete")
         print("closing connection")
+
+--------------------
+
+removeLabelfromDataset
+~~~~~~~~~~~~~~~~~~~~~~~
+
+This function
+
+.. code-block:: python
+
+    def removeLabelfromDataset(dataset, label):
+    for index, row in dataset.iterrows():
+        if row['label'] == label:
+            dataset.drop(index, inplace=True)
+    return dataset
+
+------------------
+
+moveDataAllButOne
+~~~~~~~~~~~~~~~~~~~
+
+This function
+
+.. code-block:: python
+
+    def moveDataAllButOne(from_dataset,to_dataset,label):
+        
+        foundFirst = False
+        for index, row in from_dataset.iterrows():
+            if row['label'] == label and not foundFirst:
+                foundFirst == True
+            elif row['label'] == label and foundFirst:
+                to_dataset=to_dataset.append(row, ignore_index=True)
+                from_dataset.drop(index, inplace=True)
+        return from_dataset,to_dataset
+
+-------------------
+
+moveDataOne
+~~~~~~~~~~~~~~~~~~~~
+
+This function 
+
+.. code-block:: python
+
+    def moveDataOne(from_dataset,to_dataset,label):
+        foundFirst = False
+        for index, row in from_dataset.iterrows():
+            if row['label'] == label and not foundFirst:
+                foundFirst == True
+                to_dataset=to_dataset.append(row, ignore_index=True)
+                from_dataset.drop(index, inplace=True)
+                break
+        return from_dataset,to_dataset
