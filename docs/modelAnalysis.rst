@@ -141,10 +141,11 @@ This file validates and evaluates the AI models by using confusion matrixes and 
      #MakeDanielConfidenceDistributionMatrix(model_line["ID"],model_line["Labels"])
      return
 
-----------------------
+
 
 LookAtDifference
-~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------
+
 
 This function compares the plot analysis accuracy of various trained models. 
 
@@ -183,7 +184,7 @@ This function compares the plot analysis accuracy of various trained models.
           print(row["RunPeriod"]+str(row["RunNumber"]).zfill(zpad)+"/"+str(row["Name"])+"_"+str(row['Chunk']).zfill(4)+"  |  "+row["UClass"]+" v "+row["AIClass"]+" @ "+str(row["Confidence"]))
      
 
--------------------
+
 
 ViewAll
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
