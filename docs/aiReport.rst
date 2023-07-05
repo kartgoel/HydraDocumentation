@@ -1,7 +1,7 @@
 AIReport
 =====================
 
-This file includes the ``AIReport`` class, which provides methods for intializing the report, setting and retrieving metadata, performing analysis, and generating reports. 
+This file includes the ``AIReport`` class, which provides methods for intializing a report, setting and retrieving metadata, performing analysis, and generating reports using JSON or 0MG formatting. 
 
 
 Initialization
@@ -137,7 +137,7 @@ Example Usage
 getVerdict
 -------------
 
-This method 
+This method retrieves the verdict label for a classification or regression report. 
 
 .. code-block:: python 
 
@@ -162,15 +162,39 @@ Example Usage
 
 ------------------------------------------------------
 
+
 printVerdict
 --------------
 
-This method 
+This method prints the verdict label and confidence for classification and regression reports.
 
 .. code-block:: python 
 
-    
+    def printVerdict(self):
+        if self.reportType.upper() == "CLASSIFICATION":
+            print(self.getVerdict(),"@",self.getVerdictConfidence())
+        elif self.reportType.upper() == "REGRESSION":
+            print(self.analysis["Result"])
 
+
+-------------------------------------------------------
+
+getVerdictConfidence
+----------------
+
+This method returns the confidence value for the verdict label in classification or regression reports. 
+
+.. code-block:: python 
+
+     def getVerdictConfidence(self):
+        if self.reportType.upper() == "CLASSIFICATION":
+            return max(self.analysis["Confidences"])
+
+        elif self.reportType.upper() == "REGRESSION":
+            return self.analysis["Result"]
+
+
+-------------------------------------------------
 
 getTopN
 ----------------
