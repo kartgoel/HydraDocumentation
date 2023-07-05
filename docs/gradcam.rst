@@ -23,6 +23,8 @@ Parameters
 - ``layer_name``: An optional string corresponding to a specific layer in the AI model.
 
 
+----------------------------------------------------------------------
+
 get_heatmap
 -----------------
 
@@ -36,8 +38,8 @@ This method generates the GradCAM heatmap for the given image path.
 Parameters 
 ~~~~~~~~~~~~~~~~~~~
 
-``path_to_image``: A string representing the path to the image file. 
-``pred_index``: An optional integer representing the predicted class index. 
+- ``path_to_image``: A string representing the path to the image file. 
+- ``pred_index``: An optional integer representing the predicted class index. 
 
 
 Example Usage
@@ -49,6 +51,8 @@ Example Usage
             gradCAMheatmap, preds, top_class_index = self.get_heatmap(path_to_image)
         
 
+
+------------------------------------------------------------------
 
 insert_into_runtime
 ---------------------
@@ -63,10 +67,10 @@ This method inserts the GradCAM heatmap and related information into the runtime
 Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-``path_to_image``: A string representing the path to the image file. 
-``plot_type_id``: An integer representing the plot ID in the datbase. 
-``model_id``: An interger representing the model ID in the database. This is set to -1 if no model is available. 
-``runnum``: An optional integer representing the run number 
+- ``path_to_image``: A string representing the path to the image file. 
+- ``plot_type_id``: An integer representing the plot ID in the datbase. 
+- ``model_id``: An interger representing the model ID in the database. This is set to -1 if no model is available. 
+- ``runnum``: An optional integer representing the run number 
 
 
 Example Usage
