@@ -1,13 +1,13 @@
 gradcam
 ==============
 
-This file includes the ''GradCAM'' class, which implements the GradCAM algorithm for visualizing and analyzing deep neural networks. 
+This file includes the ``GradCAM`` class, which implements the GradCAM algorithm for visualizing and analyzing deep neural networks. 
 
 
 Initialization
 ---------------
 
-- Initilizes the ''GradCAM'' object by setting the provided model and layer name. 
+- Initilizes the ``GradCAM`` object by setting the provided model and layer name. 
 - If a layer name in not provided, the last convolutional layer will be used. 
 
 
@@ -19,8 +19,8 @@ Initialization
 Parameters 
 ~~~~~~~~~~~~~~
 
-- ''model'': An optional object representing a trained AI model. 
-- ''layer_name'': An optional string corresponding to a specific layer in the AI model.
+- ``model``: An optional object representing a trained AI model. 
+- ``layer_name``: An optional string corresponding to a specific layer in the AI model.
 
 
 get_heatmap
@@ -36,8 +36,8 @@ This method generates the GradCAM heatmap for the given image path.
 Parameters 
 ~~~~~~~~~~~~~~~~~~~
 
-''path_to_image'': A string representing the path to the image file. 
-''pred_index'': An optional integer representing the predicted class index. 
+``path_to_image``: A string representing the path to the image file. 
+``pred_index``: An optional integer representing the predicted class index. 
 
 
 Example Usage
@@ -63,10 +63,10 @@ This method inserts the GradCAM heatmap and related information into the runtime
 Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-''path_to_image'': A string representing the path to the image file. 
-''plot_type_id'': An integer representing the plot ID in the datbase. 
-''model_id'': An interger representing the model ID in the database. This is set to -1 if no model is available. 
-''runnum'': An optional integer representing the run number 
+``path_to_image``: A string representing the path to the image file. 
+``plot_type_id``: An integer representing the plot ID in the datbase. 
+``model_id``: An interger representing the model ID in the database. This is set to -1 if no model is available. 
+``runnum``: An optional integer representing the run number 
 
 
 Example Usage

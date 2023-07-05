@@ -1,7 +1,7 @@
 inference_engine
 =====================
 
-This file includes the ''InferenceEngine'' class which performs data analysis and prediction. 
+This file includes the ``InferenceEngine`` class which performs data analysis and prediction. 
 
 Initialization
 ------------------
@@ -16,15 +16,15 @@ This method initializes the InferenceEngine object.
 Parameters 
 ~~~~~~~~~~~~~~~~~~~~~
 
-- ''DBConnector'': An object used to connect to the database
-- ''data'':A string representing the path to plots for analysis.  
-- ''debug_mode'': An optional boolean flag indicating whether or not the debug mode is enabled. 
-- ''ModelRootPath'': An optional string representing the root path to the AI models in the database. Defaults to DB. 
-- ''ChunkNumber'': An optional interger representing the number of chunks to process. Defaults to 0. 
-- ''ForceModel_ID'': An optional integer representing the ID of the model to evaluate.
-- ''forcedPlotType'': An optional
-- ''outfile'': An optional string representing the name of the report file. Defaults to an empty string. 
-- ''hydraHeads'': An optional object that contains additional model instances.
+- ``DBConnector``: An object used to connect to the database
+- ``data``:A string representing the path to plots for analysis.  
+- ``debug_mode``: An optional boolean flag indicating whether or not the debug mode is enabled. 
+- ``ModelRootPath``: An optional string representing the root path to the AI models in the database. Defaults to DB. 
+- ``ChunkNumber``: An optional interger representing the number of chunks to process. Defaults to 0. 
+- ``ForceModel_ID``: An optional integer representing the ID of the model to evaluate.
+- ``forcedPlotType``: An optional
+- ``outfile``: An optional string representing the name of the report file. Defaults to an empty string. 
+- ``hydraHeads``: An optional object that contains additional model instances.
 
 
 DoDataANA
@@ -40,10 +40,10 @@ This method performs data analysis and predictions on the given data.
 Parameters
 ~~~~~~~~~~~~~~~~~~~~
 
-- ''DBConnector'': An object used to connect to the database
-- ''plots'': 
-- ''debug_mode'': An optional boolean flag indicating whether or not the debug mode is enabled. 
-- ''ForceModel_ID'': An optional integer representing the ID of the model to evaluate.
-- ''outdir'': An optional string that specifies the output directory for the analysis results. 
-- ''hydraHeads'': An optional object that contains additional model instances.
+- ``DBConnector``: An object used to connect to the database
+- ``plots``: 
+- ``debug_mode``: An optional boolean flag indicating whether or not the debug mode is enabled. 
+- ``ForceModel_ID``: An optional integer representing the ID of the model to evaluate.
+- ``outdir``: An optional string that specifies the output directory for the analysis results. 
+- ``hydraHeads``: An optional object that contains additional model instances.
 
