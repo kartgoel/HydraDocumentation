@@ -13,7 +13,7 @@ This configuration connects to the MySQL database.
     dbcursor = dbcnx.cursor(MySQLdb.cursors.DictCursor)
 
 
-- ''dbhost'': The host address (in this case of the MySQL database).
-- ''dbuser'': The username used to connect to the database.
-- ''dbpass'': The password for the database user.
-- ''dbname'': The name of the database to connect to.
+- ``dbhost``: The host address (in this case of the MySQL database).
+- ``dbuser``: The username used to connect to the database.
+- ``dbpass``: The password for the database user.
+- ``dbname``: The name of the database to connect to.

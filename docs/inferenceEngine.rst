@@ -7,7 +7,7 @@ This file includes the ``InferenceEngine`` class, which performs data analysis a
 Initialization
 ------------------
 
-This initializes the ``InferenceEngine`` object. 
+The ``__inut__`` method initializes the ``InferenceEngine`` object. 
 
 .. code-block:: python
 

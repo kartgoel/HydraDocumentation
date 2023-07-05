@@ -13,6 +13,6 @@ This code segment attempts to establish a connection to the MySQL database.
         exit(1)
 
 
-- ''MySQLdb.connect()'': Establishes a connection to the MySQL database using the provided host, username, and database namme.
-- ''MySQLdb.cursors.DictCursor'': Creates a cursor that returns query results. 
+- ``MySQLdb.connect()``: Establishes a connection to the MySQL database using the provided host, username, and database namme.
+- ``MySQLdb.cursors.DictCursor``: Creates a cursor that returns query results. 
 - An error message is printed and the program exits if the connection is unsuccessful. 

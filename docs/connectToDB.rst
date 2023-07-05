@@ -7,7 +7,7 @@ This file includes the ``DBManager`` class, which provides functionality to esta
 Initialization
 ----------------------------
 
-This initializes the ``DBManager`` object and establishes a connection to the MySQL database. 
+The ``__inut__`` method initializes the ``DBManager`` object and establishes a connection to the MySQL database. 
 
 .. code-block:: python
 
