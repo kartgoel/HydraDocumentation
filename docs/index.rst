@@ -46,3 +46,7 @@ how to :ref:`quick start` the project.
    :hidden:
    :caption: 🔧Utils
 
+   dependencies
+   databaseConfig
+   establishingDBConnection
+
