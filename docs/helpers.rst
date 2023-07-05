@@ -28,10 +28,10 @@ This method prints the respective samples in the given data frames.
 Parameters
 ~~~~~~~~~~~~
 
-- ''plotClassifications'': A list representing the classifications of the plots
-- ''training_dataframe'': The dataframe of the training data
-- ''validation_dataframe'': The dataframe of the validation data
-- ''test_dataframe '': An optional data frame of the test data
+- ``plotClassifications``: A list representing the classifications of the plots
+- ``training_dataframe``: The dataframe of the training data
+- ``validation_dataframe``: The dataframe of the validation data
+- ``test_dataframe ``: An optional data frame of the test data
 
 getGenerator
 ------------
@@ -47,9 +47,9 @@ If a testing dataframe is unavailable, the validation dataframe is used to predi
 Parameters
 ~~~~~~~~~~~~~
 
-- ''training_dataframe'': The dataframe of the training data
-- ''validation_dataframe'': The dataframe of the validation data
-- ''test_dataframe '': An optional data frame of the test data
-- ''BS'': The generators' batch size which has a default value of 32.
+- ``training_dataframe``: The dataframe of the training data
+- ``validation_dataframe``: The dataframe of the validation data
+- ``test_dataframe ``: An optional data frame of the test data
+- ``BS``: The generators' batch size which has a default value of 32.
 
 
