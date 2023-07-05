@@ -1,13 +1,13 @@
 inference_engine
 =====================
 
-This file includes the ``InferenceEngine`` class which performs data analysis and prediction. 
+This file includes the ``InferenceEngine`` class, which performs data analysis and prediction. 
 
 
 Initialization
 ------------------
 
-This method initializes the InferenceEngine object. 
+This initializes the ``InferenceEngine`` object. 
 
 .. code-block:: python
 

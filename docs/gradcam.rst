@@ -7,8 +7,8 @@ This file includes the ``GradCAM`` class, which implements the GradCAM algorithm
 Initialization
 ---------------
 
-- Initilizes the ``GradCAM`` object by setting the provided model and layer name. 
-- If a layer name in not provided, the last convolutional layer will be used. 
+This initilizes the ``GradCAM`` object by setting the provided model and layer name. 
+If a layer name in not provided, the last convolutional layer will be used. 
 
 
 .. code-block:: python

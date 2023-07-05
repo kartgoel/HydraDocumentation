@@ -12,6 +12,7 @@ Standard Libaries
     import ctypes
     import cv2
     import json
+    import logging
     import matplotlib.cm as cm
     import MySQLdb
     import numpy as np
