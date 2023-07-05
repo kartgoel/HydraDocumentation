@@ -153,7 +153,7 @@ Parameters
 Load
 ------------------
 
-This method 
+This method loads a saved report in the specified format: JSON or XML. 
 
 .. code-block:: python 
 
