@@ -42,3 +42,7 @@ how to :ref:`quick start` the project.
    simulateRunTime
    test
 
+.. toctree::
+   :hidden:
+   :caption: 🔧Utils
+
