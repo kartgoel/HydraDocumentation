@@ -25,6 +25,7 @@ Example Usage
 .. code-block:: python
     RandomTrainingTestingSplit("CDC_occupancy/CDC_occ", 0.6)
 
+------------------------------------
 
 TrainTestSplit2
 -----------------
