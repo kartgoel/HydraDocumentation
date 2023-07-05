@@ -84,8 +84,93 @@ Parameters
 - ``confidences``: A list of confidence values. 
 - ``labels``: An optional dictionary of labels.
 
+--------------------------------------------------------
+
+getModelLabels
+------------------------
+
+This method returns the labels used in the analysis. 
+
+.. code-block:: python
+
+     def getModelLabels(self):
+        if self.reportType.upper() == "CLASSIFICATION":
+            return self.analysis["Labels"]
+        else:
+            return "NA"
+
+
+Example Usage
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    model_labels = AIReport.getModelLabels()
+
 
 --------------------------------------------
+
+getConfidences
+--------------------
+
+This method returns the confidence values or result value from the analysis.
+
+.. code-block:: python 
+    
+    def getConfidences(self):
+        if self.reportType.upper() == "CLASSIFICATION":
+           return self.analysis["Confidences"]
+        elif self.reportType.upper() == "REGRESSION":
+            return self.analysis["Result"]
+
+
+Example Usage
+~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python 
+
+    reportConfidences=AIReport.getConfidences()
+
+
+----------------------------------------------
+
+getVerdict
+-------------
+
+This method 
+
+.. code-block:: python 
+
+    def getVerdict(self):
+        if self.reportType.upper() == "CLASSIFICATION":
+            max_value = max(self.analysis["Confidences"])
+            verdictLabel = self.analysis["Labels"][self.analysis["Confidences"].index(max_value)]
+            return verdictLabel
+
+            
+        elif self.reportType.upper() == "REGRESSION":
+            return self.analysis["Result"]
+
+
+Example Usage
+~~~~~~~~~~~~~~~~
+
+.. code-block:: python 
+
+    verdict=AIReport.getVerdict()
+
+
+------------------------------------------------------
+
+printVerdict
+--------------
+
+This method 
+
+.. code-block:: python 
+
+    
+
 
 getTopN
 ----------------
