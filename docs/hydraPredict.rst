@@ -13,6 +13,7 @@ This method writes the prediction report based on the model's predictions.
 
 .. code-block:: python
 
+    #Extended code available on Github
     def WriteReport(plotType_ID,model_ID,to_pred,preds,labels_of_model,outfile,outdir,debug_mode=False):
 
 
@@ -46,7 +47,33 @@ This method performs a prediction using a specified AI model and dataset.
 
 .. code-block:: python 
 
-    def Breakfast(hydraHeads, headkey):
+    def Breakfast(hydraHeads, headkey, breakfast_path):
+        try:
+            to_pred=pd.DataFrame(columns=["datum"])
+            to_pred=to_pred.append({"datum":breakfast_path}, ignore_index=True)
+
+            inputShape_parse=hydraHeads[headkey].shape[+1:-1].split(",")
+            imgheight=int(inputShape_parse[0].strip())
+            imgwidth=int(inputShape_parse[1].strip())
+            color_mode="rgb"
+            if(int(inputShape_parse[2].strip())==1):
+                color_mode="grayscale"
+
+            test_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1./255)
+            test_generator = test_datagen.flow_from_dataframe(
+                    dataframe=to_pred,
+                    directory=None,
+                    x_col="datum",
+                    target_size=(imgheight,imgwidth),
+                    color_mode=color_mode,
+                    batch_size=1,
+                    class_mode=None,
+                    shuffle=False)
+            test_generator.reset()
+            preds=hydraHeads[headkey].model.predict(test_generator,verbose=1,steps=test_generator.n)
+        except:
+            print("Error in Breakfast")
+            pass
 
 
 Parameters
@@ -73,7 +100,17 @@ This method checks for the presence of a 'Keeper' by listening to a specified co
 .. code-block:: python 
 
     def CheckForKeeper(hasKeeper,keeperHost,keeperPort):
-
+        recvport=int(keeperPort)
+        recvconnection="tcp://"+keeperHost
+        recvcontext= zmq.Context()
+        print("Listening to "+recvconnection+" on port "+str(recvport))
+        recvsocket=recvcontext.socket(zmq.SUB)
+        recvsocket.setsockopt(zmq.SUBSCRIBE, b"")
+        recvsocket.connect(recvconnection+":"+str(recvport))
+        while True:
+            message=str(recvsocket.recv(),"utf8")
+            hasKeeper.value=1
+        
 
 Parameters 
 ~~~~~~~~~~~~~~~~~~
@@ -101,6 +138,25 @@ PreloadModels
  .. code-block:: python
 
     def PreloadModels(DBConnector, ModelRootPath):
+        print("Model preloading started...")
+        hydraHeads = {}
+        then=int(time.time()*1000.0)
+        # logging.info("Preloading Models")
+        # logging.info("Preloading Models...")
+        data_to_analyze_q="SELECT * FROM Plot_Types where Active_Model_ID IS NOT NULL;"
+        data_to_analyze = DBConnector.FetchAll(data_to_analyze_q)
+        for d in data_to_analyze:
+            headkey=str(d["Name"])
+            if(d["IsChunked"] == 1):
+                headkey += "_1"
+            # logging.info("Loading head for "+str(headkey))
+            modelInstance = Model(DBConnector, modelID=d["Active_Model_ID"], modelRootPath=ModelRootPath)
+            if modelInstance.model == None:
+                # logging.error("Model could not be loaded with ID ", d["Active_Model_ID"])
+                print("Model could not be loaded with ID ", d["Active_Model_ID"])
+            else:
+                hydraHeads[headkey] = modelInstance
+        return hydraHeads
 
 
 Parameters 

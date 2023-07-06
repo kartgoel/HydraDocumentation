@@ -7,12 +7,28 @@ This file includes the ``InferenceEngine`` class, which performs data analysis a
 Initialization
 ------------------
 
-The ``__inut__`` method initializes the ``InferenceEngine`` object. 
+The ``__init__`` method initializes the ``InferenceEngine`` object. 
 
 .. code-block:: python
 
     def __init__(self, DBConnector, data, debug_mode=False, ModelRootPath="DB", ChunkNumber=0, ForceModel_ID=-1, forcedPlotType=None, outfile="", hydraHeads=None):
-
+        if os.path.isdir(data):
+            then = int(time.time()*1000)
+            plots = Plots(DBConnector, isInference=True, directory=data).DATA_dataframe
+            now = int(time.time()*1000)
+            if(len(plots)!=0):
+                print("Retrieved "+str(len(plots))+" plots from directory in "+str(now-then)+" ms")
+        elif os.path.isfile(data):
+            plots = pd.DataFrame(columns=["img"])
+            plots=plots.append({"img":data}, ignore_index=True)
+        else:
+            print("Data path is broken!")
+        then = int(time.time()*1000)
+        self.ANAset = None
+        if(len(plots) != 0):
+            self.ANAset = self.DoDataANA(DBConnector, plots, debug_mode,ForceModel_ID, hydraHeads=hydraHeads)
+            print("ANAset: ", self.ANAset)
+        now = int(time.time()*1000)
 
 Parameters 
 ~~~~~~~~~~~~~~~~~~~~~
@@ -36,7 +52,8 @@ DoDataANA
 This method performs data analysis and predictions on the given data. 
 
 .. code-block:: python
-
+    
+    # Extended code available on Github
     def DoDataANA(self, DBConnector, plots, debug_mode, ForceModel_ID=-1, outdir="", hydraHeads=None):
 
 

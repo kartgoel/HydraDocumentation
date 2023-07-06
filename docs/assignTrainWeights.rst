@@ -12,6 +12,40 @@ The ``TrainingWeight`` column in the database will be updated with the calculate
 .. code-block:: python
 
     def RandomTrainingTestingSplit(runPeriodSubstring,  Trainingfraction):
+        # getNumberOfImages_query = 'SELECT count(*) FROM Plots where RunPeriod like "'+str(runPeriodSubstring)+'%"'
+        # dbcursor.execute(getNumberOfImages_query)
+        # result = dbcursor.fetchall()
+        # n = result[0]['count(*)']
+
+        getIds_query = 'SELECT ID FROM Plots where RunPeriod like "'+str(runPeriodSubstring)+'%"'
+        dbcursor.execute(getIds_query)
+        result = dbcursor.fetchall()
+        # print(result)
+        n = len(result)
+        numTrainingSamples = int(n*Trainingfraction)
+        numTestingSamples = n - numTrainingSamples
+        
+        # IDs to be used as testing data
+        randlist = random.sample(range(0, n), numTestingSamples)
+
+        testingIds = []
+        trainingIds = []
+        for i in range(n):
+            if i in randlist:
+                testingIds.append(result[i]['ID'])
+            else:
+                trainingIds.append(result[i]['ID'])
+
+        # print("Testing ids length: ", len(testingIds))
+        # print("Testing ids: ", testingIds)
+
+        updateTrainingWeights_query = 'UPDATE Plots SET TrainingWeight=0 WHERE ID in '+str(tuple(testingIds))
+        dbcursor.execute(updateTrainingWeights_query)
+        dbcnx.commit()
+
+        updateTrainingWeights_query = 'UPDATE Plots SET TrainingWeight=1 WHERE ID in '+str(tuple(trainingIds))
+        dbcursor.execute(updateTrainingWeights_query)
+        dbcnx.commit()
 
 Parameters
 ~~~~~~~~~~~~~~~~~~
@@ -23,6 +57,7 @@ Example Usage
 ~~~~~~~~~~~~~
 
 .. code-block:: python
+
     RandomTrainingTestingSplit("CDC_occupancy/CDC_occ", 0.6)
 
 ------------------------------------
@@ -48,5 +83,7 @@ Example Usage
 ~~~~~~~~~~~~~~~~
 
 .. code-block:: python
+
+    # Extended code available on Github
     TrainTestSplit2("/work/halld2/home/davidl/2020.09.08.Hydra_CDC_Training/hydra_cdc/images/origin_log.txt", 0.6)
 

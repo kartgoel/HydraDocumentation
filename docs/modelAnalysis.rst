@@ -21,35 +21,35 @@ This method comapres the classificiation of the plot by Experts vs AI to determi
 
     def LookAtDifferences(id,difference_list,zpad):
      
-     differences_list=difference_list
+        differences_list=difference_list
 
-     if(len(difference_list)==0):
-     
-          differences_list_q="SELECT Plot_Classifications.Classification AS UClass, AIClasses.Classification AS AIClass, AIP.Confidence, Plots.RunPeriod, Plots.RunNumber, Plots.Chunk, Plot_Types.Name, Plot_Types.FileType FROM AI_Plots_Top_Classification_View AIP LEFT JOIN Users_Plots ON Users_Plots.Plot_ID = AIP.Plot_ID INNER JOIN Plot_Classifications ON Users_Plots.Plot_Classification_ID = Plot_Classifications.ID INNER JOIN Plot_Classifications AIClasses ON AIP.Plot_Classification_ID = AIClasses.ID INNER JOIN Plots ON Plots.ID = AIP.Plot_ID INNER JOIN Plot_Types ON Plots.Plot_Types_ID=Plot_Types.ID WHERE Users_Plots.Plot_Classification_ID != AIP.Plot_Classification_ID AND Users_Plots.Plot_Classification_ID != 6 AND AIP.Model_ID ="+str(id)+" ORDER BY Plots.RunNumber ASC;"
-          dbcursor.execute(differences_list_q)
-          differences_list= dbcursor.fetchall()
+        if(len(difference_list)==0):
+        
+            differences_list_q="SELECT Plot_Classifications.Classification AS UClass, AIClasses.Classification AS AIClass, AIP.Confidence, Plots.RunPeriod, Plots.RunNumber, Plots.Chunk, Plot_Types.Name, Plot_Types.FileType FROM AI_Plots_Top_Classification_View AIP LEFT JOIN Users_Plots ON Users_Plots.Plot_ID = AIP.Plot_ID INNER JOIN Plot_Classifications ON Users_Plots.Plot_Classification_ID = Plot_Classifications.ID INNER JOIN Plot_Classifications AIClasses ON AIP.Plot_Classification_ID = AIClasses.ID INNER JOIN Plots ON Plots.ID = AIP.Plot_ID INNER JOIN Plot_Types ON Plots.Plot_Types_ID=Plot_Types.ID WHERE Users_Plots.Plot_Classification_ID != AIP.Plot_Classification_ID AND Users_Plots.Plot_Classification_ID != 6 AND AIP.Model_ID ="+str(id)+" ORDER BY Plots.RunNumber ASC;"
+            dbcursor.execute(differences_list_q)
+            differences_list= dbcursor.fetchall()
 
-     list_length=len(differences_list)
+        list_length=len(differences_list)
 
-     AI_plots_q="SELECT Count(*) from AI_Plots where Model_ID="+str(id)+";"
-     dbcursor.execute(AI_plots_q)
-     AI_plots=dbcursor.fetchone()
-     AI_plots_count=AI_plots["Count(*)"]
+        AI_plots_q="SELECT Count(*) from AI_Plots where Model_ID="+str(id)+";"
+        dbcursor.execute(AI_plots_q)
+        AI_plots=dbcursor.fetchone()
+        AI_plots_count=AI_plots["Count(*)"]
 
-     if(AI_plots_count==0):
-          print("no inference run for this model")
-          print("rerun with -I flag to run inference")
-          exit(1)
-     print("AI plots count:", AI_plots_count)
-     print("difference list length:", list_length)
-     
-     if list_length==0:
-          print("100% accurate!!")
-          return
+        if(AI_plots_count==0):
+            print("no inference run for this model")
+            print("rerun with -I flag to run inference")
+            exit(1)
+        print("AI plots count:", AI_plots_count)
+        print("difference list length:", list_length)
+        
+        if list_length==0:
+            print("100% accurate!!")
+            return
 
-     print("           name                "+"  |  "+"Expert label"+" v "+"AI label"+" @ "+"AI confidence")
-     for row in differences_list:
-          print(row["RunPeriod"]+str(row["RunNumber"]).zfill(zpad)+"/"+str(row["Name"])+"_"+str(row['Chunk']).zfill(4)+"  |  "+row["UClass"]+" v "+row["AIClass"]+" @ "+str(row["Confidence"]))
+        print("           name                "+"  |  "+"Expert label"+" v "+"AI label"+" @ "+"AI confidence")
+        for row in differences_list:
+            print(row["RunPeriod"]+str(row["RunNumber"]).zfill(zpad)+"/"+str(row["Name"])+"_"+str(row['Chunk']).zfill(4)+"  |  "+row["UClass"]+" v "+row["AIClass"]+" @ "+str(row["Confidence"]))
      
 
 Parameters 
@@ -79,19 +79,19 @@ This method retrieves classification information about all of the plots for a tr
 .. code-block:: python 
 
     def ViewAll(id):
-     differences_list_q="SELECT Plot_Classifications.Classification AS UClass, AIClasses.Classification AS AIClass, AIP.Confidence, Plots.RunPeriod, Plots.RunNumber, Plot_Types.Name, Plot_Types.FileType FROM AI_Plots_Top_Classification_View AIP LEFT JOIN Users_Plots ON Users_Plots.Plot_ID = AIP.Plot_ID INNER JOIN Plot_Classifications ON Users_Plots.Plot_Classification_ID = Plot_Classifications.ID INNER JOIN Plot_Classifications AIClasses ON AIP.Plot_Classification_ID = AIClasses.ID INNER JOIN Plots ON Plots.ID = AIP.Plot_ID INNER JOIN Plot_Types ON Plots.Plot_Types_ID = Plot_Types.ID WHERE AIP.Model_ID ="+str(id)+" ORDER BY Plots.RunNumber desc;"
-     print(differences_list_q)
-     dbcursor.execute(differences_list_q)
-     differences_list= dbcursor.fetchall()
+        differences_list_q="SELECT Plot_Classifications.Classification AS UClass, AIClasses.Classification AS AIClass, AIP.Confidence, Plots.RunPeriod, Plots.RunNumber, Plot_Types.Name, Plot_Types.FileType FROM AI_Plots_Top_Classification_View AIP LEFT JOIN Users_Plots ON Users_Plots.Plot_ID = AIP.Plot_ID INNER JOIN Plot_Classifications ON Users_Plots.Plot_Classification_ID = Plot_Classifications.ID INNER JOIN Plot_Classifications AIClasses ON AIP.Plot_Classification_ID = AIClasses.ID INNER JOIN Plots ON Plots.ID = AIP.Plot_ID INNER JOIN Plot_Types ON Plots.Plot_Types_ID = Plot_Types.ID WHERE AIP.Model_ID ="+str(id)+" ORDER BY Plots.RunNumber desc;"
+        print(differences_list_q)
+        dbcursor.execute(differences_list_q)
+        differences_list= dbcursor.fetchall()
 
-     list_length=len(differences_list)
+        list_length=len(differences_list)
 
-     i=0
+        i=0
 
-     print(list_length)
-     
-     for row in differences_list:
-          print(row["RunPeriod"]+"/"+str(row["RunNumber"])+"  |  "+row["UClass"]+" v "+row["AIClass"]+" @ "+str(row["Confidence"]))
+        print(list_length)
+        
+        for row in differences_list:
+            print(row["RunPeriod"]+"/"+str(row["RunNumber"])+"  |  "+row["UClass"]+" v "+row["AIClass"]+" @ "+str(row["Confidence"]))
      
 Parameter
 ~~~~~~~~~~~~~~~~~~

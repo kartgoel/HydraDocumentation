@@ -6,3 +6,6 @@ It randomly selects a subdirectory from the input image directory, retrieving a 
 If the files are available, it randomly selects a file from the list. 
 It then executes ``runGradCAM`` to simulate a runtime. 
 
+.. note::
+
+    Extended code available on Github

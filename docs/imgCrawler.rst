@@ -3,9 +3,6 @@ imgCrawler
 
 This file scans and processes image files, interacting with the MySQL database to query and update information related to the plots. 
 
-
-----------------------------------------------
-
 ScanLocations 
 ----------------
 
@@ -14,6 +11,7 @@ For each location, it retrieves the list of files and their inofrmation and inse
 
 .. code-block:: python 
 
+    # Extended code available on Github
     def ScanLocations(root_loc, locations):
 
 

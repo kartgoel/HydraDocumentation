@@ -32,7 +32,13 @@ Example Usage
 ResizeAndSave
 ---------------
 
-This method
+This method formats existing images to the desired properties based on a model and stores them in an output location.
+
+.. code-block:: python
+
+    # Extended code available on Github
+    def ResizeAndSave(orig_img,model_to_use,force_x,force_y,outputloc):
+
 
 Parameters
 ~~~~~~~~~~~~~~

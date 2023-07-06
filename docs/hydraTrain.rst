@@ -24,6 +24,8 @@ Parameters
 - ``dataset``: A Pandas DataFrame that represents the rows from which labels need to be removed.
 - ``label``: A string that represents the label that needs to be removed from the data set.
 
+-------------------
+
 moveDataAllButOne
 -------------------
 
@@ -49,6 +51,8 @@ Parameters
 - ``from_dataset``: A Pandas DataFrame that represents the input location of the data.
 - ``to_dataset``: A Pandas DataFrame that represents the output location of the data.
 - ``label``: A string which represents the label to avoid moving.
+
+----------------------
 
 moveDataOne
 --------------------
