@@ -1,7 +1,7 @@
 AIReport
 =====================
 
-This file includes the ``AIReport`` class, which provides methods for intializing a report, setting and retrieving metadata, performing analysis, and generating reports using JSON or 0MG formatting. 
+This file includes the ``AIReport`` class, which provides methods for intializing a report, setting and retrieving metadata, performing analysis, and generating reports using JSON or 0MQ formatting. 
 
 
 Initialization
