@@ -8,13 +8,16 @@ Standard Libaries
 
     import argparse
     import ast
+    import atexit
     import base64
     import ctypes
     import cv2
+    import getpass
     import json
     import logging
     import math
     import matplotlib.cm as cm
+    import matplotlib.pyplot as plt
     import MySQLdb
     import numpy as np
     import os
@@ -51,11 +54,12 @@ Sub Libraries
     from tensorflow.keras.models import load_model
     from tensorflow.keras.optimizers import SGD, Adadelta
     from tensorflow.keras.preprocessing.image import ImageDataGenerator
-    from tensorflow.keras import backend as K 
+    from tensorflow.keras.models import Sequential, load_model
+    from tensorflow.keras.layers import BatchNormalization, Conv2D, MaxPooling2D, Activation, Flatten, Dropout, Dense, Input
+    from tensorflow.keras.optimizers import SGD, Adadelta
+    from tensorflow.keras.callbacks import TensorBoard, ModelCheckpoint
     from xml.etree.ElementTree import Element
     from xml.etree.ElementTree import tostring
-    
-
 
 Non-Standard Libraries
 ---------------------
@@ -63,11 +67,17 @@ Non-Standard Libraries
 .. code-block:: python
 
     import utils.ConnectToDB as connector
+    import utils.Helpers as helpers
 
     from Entities.Model import Model
     from Entities.Plots import Plots
 
     from multiprocessing import Process
+
+    from gradcam import GradCAM
+    
     from utils.AIReport import AIReport
     from utils import ConnectToDB
+    from utils.ConnectToDB import DBManager
+    from utils.DataPreprocessing import DataPreparation
     
