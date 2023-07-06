@@ -3,7 +3,7 @@ hydra_predict
 
 This file generates a report using the gradcam and AI model. 
 The results of the model are stored in the appropriate location for the keeper.
-
+ 
 .. code-block:: python
 
     def main(argv):

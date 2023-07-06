@@ -40,13 +40,17 @@ Sub Libraries
 .. code-block:: python
 
     from datetime import datetime
+
     from multiprocessing import Process, Value, Array
+
     from shutil import copyfile
     from shutil import move
+
     from sklearn.metrics import classification_report
     from sklearn.model_selection import train_test_split
     from sklearn.preprocessing import LabelBinarizer
     from sklearn.utils import shuffle
+
     from tensorflow import keras
     from tensorflow.keras import backend as K
     from tensorflow.keras.applications.inception_v3 import InceptionV3
@@ -58,6 +62,7 @@ Sub Libraries
     from tensorflow.keras.layers import BatchNormalization, Conv2D, MaxPooling2D, Activation, Flatten, Dropout, Dense, Input
     from tensorflow.keras.optimizers import SGD, Adadelta
     from tensorflow.keras.callbacks import TensorBoard, ModelCheckpoint
+
     from xml.etree.ElementTree import Element
     from xml.etree.ElementTree import tostring
 
@@ -72,12 +77,17 @@ Non-Standard Libraries
     from Entities.Model import Model
     from Entities.Plots import Plots
 
+    from inference_engine import InferenceEngine
+
     from multiprocessing import Process
 
     from gradcam import GradCAM
     
-    from utils.AIReport import AIReport
     from utils import ConnectToDB
+    from utils.AIReport import AIReport
     from utils.ConnectToDB import DBManager
     from utils.DataPreprocessing import DataPreparation
+    from utils.Helpers import printVersions
+    
+    
     
