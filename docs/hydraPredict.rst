@@ -1,343 +1,119 @@
 hydra_predict
 ====================================================
 
-This file generates a report using the gradcam and AI model. 
-The results of the model are stored in the appropriate location for the keeper.
- 
-.. code-block:: python
+This file generates a report using the GradCAM and AI model. 
+It preloads the AI models from the database and performs a prediction and evaluation of the input plots.
+The results of the AI model predictions are reported and stored in the appropriate location for the 'Keeper'.
 
-    def main(argv):
-
-        printVersions()
-
-        pidf = open("/tmp/hydrapid",'w')
-        pidf.write(str(os.getpid()))
-        pidf.close()
-
-        # construct the argument parser and parse the arguments
-        ap = argparse.ArgumentParser()
-
-        ap.add_argument("-D", "--data", required=True,
-        help="Path of image or directory containing the images to be analyzed")
-        ap.add_argument("-d", "--debug", required=False,action="store_true",
-        help="the mode of operation.  Either production or debug")
-        # ----------------------------------------------------------------
-        ap.add_argument("-r", "--runnumber", required=False,
-        help="the run number of the datum")
-        ap.add_argument("-R", "--runperiod", required=False,
-        help="the run period of the datum")
-        # ----------------------------------------------------------------
-        ap.add_argument("-mp", "--modelrootpath", required=False, default="DB",
-        help="the root path to the directory containing the models")
-        ap.add_argument("-o", "--outfile", required=False, default="",
-        help="the outputfile the report file will be written/appended to")
-        ap.add_argument("-od", "--outputdirectory", required=False, default="",
-        help="the outputdirectory the images will be moved to in watch mode")
-        ap.add_argument("-cp", "--configpath", required=False, default="../Hydra.cfg",
-        help="the path to the hydra params file (default set to '../Hydra.cfg'")
-
-        ap.add_argument("-fm", "--forcedmodelid", required=False, default=-1,
-        help="the id of the model you are forcing to be used (default set to '-1' (auto)")
-
-        args = vars(ap.parse_args())
-
-        debug_mode = args["debug"]
-        if(not debug_mode):
-            pidf = open("/tmp/hydrapid",'w')
-            pidf.write(str(os.getpid()))
-            pidf.close()
-
-        configPath = str(args['configpath'])
-        try:
-            with open(configPath) as parms_json:
-                parms=json.load(parms_json)
-
-            transmitPort=parms["COMMUNICATIONS"]["ReportTransmission_Port"]
-            keeperHost=parms["COMMUNICATIONS"]["ReportReceiver_Host"]
-            keeperPort=parms["COMMUNICATIONS"]["Announce_Port"]
-
-            breakfast_path=parms["DATA_LOCATION"]["Breakfast"]
-
-        except Exception as e:
-            print(e)
-            exit(1)
-        hydraHeads = {}
-
-        DBConnector = connector.DBManager(configPath)
-
-        ModelRootPath = args["modelrootpath"]
-        socket.bind("tcp://*:%s" % transmitPort)
-
-        inputDirectory = args["data"]
-        outfile=args["outfile"]
-
-        if args["outputdirectory"]=="":
-            print("ERROR: You have requested Hydra watch a directory but have not given an output directory.  Please supply an output directory (-od) ")
-            return 1
-        elif args["outputdirectory"].upper()=="DELETE":
-            outdir="DELETE"
-        else:
-            outdir=args["outputdirectory"]
-            if outdir[-1] != "/":
-                outdir=outdir+"/"
-            try:
-                os.makedirs(outdir)
-            except FileExistsError:
-                pass
-    
-        OutDir.value=outdir.encode('utf-8')
-
-        parmDict={}
-        parmDict['Input']=args['data']
-        parmDict['OutDir']=str(OutDir.value,'utf-8')
-
-        with open('.hydra_parms.cfg', 'w') as parmsconf:
-            json.dump(parmDict,parmsconf)
-            parmsconf.close()
-    
-        spawns=[]
-        p=Process(target=CheckForKeeper,args=(hasKeeper, keeperHost, keeperPort))
-        p.daemon = True
-        spawns.append(p)
-        spawns[0].start()
-            
-        hydraHeads = PreloadModels(DBConnector, ModelRootPath)
-        print("Model preloading finished...")
-        print(hydraHeads)
-       
-        for head in hydraHeads.keys():
-            print("feeding",head)
-            Breakfast(hydraHeads, head, breakfast_path)
-        print("done feeding hydra")
-        file_check=args["data"].split("/")[-1]
-        if file_check != "":
-            args["data"] += "/"
-        
-        if(os.path.isdir(args["data"])):
-            InDir.value=args["data"].encode('utf-8')
-            while True:
-                try:
-                    with open('.hydra_parms.cfg', 'r') as hydraParams:
-                        parms=json.load(hydraParams)
-                        if 'OutDir' in parms.keys():
-                            OutDir.value=parms['OutDir'].encode('utf-8')
-                        if 'Input' in parms.keys():
-                            InDir.value=parms['Input'].encode('utf-8')
-                except Exception as e:
-                    print(e)
-                    with open('.hydra_parms.cfg', 'w') as hydraParams:
-                        parms={}
-                        parms['OutDir']=str(OutDir.value,'utf-8')
-                        parms['Input']=str(InDir.value,'utf-8')
-                        json.dump(parms,hydraParams)
-                        hydraParams.close()
-                    pass
-                try:
-                    os.makedirs(str(OutDir.value,'utf-8').strip())
-                except FileExistsError:
-                    pass
-                now = int(time.time()*1000)
-
-                if(not os.path.exists(str(InDir.value,'utf-8'))):
-                    print("Input directory not found.  Sleeping 5s...")
-                    time.sleep(5)
-                else:
-                    then = int(time.time()*1000)
-                    try:
-                        inferences = InferenceEngine(DBConnector, InDir.value, hydraHeads=hydraHeads, ForceModel_ID=args["forcedmodelid"]).ANAset
-                    except Exception as e:
-                        print(e)
-                        continue
-                    now = int(time.time()*1000)
-                    t_totalInferences = now - then 
-                    if inferences == None:
-                        continue
-                        
-                    print("Entering report sending loop...")
-                    total_images = 0
-                    
-                    print("Inferences: ", inferences)
-                    for result in inferences:
-                        print("Result: ", result)
-                        model_ID = result[0]
-                        plotType_ID=-1
-                    
-                        if model_ID>0:
-                            plotType_ID_q="SELECT PlotType_ID FROM Models WHERE ID="+str(model_ID)
-                            print("PlotType_ID_q: ", plotType_ID_q)
-                            plotType_ID_result=DBConnector.FetchAll(plotType_ID_q)
-                            print("PlotType_ID_result: ", plotType_ID_result)
-                            try:
-                                plotType_ID=plotType_ID_result[0]['PlotType_ID']
-                                headname_q="SELECT Name,IsChunked from Plot_Types where ID="+str(plotType_ID)
-                                headname_result=DBConnector.FetchAll(headname_q)
-                                headname=headname_result[0]['Name']
-                                if(headname_result[0]['IsChunked']==1):
-                                    headname+="_1"
-                                
-                                modelused=hydraHeads[headname].model
-
-                                
-                            except Exception as e:
-                                print(e)
-                                pass
-
-                        labels_of_model = result[2] 
-                        to_pred = list(result[1]['datum'])
-                        print(to_pred)
-                        for i in range(len(to_pred)):
-                            total_images += 1
-                            preds = result[3][i]
-                            if(USING_GRADCAM):
-                                try:
-                                    gradCAM=GradCAM(modelused,layer_name='mixed10')
-                                    gradCAMheatmap,gradpreds,top_pred_index=gradCAM.get_heatmap(to_pred[i])
-                                except Exception as e:
-                                    print(e)
-                                    gradCAMheatmap=None
-                                    pass
-                            WriteReport(plotType_ID,model_ID,to_pred[i],preds,labels_of_model,outfile,OutDir.value,gradCAMheatmap,debug_mode)
-        else:
-            print("Provided input path",args["data"]," is not a directory. Please provide a directory path.")
---------------------------------
 
 WriteReport
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------
 
-This function writes a report based on the trained AI model and gradcam heat map.
+This method writes the prediction report based on the model's predictions. 
 
 .. code-block:: python
 
-    def WriteReport(plotType_ID,model_ID,to_pred,preds,labels_of_model,outfile,outdir,gradCAMheatmap,debug_mode=False):
-
-    print("Writing Report!")
-    report = AIReport("classification")
-    fileName = to_pred.split('/')[-1]
-    parseIn=to_pred.split("/")
-
-    runNumber=-1
-    runPeriod="NA"
-
-    for bit in parseIn:
-        if ("Run" in bit and not "RunPeriod" in bit) or bit.isnumeric():
-            runNumber=int(bit.replace("Run",""))
-        if "RunPeriod" in bit:
-            runPeriod=bit
+    def WriteReport(plotType_ID,model_ID,to_pred,preds,labels_of_model,outfile,outdir,debug_mode=False):
 
 
-    try:
-        create_time = datetime.fromtimestamp(os.path.getctime(to_pred))
-    except Exception as e:
-        print(e)
-        create_time = datetime.now()
-        pass
-    
-    print("hasKeeperValue: ", hasKeeper.value)
-    if hasKeeper.value != 1 and str(outdir, "utf-8").lower() == "delete":
-        print("keeper not found deleting file: ", to_pred)
-        os.remove(to_pred)
-    
-
-    metaData={"plotType_ID":plotType_ID,"modelID":model_ID, "inDATA":to_pred, "runNumber":runNumber, "runPeriod":runPeriod, "outDir":str(outdir,"utf-8"), "datetime":str(create_time) }
-    if(gradCAMheatmap is not None):
-        heatmap_bytes = np.uint8(255 * gradCAMheatmap).tobytes()
-        _, imgbuffer = cv2.imencode('.png', heatmap_bytes)
- 
-        encoded_gradcam=base64.b64encode(imgbuffer)
-        metaData["gradCAMheatmap"]=str(encoded_gradcam,"utf-8")
-    else:
-        metaData["gradCAMheatmap"]=""
-    report.setMetaData(metaData)
-    preds = [float(x) for x in preds]
-    report.Result(preds, ast.literal_eval(str(labels_of_model,"utf-8")))
-    jsonReport = report.Write("json")
-
-
-    if(not debug_mode):
-        print("Sending Msg: ")
-        socket.send_string("HydraReport"+' '+jsonReport)
-
------------------------------------------
-
-Breakfast
+Parameters
 ~~~~~~~~~~~~~
 
-This function generates augmented data of plots for the AI to implement. 
+- ``plotType_ID``:An integer representing the plot ID in the database. 
+- ``model_ID``: An interger representing the AI model ID in the database. 
+- ``to_pred``: A string representing the path of the image to be predicted. 
+- ``preds``: A list of floats representing the predicted labels for the plots. 
+- ``labels_of_model``: A string representing the labels associated with the AI model. 
+- ``outfile``: A string representing the output file path where the report will be written. 
+- ``outdir``: A string representing the output directory where the plot will be moved. 
+- ``debug_mode``: An optional boolean that will run the script in debug mode when 'True'. Defaults to 'False'.
 
-.. code-block:: python
 
-    def Breakfast(hydraHeads, headkey, breakfast_path):
-    try:
-        to_pred=pd.DataFrame(columns=["datum"])
-        to_pred=to_pred.append({"datum":breakfast_path}, ignore_index=True)
+Example Usage
+~~~~~~~~~~~~~~~~~~
 
-        inputShape_parse=hydraHeads[headkey].shape[+1:-1].split(",")
-        imgheight=int(inputShape_parse[0].strip())
-        imgwidth=int(inputShape_parse[1].strip())
-        color_mode="rgb"
-        if(int(inputShape_parse[2].strip())==1):
-            color_mode="grayscale"
+.. code-block:: python 
 
-        test_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1./255)
-        test_generator = test_datagen.flow_from_dataframe(
-                dataframe=to_pred,
-                directory=None,
-                x_col="datum",
-                target_size=(imgheight,imgwidth),
-                color_mode=color_mode,
-                batch_size=1,
-                class_mode=None,
-                shuffle=False)
-        test_generator.reset()
-        preds=hydraHeads[headkey].model.predict(test_generator,verbose=1,steps=test_generator.n)
-    except:
-        print("Error in Breakfast")
-        pass
-----------------------------
+    WriteReport(plotType_ID,model_ID,to_pred[i],preds,labels_of_model,outfile,OutDir.value,gradCAMheatmap,debug_mode)
+
+
+--------------------------------------------
+
+Breakfast 
+---------------
+
+This method performs a prediction using a specified AI model and dataset. 
+
+.. code-block:: python 
+
+    def Breakfast(hydraHeads, headkey):
+
+
+Parameters
+~~~~~~~~~~~~~~~~~~~~
+
+- ``hydraHeads``: A dictionary which contains the AI model instances. 
+- ``headkey``: A string representing the key to access the specific AI model instances.
+
+Example Usage 
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python 
+
+    breakfast_path=parms["DATA_LOCATION"]["Breakfast"]
+
+
+----------------------------------------------
 
 CheckForKeeper
-~~~~~~~~~~~~~~~~~
-
-This function confirms whether the keeper is available to receive the report. 
-
-.. code-block:: python
-
-    def CheckForKeeper(hasKeeper,keeperHost,keeperPort):
-        recvport=int(keeperPort)
-        recvconnection="tcp://"+keeperHost
-        recvcontext= zmq.Context()
-        print("Listening to "+recvconnection+" on port "+str(recvport))
-        recvsocket=recvcontext.socket(zmq.SUB)
-        recvsocket.setsockopt(zmq.SUBSCRIBE, b"")
-        recvsocket.connect(recvconnection+":"+str(recvport))
-        while True:
-            message=str(recvsocket.recv(),"utf8")
-            hasKeeper.value=1
-            
 ------------------
 
+This method checks for the presence of a 'Keeper' by listening to a specified connection and port. 
+
+.. code-block:: python 
+
+    def CheckForKeeper(hasKeeper,keeperHost,keeperPort):
+
+
+Parameters 
+~~~~~~~~~~~~~~~~~~
+
+- ``hasKeeper``: A Value object (integer) indicating the presence of a Keeper process. 
+- ``keeperHost``: A string representing the hostname or IP address of the Keeper process. 
+- ``keeperPort``: An integer representing the port number on which the Keeper process is running. 
+
+
+Example Usage 
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python 
+
+     p=Process(target=CheckForKeeper,args=(hasKeeper, keeperHost, keeperPort))
+
+
+-----------------------------------------------------
+
 PreloadModels
-~~~~~~~~~~~~~~~
+---------------
 
-This function fetches active model IDs to load models for processing. 
+ This method preloads the AI models from the database and returns them as a dictionary. 
 
-.. code-block:: python
+ .. code-block:: python
 
     def PreloadModels(DBConnector, ModelRootPath):
-    print("Model preloading started...")
-    hydraHeads = {}
-    then=int(time.time()*1000.0)
-    data_to_analyze_q="SELECT * FROM Plot_Types where Active_Model_ID IS NOT NULL;"
-    data_to_analyze = DBConnector.FetchAll(data_to_analyze_q)
-    for d in data_to_analyze:
-        headkey=str(d["Name"])
-        if(d["IsChunked"] == 1):
-            headkey += "_1"
-        modelInstance = Model(DBConnector, modelID=d["Active_Model_ID"], modelRootPath=ModelRootPath)
-        if modelInstance.model == None:
-            
-            print("Model could not be loaded with ID ", d["Active_Model_ID"])
-        else:
-            hydraHeads[headkey] = modelInstance
-    return hydraHeads
---------------------------
+
+
+Parameters 
+~~~~~~~~~~~~~~~
+
+- ``DBConnector``: An object represents the connector for the database that is responsible for executing queries
+- ``ModelRootPath``: A string representing the root path to the directory containing the AI models. 
+
+Example Usage   
+~~~~~~~~~~~~~
+
+.. code-block:: python 
+
+    hydraHeads = PreloadModels(DBConnector, ModelRootPath)
+
+
