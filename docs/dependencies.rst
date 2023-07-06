@@ -24,6 +24,10 @@ Standard Libaries
     import pandas as pd
     import pickle
     import platform
+    import plotly
+    import plotly.figure_factory as ff
+    import plotly.graph_objs as go
+    import plotly.io as pio
     import random
     import select
     import subprocess 
@@ -41,12 +45,17 @@ Sub Libraries
 
     from datetime import datetime
 
+    from imutils import paths
+
     from multiprocessing import Process, Value, Array
+
+    from plotly.subplots import make_subplots
 
     from shutil import copyfile
     from shutil import move
 
     from sklearn.metrics import classification_report
+    from sklearn.metrics import f1_score
     from sklearn.model_selection import train_test_split
     from sklearn.preprocessing import LabelBinarizer
     from sklearn.utils import shuffle

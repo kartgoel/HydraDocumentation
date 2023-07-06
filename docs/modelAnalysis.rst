@@ -3,7 +3,7 @@ model_analysis
 
 This file analyzes and reports various characteristics about the trained AI model. 
 
-It ensures that the trained AI model is consistently labeling the same plots  
+It ensures that the trained AI model is consistently labeling the same plots. 
 
 It compares the classification of plots by Experts versus the trained AI model to identify agreements and discrepancies. 
 This data is added to an array that contains the Expert’s opinion (Good/Bad) on one axis and the AI’s label (Good/Bad) on the other, and number of overlaps are seen in each cell. 
