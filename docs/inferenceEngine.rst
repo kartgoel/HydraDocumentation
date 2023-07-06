@@ -33,14 +33,14 @@ The ``__init__`` method initializes the ``InferenceEngine`` object.
 Parameters 
 ~~~~~~~~~~~~~~~~~~~~~
 
-- ``DBConnector``: An object used to connect to the database
+- ``DBConnector``: An object representing the connector for the database that executes queries.
 - ``data``:A string representing the path to plots for analysis.  
 - ``debug_mode``: An optional boolean flag indicating whether or not the debug mode is enabled. 
-- ``ModelRootPath``: An optional string representing the root path to the AI models in the database. Defaultis DB. 
+- ``ModelRootPath``: An optional string representing the root path to the AI models in the database. Default is DB. 
 - ``ChunkNumber``: An optional integer representing the number of chunks to process. Default is 0. 
 - ``ForceModel_ID``: An optional integer representing the ID of the model to evaluate.
 - ``forcedPlotType``: An optional string representing a specified plot type for analysis. Default is 'None'.                                                                              
-- ``outfile``: An optional string representing the name of the report file. Defaults is an empty string. 
+- ``outfile``: An optional string representing the name of the report file. Default is an empty string. 
 - ``hydraHeads``: An optional object containing additional model instances.
 
 
@@ -60,7 +60,7 @@ This method performs data analysis and predictions on the given data.
 Parameters
 ~~~~~~~~~~~~~~~~~~~~
 
-- ``DBConnector``: An object used to connect to the database. 
+- ``DBConnector``: An object representing the connector for the database that executes queries. 
 - ``plots``: An object that contains inofrmation about the plots to be analyzed. 
 - ``debug_mode``: An optional boolean flag indicating whether or not the debug mode is enabled. 
 - ``ForceModel_ID``: An optional integer representing the ID of the model to evaluate.
