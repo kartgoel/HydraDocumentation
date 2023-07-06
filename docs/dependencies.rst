@@ -38,19 +38,16 @@ Sub Libraries
 
     from datetime import datetime
     from multiprocessing import Process, Value, Array
+    from shutil import copyfile
+    from shutil import move
     from sklearn.metrics import classification_report
     from sklearn.model_selection import train_test_split
     from sklearn.preprocessing import LabelBinarizer
     from sklearn.utils import shuffle
-    from shutil import move
     from tensorflow import keras
+    from tensorflow.keras import backend as K
     from tensorflow.keras.applications.inception_v3 import InceptionV3
     from tensorflow.keras.callbacks import EarlyStopping
-
-
-    from tensorflow.keras import backend as K
-    from shutil import copyfile
-
     from tensorflow.keras.models import load_model
     from tensorflow.keras.optimizers import SGD, Adadelta
     from tensorflow.keras.preprocessing.image import ImageDataGenerator
