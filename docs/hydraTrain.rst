@@ -2,8 +2,8 @@ hydra_train
 ======================
 
 This file trains Hydra models based on GPU availability.
-It prepares the data by normalizing pixel values and loads the models on avaiable GPUs.
-Loss and accuracy of training and validation are used to evaluate training. 
+It prepares the data by normalizing pixel values and loads the models on available GPUs.
+The loss of training and validation accuracy are used to evaluate training. 
 
 removeLabelfromDataset
 -----------------------
@@ -21,8 +21,8 @@ This method removes a given label from a given dataset.
 Parameters
 ~~~~~~~~~~~
 
-- ``dataset``: A Pandas DataFrame that represents the rows from which labels need to be removed.
-- ``label``: A string that represents the label that needs to be removed from the data set.
+- ``dataset``: A Pandas DataFrame representing the rows from which labels need to be removed.
+- ``label``: A string representing the label that needs to be removed from the data set.
 
 -------------------
 
@@ -48,9 +48,9 @@ This method moves data from an input location to an output location excluding a 
 Parameters
 ~~~~~~~~~~~
 
-- ``from_dataset``: A Pandas DataFrame that represents the input location of the data.
-- ``to_dataset``: A Pandas DataFrame that represents the output location of the data.
-- ``label``: A string which represents the label to avoid moving.
+- ``from_dataset``: A Pandas DataFrame representing the input location of the data.
+- ``to_dataset``: A Pandas DataFrame representing the output location of the data.
+- ``label``: A string representing the label to avoid moving.
 
 ----------------------
 
@@ -74,6 +74,6 @@ This method moves data from an input location to an output location that matches
 Parameters
 ~~~~~~~~~~~
 
-- ``from_dataset``: A Pandas DataFrame that represents the input location of the data.
-- ``to_dataset``: A Pandas DataFrame that represents the output location of the data.
-- ``label``: A string which represents the label to move.
+- ``from_dataset``: A Pandas DataFrame representing the input location of the data.
+- ``to_dataset``: A Pandas DataFrame representing the output location of the data.
+- ``label``: A string representing the label to move.

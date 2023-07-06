@@ -2,7 +2,7 @@ hydra_feeder
 ==============
 
 This file formats existing images and directories to desired properties by connecting to the server and using a parser.
-The resized files are stored for hydra_predict to reference and the original files are deleted.
+The resized files are stored for hydra_predict to reference, and the original files are deleted.
 
 find_files
 ------------
@@ -43,7 +43,7 @@ This method formats existing images to the desired properties based on a model a
 Parameters
 ~~~~~~~~~~~~~~
 
-- ``orig_img``: A string that represents the path to the file original image
+- ``orig_img``: A string representing the path to the file original image
 - ``model_to_use``: A string representing a model ID or enter "AUTO" to use the databse settings
 - ``force_x``: A string representing the width of the resized image
 - ``force_y``: A string representing the height of the resized image

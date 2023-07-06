@@ -40,7 +40,7 @@ It can perform label balancing based on the number of bad examples.
 Parameters
 ~~~~~~~~~~~~~~~~~~~~~
 
-- ``all_df``: A Pandas datafram containing all the available data that can be split into train and test sets. 
+- ``all_df``: A Pandas dataframe containing all the available data that can be split into train and test sets. 
 - ``trainamt``: A float value between 0 and 1 representing the fraction of the data to be used as training data. 
 - ``BS``: An integer representing the batch size. 
 - ``type``: An optional string specifying the type of split to perform. The options are "normal" (default), "undersample", "subsample", and "supersample". 

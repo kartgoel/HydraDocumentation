@@ -21,13 +21,13 @@ Parameters
 ~~~~~~~~~~~~~
 
 - ``plotType_ID``:An integer representing the plot ID in the database. 
-- ``model_ID``: An interger representing the AI model ID in the database. 
+- ``model_ID``: An integer representing the AI model ID in the database. 
 - ``to_pred``: A string representing the path of the image to be predicted. 
 - ``preds``: A list of floats representing the predicted labels for the plots. 
 - ``labels_of_model``: A string representing the labels associated with the AI model. 
 - ``outfile``: A string representing the output file path where the report will be written. 
 - ``outdir``: A string representing the output directory where the plot will be moved. 
-- ``debug_mode``: An optional boolean that will run the script in debug mode when 'True'. Defaults to 'False'.
+- ``debug_mode``: An optional boolean that will run the script in debug mode when 'True'. Default is 'False'.
 
 
 Example Usage
@@ -79,7 +79,7 @@ This method performs a prediction using a specified AI model and dataset.
 Parameters
 ~~~~~~~~~~~~~~~~~~~~
 
-- ``hydraHeads``: A dictionary which contains the AI model instances. 
+- ``hydraHeads``: A dictionary containing the AI model instances. 
 - ``headkey``: A string representing the key to access the specific AI model instances.
 
 Example Usage 
@@ -162,7 +162,7 @@ PreloadModels
 Parameters 
 ~~~~~~~~~~~~~~~
 
-- ``DBConnector``: An object represents the connector for the database that is responsible for executing queries
+- ``DBConnector``: An object representing the connector for the database that is responsible for executing queries
 - ``ModelRootPath``: A string representing the root path to the directory containing the AI models. 
 
 Example Usage   

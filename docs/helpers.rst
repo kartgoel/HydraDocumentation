@@ -20,7 +20,7 @@ This method configures the TensorFlow library settings along with configuring GP
 printSampleCounts
 -----------------
 
-This method prints the respective samples in the given data frames.
+This method prints the respective samples in the given dataframes.
 
 
 .. code-block:: python
@@ -49,9 +49,9 @@ Parameters
 ~~~~~~~~~~~~
 
 - ``plotClassifications``: A list representing the classifications of the plots
-- ``training_dataframe``: The dataframe of the training data
-- ``validation_dataframe``: The dataframe of the validation data
-- ``test_dataframe ``: An optional data frame of the test data
+- ``training_dataframe``: A Pandas DataFrame of the training data
+- ``validation_dataframe``: A Pandas DataFrame of the validation data
+- ``test_dataframe``: An optional dataframe of the test data
 
 ---------------
 
@@ -70,9 +70,9 @@ If a testing dataframe is unavailable, the validation dataframe is used to predi
 Parameters
 ~~~~~~~~~~~~~
 
-- ``training_dataframe``: The dataframe of the training data
-- ``validation_dataframe``: The dataframe of the validation data
-- ``test_dataframe ``: An optional data frame of the test data
-- ``BS``: The generators' batch size which has a default value of 32.
+- ``training_dataframe``: A Pandas DataFrame of the training data
+- ``validation_dataframe``: A Pandas DataFrame of the validation data
+- ``test_dataframe``: An optional dataframe of the test data
+- ``BS``: The generators' batch size. Defaults to 32.
 
 

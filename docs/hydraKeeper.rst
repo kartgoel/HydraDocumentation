@@ -36,8 +36,8 @@ This method constantly announces the Keeper's activation in the system.
 Parameters
 ~~~~~~~~~~
 
-- ``context``: This ZMQ context represents the connections required for creating the sockets.
-- ``announcePort``: This integer represents the port on which the announcment for the keeper should be made.
+- ``context``: A ZMQ context representing the connections required for creating the sockets.
+- ``announcePort``: An integer representing the port on which the keeper's announcement should be made.
 
 ----------------------------
 
@@ -72,9 +72,9 @@ This method constructs and SQL query based on the parameters, executes the query
 Parameters
 ~~~~~~~~~~~~~~
 
-- ``DBConnector``: An object represents the connector for the database that is responsible for executing queries
-- ``fileName``: A string that represents name of the file.
-- ``fileType``: A string that represents type of the file.
+- ``DBConnector``: An object representing the connector for the database that is responsible for executing queries
+- ``fileName``: A string representing name of the file.
+- ``fileType``: A string representing type of the file.
 - ``isChunked``: A boolean representing whether the file is chunked or not.
 
 ---------------------------------------------------
@@ -100,8 +100,8 @@ Parameters
 ~~~~~~~~~~~~
 
 - ``Model_config``: A dictionary representing the configuration of the model.
-- ``AIReport``: An AIReport object representing the AI Report
-- ``VerdictConfidence``: A float representing the confidence percentage of the verdict
+- ``AIReport``: An AIReport object representing the AI Report. 
+- ``VerdictConfidence``: A float representing the confidence percentage of the verdict. 
 
 --------------------------
 
@@ -135,7 +135,7 @@ Parameters
 SetStore
 ------------
 
-This method uses the AI model to decide whether to keep the plot or not.
+This method uses the AI model to decide whether or not to keep the plot.
 
 .. code-block:: python
 
@@ -166,7 +166,7 @@ Parameters
 - ``RunNumber``: An integer representing the run number.
 - ``RunPeriod``: A dictionary representing the metadata of the AI report.
 - ``outputlocation``: A string representing the name of the output location.
-- ``test_mode``: A boolean representing if the script is active or not.
+- ``test_mode``: A boolean representing whether the script is active.
 
 --------------------------
 

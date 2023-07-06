@@ -2,7 +2,7 @@ run_gradCAM
 =====================
 
 This file uses a parser to generate a GradCAM to analyze and process present images.
-Processed data is reported back to the database through a run time while logged messages are recorded.
+The processed data is reported back to the database through a run time while logged messages are recorded.
 
 .. code-block:: python 
 

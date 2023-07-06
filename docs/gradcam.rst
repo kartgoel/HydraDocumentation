@@ -138,7 +138,7 @@ Parameters
 
 - ``path_to_image``: A string representing the path to the image file. 
 - ``plot_type_id``: An integer representing the plot ID in the datbase. 
-- ``model_id``: An interger representing the model ID in the database. This is set to -1 if no model is available. 
+- ``model_id``: An integer representing the model ID in the database. This is set to -1 if no model is available. 
 - ``runnum``: An optional integer representing the run number 
 
 

@@ -50,8 +50,8 @@ The ``TrainingWeight`` column in the database will be updated with the calculate
 Parameters
 ~~~~~~~~~~~~~~~~~~
 
-- ``runPeriodSubstring``: A string represnting desired run period from the database.
-- ``Trainingfraction`` A float represnting a percentage of the data being used for training models. The remaining percentage of data will be utilized for testing the models.
+- ``runPeriodSubstring``: A string representing the desired run period from the database.
+- ``Trainingfraction``: A float represnting a percentage of the data being used for training models. The remaining percentage of data will be utilized for testing the models.
 
 Example Usage
 ~~~~~~~~~~~~~
@@ -66,7 +66,7 @@ TrainTestSplit2
 -----------------
 
 This method assigns training weights to specific plots in the database which are used to train and test models.
-The board information is retreived from the file and split into training and testing sets.
+The board information is retrieved from the file and split into training and testing sets.
 The ``TrainingWeight`` column in the database will be updated with the calculated training weights.
 
 .. code-block:: python
@@ -77,7 +77,7 @@ Parameters
 ~~~~~~~~~~~~~~
 
 - ``logfileWithPath``: A string representing the path of the file containg a log of the boards.
-- ``trainingFraction`` A float representing the percentage of boards being used for training models. The remaining percentage of data will be utilized for testing the models.
+- ``trainingFraction``: A float representing the percentage of boards being used for training models. The remaining percentage of data will be utilized for testing the models.
 
 Example Usage
 ~~~~~~~~~~~~~~~~
