@@ -10,10 +10,26 @@ Check out the Github for further information.
 
    This project is under active development.
 
+.. toctree::
+   :hidden:
+   :caption: 🖥️HTML Utils
+
+   help
+   label
+
+   
+.. toctree::
+   :hidden:
+   :caption: 📄HTML Pages
+   
+   hydraRun
+   library
+   labeler
+
 
 .. toctree::
    :hidden:
-   :caption: 📚Libraries
+   :caption: 📚Hydra Libraries
    
    connectToDB
    aiReport
@@ -24,7 +40,7 @@ Check out the Github for further information.
 
 .. toctree::
    :hidden:
-   :caption: 📝Scripts  
+   :caption: 📝Hydra Scripts  
 
    schemaSync
    startHydra
@@ -43,7 +59,7 @@ Check out the Github for further information.
 
 .. toctree::
    :hidden:
-   :caption: 🔧Utils
+   :caption: 🔧Hydra Utils
 
    dependencies
    databaseConfig
