@@ -10,6 +10,25 @@ Check out the Github for further information.
 
    This project is under active development.
 
+
+
+
+.. toctree::
+   :hidden:
+   :caption: HTML Scripts
+
+   labeler
+   library
+   hydraRun
+
+
+.. toctree::
+   :hidden:
+   :caption: HTML Integration
+
+
+
+
 .. toctree::
    :hidden:
    :caption: 🖥️HTML Utils

@@ -1,4 +1,4 @@
-label
+label 
 =================
 
 This file contains classes and IDs that are referenced later on in html files for formatting purposes.
@@ -15,6 +15,8 @@ This file contains classes and IDs that are referenced later on in html files fo
 
 - Remove the navbar's default margin-bottom and rounded borders
 
+--------------------------
+
 .row.content
 --------------
 
@@ -23,6 +25,8 @@ This file contains classes and IDs that are referenced later on in html files fo
     .row.content {height: 450px}
 
 - Set height of the grid so .sidenav can be 100% (adjust as needed)
+
+--------------------------
 
 .sidenav
 ----------
@@ -37,6 +41,8 @@ This file contains classes and IDs that are referenced later on in html files fo
 
 - Set gray background color and 100% height
 
+--------------------------
+
 footer
 -----------
 
@@ -49,6 +55,8 @@ footer
     }
     
 - Set black background color, white text and some padding
+
+--------------------------
 
 @media screen
 --------------
@@ -65,6 +73,8 @@ footer
 
 - On small screens, set height to 'auto' for sidenav and grid
 
+--------------------------
+
 .zoom
 --------------
 
@@ -80,6 +90,8 @@ footer
 - 0 margins on top and margin-bottom
 - Horizontally center
 
+--------------------------
+
 :hover
 ~~~~~~~~~~~~~~~~
 
@@ -93,6 +105,8 @@ footer
 
 - Scale factor of 2
 - Absolute position
+
+--------------------------
 
 .LeaderLabel
 ------------
@@ -108,6 +122,8 @@ footer
 - 20px font size
 - Bolded font
 
+--------------------------
+
 .Leader
 -------------
 
@@ -121,6 +137,8 @@ footer
 
 - 32px font size
 - Bolded font
+
+--------------------------
 
 #Plot_Type
 -------------
@@ -163,6 +181,8 @@ footer
 - Removes default Firefox and WebKit characteristics
 - White background with image and gradient
 - Background repeat, position, and size properties
+
+--------------------------
 
 .select-css
 -------------
@@ -218,6 +238,8 @@ option
 
 - Normal font weight
 
+--------------------------
+
 .switch-field
 --------------
 
@@ -263,10 +285,14 @@ input:checked + label
 - Light green background color
 - No shadow
 
+--------------------------
+
 label
 ~~~~~~~~~~~~
 
-.switch-field label {
+.. code-block:: css
+
+  .switch-field label {
         background-color: #e4e4e4;
         color: rgba(0, 0, 0, 0.6);
         font-size: 14px;
@@ -293,6 +319,7 @@ label:hover
 ~~~~~~~~~~~~~~
 
 .. code-block:: css
+
     .switch-field label:hover {
         cursor: pointer;
     }
@@ -303,6 +330,7 @@ label:first-of-type
 ~~~~~~~~~~~~~~~~~
 
 .. code-block:: css
+
     .switch-field label:first-of-type {
         border-radius: 4px 0 0 4px;
     }
@@ -313,16 +341,20 @@ label:last-of-type
 ~~~~~~~~~~~~~
 
 .. code-block:: css
+    
     .switch-field label:last-of-type {
         border-radius: 0 4px 4px 0;
     }
 
 - Right corners have border radii of 4px
 
+--------------------------
+
 #logo
 -------------
 
 .. code-block:: css
+   
     #logo
     {
     margin:-9px;
@@ -337,6 +369,8 @@ label:last-of-type
 - Auto height
 - 100px width
 - Float aligns left
+
+--------------------------
 
 .color
 ------------
@@ -382,6 +416,8 @@ label:last-of-type
       - Dark Blue
       - None
 
+--------------------------
+
 .gridColor
 --------------
 
@@ -426,6 +462,8 @@ label:last-of-type
       - Dark Blue
       - None
 
+--------------------------
+
 .active
 -----------
 
@@ -437,6 +475,8 @@ label:last-of-type
     }
 
 - No shadow
+
+--------------------------
 
 .img-grid
 -------------
@@ -461,6 +501,8 @@ label:last-of-type
 - Horizontal and vertical scrolling
 - Horizontally centered
 
+--------------------------
+
 #context_cntnr
 ------------
 
@@ -473,6 +515,8 @@ label:last-of-type
 
 - Element hidden
 - Fixed position
+
+--------------------------
 
 .colorpicker
 -----------
@@ -487,6 +531,9 @@ label:last-of-type
 
 - Solid black border
 - 200px width and height
+
+
+--------------------------
 
 #colorSelector
 ------------
