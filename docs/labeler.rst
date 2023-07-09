@@ -362,7 +362,7 @@ Parameters
 populate_selectors.php 
 ~~~~~~~~~~~~~~~~~
 
-This segment 
+This segment is calling a php file, which can be found here: :ref:'populateSelectors'
 
 .. code-block:: html 
 

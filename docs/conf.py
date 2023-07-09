@@ -46,3 +46,9 @@ def setup(app):
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
+
+# -- Allow Auto Hyperlinking to subheadings
+extensions = [
+    'sphinx.ext.autosectionlabel'
+]
+autosectionlabel_prefix_document = True

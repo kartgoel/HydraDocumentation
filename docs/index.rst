@@ -27,6 +27,8 @@ Check out the Github for further information.
    :caption: HTML Integrators
 
    populateSelectors
+   getLeaderBoard
+   login
 
 
 .. toctree::

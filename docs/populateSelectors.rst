@@ -77,4 +77,5 @@ This php file is called in the :ref:'labeler:PopulateSelector' function from the
 Parameter
 ~~~~~~~~~~~~~~~~~~
 
-- ``Experiment``: A string representing which experiment to pull data for. 
+- ``Experiment``: A string representing which experiment to configure parameters for. 
+- ``Selector``: A string to determine what SQL query is performed. 
