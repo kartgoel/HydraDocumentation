@@ -1,4 +1,4 @@
-.. getLeaderBoard:
+.. _getLeaderBoard:
 
 getLeaderBoard
 =========================

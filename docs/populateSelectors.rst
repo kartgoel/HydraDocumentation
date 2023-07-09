@@ -1,4 +1,4 @@
-.. populateSelectors:
+.. _populateSelectors:
 
 populate_selectors
 =======================

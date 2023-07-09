@@ -342,7 +342,7 @@ Example Usage
 
 ------------------------------------------------------
 
-.. populateSelector:
+.. _populateSelector:
 
 populateSelector
 -------------
@@ -411,7 +411,7 @@ Example Usage
 
 ------------------------------------------------------
 
-.. getLeader:
+.. _getLeader:
 
 getLeader
 -------------
@@ -701,7 +701,7 @@ Example Usage
 
 ------------------------------------------------------
 
-.. Login:
+.. _Login:
 
 Login
 -------------
