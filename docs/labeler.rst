@@ -342,6 +342,8 @@ Example Usage
 
 ------------------------------------------------------
 
+.. populateSelector:
+
 populateSelector
 -------------
 

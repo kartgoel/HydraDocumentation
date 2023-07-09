@@ -1,10 +1,12 @@
+.. populateSelectors:
+
 populate_selectors
 =======================
 
 This php file retrieves data from the Hydra database based on the specified experiment and selector. 
 It connects to the database, executes the SQL query, and returns the result in JSON format. 
 
-This php file is called in the :ref:'labeler:PopulateSelector' function from the **labeler.html** file. 
+This php file is called in the :ref:'PopulateSelector' function from the **labeler.html** file. 
 
 .. code-block:: php
 
