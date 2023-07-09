@@ -364,7 +364,7 @@ Parameters
 populate_selectors.php 
 ~~~~~~~~~~~~~~~~~
 
-This segment is calling a php file, which can be found here: :ref:'populateSelectors'
+This segment is calling a php file, which can be found here: :ref:`populateSelectors``
 
 .. code-block:: html 
 
@@ -410,6 +410,8 @@ Example Usage
     SetBrushColor(pal.childNodes[new_index])
 
 ------------------------------------------------------
+
+.. getLeader:
 
 getLeader
 -------------
@@ -698,6 +700,8 @@ Example Usage
 
 
 ------------------------------------------------------
+
+.. Login:
 
 Login
 -------------

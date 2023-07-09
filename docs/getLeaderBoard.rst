@@ -1,10 +1,12 @@
+.. getLeaderBoard:
+
 getLeaderBoard
 =========================
 
 This php file retrieves data from the Hydra database based on the specified experiment, plot, and selector. 
 It connects to the database, executes the SQL query, and returns the results in JSON format. 
 
-This php file is called in the :ref:'labeler:GetLeader' function from the **labeler.html** file. 
+This php file is called in the :ref:`GetLeader` function from the **labeler.html** file. 
 
 .. code-block:: php 
 
