@@ -431,7 +431,7 @@ Parameter
 getLeaderBoard.php
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This segment 
+This segment is calling a php file, which can be found here: :ref:`getLeaderBoard`
 
 .. code-block:: html 
 
@@ -701,7 +701,7 @@ Example Usage
 
 ------------------------------------------------------
 
-.. _Login:
+.. _loginFunc:
 
 Login
 -------------
@@ -716,7 +716,7 @@ This function performs a login action for the user, sending an AJAX request to t
 login.php
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-This segment 
+This segment is calling a php file, which can be found here: :ref:`loginphp`
 
 .. code-block:: html 
 
