@@ -15,7 +15,7 @@ Check out the Github for further information.
 
 .. toctree::
    :hidden:
-   :caption: HTML Scripts
+   :caption: 📄HTML Scripts
 
    labeler
    library
@@ -35,15 +35,6 @@ Check out the Github for further information.
 
    help
    label
-
-   
-.. toctree::
-   :hidden:
-   :caption: 📄HTML Pages
-   
-   hydraRun
-   library
-   labeler
 
 
 .. toctree::
