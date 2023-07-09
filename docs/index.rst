@@ -26,7 +26,7 @@ Check out the Github for further information.
    :hidden:
    :caption: HTML Integrators
 
-   populateSelector
+   populateSelectors
 
 
 .. toctree::
