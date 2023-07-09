@@ -24,9 +24,9 @@ Check out the Github for further information.
 
 .. toctree::
    :hidden:
-   :caption: HTML Integration
+   :caption: HTML Integrators
 
-
+   populateSelector
 
 
 .. toctree::
