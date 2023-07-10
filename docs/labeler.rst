@@ -1,7 +1,13 @@
+.. _labelerHTML:
+
 labeler
 ===================
 
-This file 
+This file allows experts to use Hydra's web-based labeler, assigning a label leader to each plot type.  
+It creates the various dropdown bars for selecting which experiments and plots the user will label, as well as the dropwdown bar for selecting a label. 
+It also generates the page with images, formatting them as needed.
+
+To learn about using the web-based labeler, see here: :ref:`labelerFE`
 
 RecordLastType
 ---------------------
@@ -30,7 +36,7 @@ setExp
 
 This function sets the experiment based on the current URL and updates the corresponding experiment logo. 
 
-.. code-block:: css
+.. code-block:: html
 
     // Extended code found on GitHub 
     function setExp()
@@ -350,6 +356,9 @@ populateSelector
 This function populates the selector element with options retrieved from a server-side script. 
 It fetches the options data and create the corresponding HTML elements. 
 
+It also calls a php file, which can be found here: :ref:`populateSelectors`
+
+
 .. code-block:: html
 
     // Extended code found on GitHub
@@ -360,20 +369,6 @@ Parameters
 
 - ``id``: A string representing the selector element to populate.
 - ``plotType``: An optional string representing the selected plot type to pass to the server-side script. 
-
-populate_selectors.php 
-~~~~~~~~~~~~~~~~~
-
-This segment is calling a php file, which can be found here: :ref:`populateSelectors`
-
-.. code-block:: html 
-
-        php_call="./php/populate_selectors.php?Experiment="+Experiment+"&Selector="+id
-        if(plotType!="")
-        {
-            php_call+="&SelectedPlot="+plotType;
-        }
-
 
 Example Usage
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -418,24 +413,51 @@ getLeader
 
 This function retrieves the leader for a specific plot from the server, updating the listed leader on a page with their username. 
 
+It also calls a php file, which can be found here: :ref:`getLeaderBoard`
+
 .. code-block:: html
 
-    // Extended code found on GitHub
-    function getLeader(Plot)
+            function getLeader(Plot)
+            {
+                if (window.XMLHttpRequest) {
+                        // code for IE7+, Firefox, Chrome, Opera, Safari
+                        xmlhttp = new XMLHttpRequest();
+                    } else {
+                        // code for IE6, IE5
+                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    xmlhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            //console.log(this.responseText)
+                            if(this.responseText != "")
+                            {
+                                returned_Leader=JSON.parse(this.responseText);
+                                console.log(returned_Leader)
+                                if(returned_Leader.length==1)
+                                {
+                                    document.getElementById("leader").innerHTML=returned_Leader[0].User
+                                }
+                                else
+                                {
+                                    document.getElementById("leader").innerHTML="No leader.  Get to labeling!"
+                                }
+                            }
+                            
+                        }
+                    };
+                    
+                     
+                    //console.log("populate_selectors.php?Selector="+id)
+                    php_call="./php/getLeaderBoard.php?Experiment="+Experiment+"&Plot="+Plot
+                    console.log(php_call);
+                    xmlhttp.open("GET",php_call,true);
+                    xmlhttp.send();
+            }
 
 Parameter
 ~~~~~~~~~~~~~~
 
-- ``Plot``: A string representing which plot to retreive the leader for. 
-
-getLeaderBoard.php
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This segment is calling a php file, which can be found here: :ref:`getLeaderBoard`
-
-.. code-block:: html 
-
-        php_call="./php/getLeaderBoard.php?Experiment="+Experiment+"&Plot="+Plot
+- ``Plot``: A string representing which plot to retrieve the leader for. 
 
 Example Usage
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -708,19 +730,36 @@ Login
 
 This function performs a login action for the user, sending an AJAX request to the server to verify the user and retrieve the permitted plots for the selected experiment. 
 
+It also calls a php file, which can be found here: :ref:`loginphp`
+
 .. code-block:: html
 
-    // Extended code found on GitHub
-    function Login()
-
-login.php
-~~~~~~~~~~~~~~~~~~~~~~~
-
-This segment is calling a php file, which can be found here: :ref:`loginphp`
-
-.. code-block:: html 
-
-    php_call="./php/login.php?Experiment="+Experiment
+            function Login()
+            {
+            
+                if (window.XMLHttpRequest) {
+                        // code for IE7+, Firefox, Chrome, Opera, Safari
+                        xmlhttp = new XMLHttpRequest();
+                    } else {
+                        // code for IE6, IE5
+                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    xmlhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            //console.log(this.responseText)
+                            if(this.responseText != "")
+                            {
+                                permitted_plots=JSON.parse(this.responseText)
+                                populateSelector("Plot_Type");
+                            }
+                        }
+                    };
+                    
+                    //console.log("populate_selectors.php?Selector="+id)
+                    php_call="./php/login.php?Experiment="+Experiment
+                    xmlhttp.open("GET",php_call,true);
+                    xmlhttp.send();
+            }
 
 Example Usage
 ~~~~~~~~~~~~~~~~~~~~~~~~

@@ -11,11 +11,16 @@ Check out the Github for further information.
    This project is under active development.
 
 
+.. toctree::
+   :hidden:
+   :caption: 🧑User Interface
+
+   labelerFE
 
 
 .. toctree::
    :hidden:
-   :caption: 📄HTML Scripts
+   :caption: 📄HTML Pages
 
    labeler
    library
@@ -24,7 +29,7 @@ Check out the Github for further information.
 
 .. toctree::
    :hidden:
-   :caption: HTML Integrators
+   :caption: 🤖HTML Integrators
 
    populateSelectors
    getLeaderBoard
