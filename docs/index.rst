@@ -14,6 +14,7 @@ deploying machine learning models for real time data quality monitoring.
 
 Check out the Github for further information.
 
+
 .. note::
 
    This project is under active development.
@@ -38,9 +39,19 @@ Check out the Github for further information.
    :hidden:
    :caption: 🤖HTML Integrations
 
-   populateSelectors
+   getClassification
    getLeaderBoard
+   getLog
+   getModelsInfo
+   getModels
+   getPlotTypes
+   getImages
+   libraryUtils
    login
+   pollRunTime
+   populateSelectors  
+   recordLabels
+   subNewPlot
 
 
 .. toctree::

@@ -77,7 +77,7 @@ Example Usage
 Initialize
 -----------------
 
-This function 
+This function initializes the page by setting the selected plot type based on URL parameters. 
 
 .. code-block:: html
 
@@ -115,7 +115,7 @@ This function
 getUrlVars
 -------------
 
-This function 
+This function updates the corresponding unput elements on the page with parameter values. 
 
 .. code-block:: html 
 
@@ -187,7 +187,7 @@ Example Usage
 GetModels
 -------------
 
-This function 
+This function retrieves the models for the selected plot type. 
 
 It also calls a php file, which can be found here: :ref:`GetModelsphp`
 
@@ -239,7 +239,7 @@ It also calls a php file, which can be found here: :ref:`GetModelsphp`
 MakeModelSelector
 -------------
 
-This function 
+This function creates the model selector dropdown on the page. 
 
 .. code-block:: html 
 
@@ -249,7 +249,7 @@ This function
 Parameter
 ~~~~~~~~~~~~~
 
-- ``returned_info``: 
+- ``returned_info``: An object representign information about the available models. 
 
 
 --------------------------------
@@ -259,7 +259,7 @@ Parameter
 GetModelInfo
 -------------
 
-This function 
+This function retrieves information about the the selected model. 
 
 It also calls a php file, which can be found here: :ref:`getModelInfophp`
 
@@ -326,7 +326,7 @@ Example Usage
 editThreshold
 -------------
 
-This function 
+This function edits the threshold values for a specific model and classification. 
 
 It also calls a php file, which can be found here: :ref:`library_utilsphp`
 
@@ -378,111 +378,110 @@ It also calls a php file, which can be found here: :ref:`library_utilsphp`
 Parameters
 ~~~~~~~~~~~~~~~
 
-- ``model_ID``: 
-- ``classification``: 
-- ``value``: 
-
-Example Usage
-~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: html 
+- ``model_ID``: An integer representing the ID of the model. 
+- ``classification``: A string representing the classificatio name. 
+- ``value``: An integer representing the new threshold value. 
 
 
 --------------------------------
 
-
+CreateFactSheet
 -------------
 
-This function 
+This function creates the fact sheet for a selected model. 
 
 .. code-block:: html 
 
+    // Extended code found on GitHub
+    function CreateFactSheet(returned_info,model_Name)
 
-Example Usage
-~~~~~~~~~~~~~~~~~~~
+Parameters 
+~~~~~~~~~~~~~~
 
-.. code-block:: html 
+- ``returned_info``: An object representing information about the selected model. 
+- ``model_Name``: A string representing the name of the selected model. 
 
 
 --------------------------------
 
-
+createIframeFromHTML
 -------------
 
-This function 
+This function creates an iframe element and populates it with the provided HTML content. 
+It returns an iframe element. 
 
 .. code-block:: html 
 
+           function createIframeFromHTML(html) {
+                let iframe = document.createElement("iframe");
+                iframe.style.width = "100%";
+                iframe.style.height= "100%";
+                iframe.onload = function() {
+                    iframe.contentWindow.document.open();
+                    iframe.contentWindow.document.write(html);
+                    iframe.contentWindow.document.close();
+                };
+                return iframe;
+            }
+
+Parameter 
+~~~~~~~~~~~~~~
+
+- ``html``: A string representing the HTML content to be displayed in the iframe. 
 
 Example Usage
 ~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: html 
+
+    iframe = createIframeFromHTML(returned_info[0]["ConfusionMtx"]);
 
 
 --------------------------------
 
-
+MakeSelectedByValue
 -------------
 
-This function 
+This function selects the option in a select element that matches the provided value. 
 
 .. code-block:: html 
 
+            function MakeSelectedByValue(select,val)
+            {
+                //see if val is in select options
+                var options=select.options;
+                found =false
+                for(var i=0;i<options.length;i++)
+                {
+                    if(options[i].value==val)
+                    {
+                        found=true;
+                        select.selectedIndex=i;
+                        break;
+                    }
+                }
 
-Example Usage
-~~~~~~~~~~~~~~~~~~~
+                if(found)
+                {
+                    for (var i = 0; i < select.length; i++){
+                      var option = select.options[i];
+                      // now have option.text, option.value
+                      if (option.value==val)
+                      {
+                          option.selected=true;
+                      }
+                      else
+                      {
+                          option.selected=false;
+                      }
+                    }
+                }
+            }
 
-.. code-block:: html 
+Parameters 
+~~~~~~~~~~~~~~~~~~
 
-
---------------------------------
-
-
--------------
-
-This function 
-
-.. code-block:: html 
-
-
-Example Usage
-~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: html 
-
-
---------------------------------
-
-
--------------
-
-This function 
-
-.. code-block:: html 
-
-
-Example Usage
-~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: html 
-
-
---------------------------------
-
-
--------------
-
-This function 
-
-.. code-block:: html 
-
-
-Example Usage
-~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: html 
-
-
+- ``select``: An HTML element representing the select element. 
+- ``val``: A string representing the value o match in the select options. 
 
 
