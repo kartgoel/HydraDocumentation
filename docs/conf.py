@@ -20,7 +20,6 @@ extensions = [
     "sphinx_rtd_theme",
 	'sphinx.ext.autosectionlabel',
     'sphinx.ext.todo',
-	'notfound.extension',
     'sphinxext.remoteliteralinclude',
 	"sphinxext.opengraph",
 	"sphinxcontrib.ghcontributors",
