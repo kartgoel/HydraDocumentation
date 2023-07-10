@@ -38,7 +38,7 @@ ogp_image = "https://raw.githubusercontent.com/JeffersonLab/HydraDocumentation/b
 html_title = "Hydra Docs"
 html_favicon = 'img/hydra_small_logo.png'
 
-html_theme = 'furo'
+html_theme = 'sphinx_rtd_theme'
 html_logo = 'img/hydra_logo.png'
 html_theme_options = {
     'collapse_navigation': False,
