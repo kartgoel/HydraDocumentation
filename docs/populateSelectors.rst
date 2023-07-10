@@ -6,7 +6,11 @@ populate_selectors
 This php file retrieves data from the Hydra database based on the specified experiment and selector. 
 It connects to the database, executes the SQL query, and returns the result in JSON format. 
 
-This php file is called in the :ref:`PopulateSelector` function from the **labeler.html** file. 
+This php file is called in:
+
+- :ref:`PopulateSelectorLabeler` function from the **labeler.html** file. 
+- :ref:`PopulateSelectorLibrary` function from the **Library.html** file.
+
 
 .. code-block:: php
 
@@ -76,7 +80,7 @@ This php file is called in the :ref:`PopulateSelector` function from the **label
     return json_encode($data);
     ?>
 
-Parameter
+Parameters
 ~~~~~~~~~~~~~~~~~~
 
 - ``Experiment``: A string representing which experiment to configure parameters for. 
