@@ -1,5 +1,12 @@
+Hydra Docs
+=========
+
 .. image:: img/hydra_logo.png
   :alt: Hydra
+
+
+.. image:: img/white_space.png
+   :alt: Space
 
 
 Welcome to Hydra's documentation! **Hydra** is an extensible framework for training, managing and 
