@@ -5,7 +5,7 @@ Library
 
 This HTML file 
 
-To learn about using the web-based library, see here: :ref:`libaryFE`
+To learn about using the web-based library, see here: :ref:`libraryFE`
 
 setExp
 ----------------

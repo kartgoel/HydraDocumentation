@@ -3,13 +3,16 @@
 getModels
 =========================
 
-This php file 
+This php file retrieves the appropriate AI models from the database based on the given experiment and plot type. 
+It parses the plot type to handle chuncked plots and constructs the SQL query accordingly to fetch the appropriate AI models. 
+After querying the database and storing the retrieved models and their active model ID , the database connection is closed. 
+It encodes the response array as a JSON and returns it to the caller.  
 
 This php file is called in:
 
 - :ref:`GetModelsLibrary` function from the **Library.html** file.
 
-.. code-block:: html
+.. code-block:: php
 
     <?php
     $Exp=$_GET['Experiment'];
@@ -115,5 +118,5 @@ This php file is called in:
 Parameters
 ~~~~~~~~~~~~~
 
-- ``Experiment``: 
-- ``plotType``: 
+- ``Experiment``: A string representing which experiment to configure parameters for.
+- ``plotType``: A string representing the plot type for which AI models are being retrieved. 

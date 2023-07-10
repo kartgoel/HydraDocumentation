@@ -3,7 +3,9 @@
 HydraRun
 ============================
 
-This file 
+This HTML file 
+
+To learn about , see here: :ref:`hydraRunFE`
 
 
 deltaAlpha
@@ -211,7 +213,7 @@ Example Usage
 removeChildren
 --------------
 
-This function
+This function removes all child nodes of a specified parent node. 
 
 .. code-block:: html
 
@@ -224,7 +226,7 @@ This function
 Parameter
 ~~~~~~~~~~~~~~~~~~
 
-- ``node``: 
+- ``node``: An HTML element representing the parent node from which child nodes will be removed. 
 
 Example Usage
 ~~~~~~~~~~~~~~~~~
