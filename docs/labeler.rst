@@ -38,8 +38,44 @@ This function sets the experiment based on the current URL and updates the corre
 
 .. code-block:: html
 
-    // Extended code found on GitHub 
-    function setExp()
+            function setExp()
+            {
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                document.getElementById("PT").value=urlParams.get('PT');
+                cur_url=window.location.href
+                //check if cur_url contains halldweb
+                if(cur_url.includes("halldweb.jlab.org"))
+                {
+                    Experiment="GlueX"
+                    document.getElementById("Explogo").src="./img/GlueX_logo.png"
+                    document.getElementById("Explogo").style.width="100px"
+                    document.getElementById("Explogo").style.height="auto"
+                    document.getElementById("Explogo").style.marginTop="-16px"
+                    document.getElementById("Explogo").style.marginLeft="11px"
+                    document.getElementById("Explogo").style.marginRight="-16px"
+                }
+                else if(cur_url.includes("hallaweb.jlab.org"))
+                {
+                    Experiment="SBS"
+                    document.getElementById("Explogo").src="./img/SBSlogo.png"
+                    document.getElementById("Explogo").style.width="75px"
+                    document.getElementById("Explogo").style.height="auto"
+                    document.getElementById("Explogo").style.marginTop="-27px"
+                    document.getElementById("Explogo").style.marginLeft="11px"
+                    document.getElementById("Explogo").style.marginRight="-16px"
+                }
+                else if(cur_url.includes("clas"))
+                {
+                    Experiment="CLAS"
+                    document.getElementById("Explogo").src="./img/CLASlogo.png"
+                    document.getElementById("Explogo").style.width="75px"
+                    document.getElementById("Explogo").style.height="auto"
+                    document.getElementById("Explogo").style.marginTop="-20px"
+                    document.getElementById("Explogo").style.marginLeft="11px"
+                    document.getElementById("Explogo").style.marginRight="-16px"
+                }
+            }
 
 Example Usage
 ~~~~~~~~~~~~~~

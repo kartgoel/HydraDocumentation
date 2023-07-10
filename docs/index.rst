@@ -25,6 +25,8 @@ Check out the Github for further information.
    :caption: 🧑User Interface
 
    labelerFE
+   libraryFE
+   hydraRunFE
 
 .. toctree::
    :hidden:
