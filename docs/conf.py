@@ -17,15 +17,26 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
+    "sphinx_rtd_theme",
+	'sphinx.ext.autosectionlabel',
+    'sphinx.ext.todo',
+    'sphinx_tabs.tabs',
+	'notfound.extension',
+    'sphinxext.remoteliteralinclude',
+	"sphinxext.opengraph",
+	"sphinxcontrib.ghcontributors",
+    "sphinx_design"
 ]
 
-intersphinx_mapping = {
-    'python': ('https://docs.python.org/3/', None),
-    'sphinx': ('https://www.sphinx-doc.org/en/master/', None),
-}
-intersphinx_disabled_domains = ['std']
+# intersphinx_mapping = {
+#     'python': ('https://docs.python.org/3/', None),
+#     'sphinx': ('https://www.sphinx-doc.org/en/master/', None),
+# }
+# intersphinx_disabled_domains = ['std']
 
 templates_path = ['_templates']
+
+exclude_patterns = []
 
 hoverxref_roles = ['term']
 
@@ -35,10 +46,15 @@ ogp_image = "https://raw.githubusercontent.com/JeffersonLab/HydraDocumentation/b
 
 # -- Options for HTML output
 
+def setup(app):
+    app.add_css_file('theme_overrides.css')
+
+pygments_style = "sphinx"
+
 html_title = "Hydra Docs"
 html_favicon = 'img/hydra_small_logo.png'
 
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'furo'
 html_logo = 'img/hydra_logo.png'
 html_theme_options = {
     'collapse_navigation': False,
@@ -66,10 +82,12 @@ html_theme_options = {
 html_show_sphinx = False
 html_show_sourceLink = False
 
-def setup(app):
-    app.add_css_file('theme_overrides.css')
+# def setup(app):
+#     app.add_css_file('theme_overrides.css')
 
+suppress_warnings = ['epub.unknown_project_files']
 
+sphinx_tabs_valid_builders = ['epub', 'linkcheck']
 # -- Options for EPUB output
-epub_show_urls = 'footnote'
+# epub_show_urls = 'footnote'
 
