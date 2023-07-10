@@ -22,19 +22,6 @@ Check out the Github for further information.
 
 .. toctree::
    :hidden:
-
-   test
-
-   .. toctree::
-      :hidden:
-
-      test2
-      test3
-
-   
-
-.. toctree::
-   :hidden:
    :caption: 🧑User Interface
 
    labelerFE
