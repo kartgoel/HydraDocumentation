@@ -31,7 +31,7 @@ templates_path = ['_templates']
 # -- Options for HTML output
 
 html_title = "Hydra Docs"
-html_favicon = 'img/hydra_small_logo.png'
+html_favicon = 'img/hydra_logo_new.png'
 
 html_theme = 'sphinx_rtd_theme'
 html_logo = 'img/hydra_logo.png'
