@@ -16,7 +16,7 @@ extensions = [
     'sphinx.ext.doctest',
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
-    'sphinx.ext.intersphinx'
+    'sphinx.ext.intersphinx',
 ]
 
 intersphinx_mapping = {
@@ -28,10 +28,10 @@ intersphinx_disabled_domains = ['std']
 
 templates_path = ['_templates']
 
-html_favicon = 'assets/RoundLogo.png'
-html_title = "Hydra Docs"
-
 # -- Options for HTML output
+
+html_title = "Hydra Docs"
+html_favicon = 'img/hydra_small_logo.png'
 
 html_theme = 'sphinx_rtd_theme'
 html_logo = 'img/hydra_logo.png'
@@ -39,7 +39,7 @@ html_theme_options = {
     'collapse_navigation': False,
     'display_version': False,
     'logo-only': False,
-    'sticky-navigation': False
+    'sticky-navigation': False,
     "sidebar_hide_name": True
 }
 html_show_sphinx = False
