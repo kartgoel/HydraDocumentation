@@ -9,7 +9,7 @@ This php file is called in:
 
 - :ref:`editThresholdLibrary` function from the **Library.html** file.
 
-.. code-block:: html
+.. code-block:: php
 
     <?php
     $Exp=$_GET['Experiment'];
