@@ -241,7 +241,7 @@ Example Usage
 BuildRunHTML
 --------------
 
-This function
+This function builds the HTML content for the runtime plots by dynamically create frame elements based on the available plot types. 
 
 It also calls a php file, which can be found here: :ref:`getPlotTypesphp`
 
@@ -307,7 +307,7 @@ It also calls a php file, which can be found here: :ref:`getPlotTypesphp`
 showAll
 --------------
 
-This function
+This function shows all the hidden frames by clearing the "Dont_Show" array and updating the local storage. 
 
 .. code-block:: html
 
@@ -344,7 +344,7 @@ This function
 loadDONTSHOW
 --------------
 
-This function
+This function initializes the the "Dont_Show" array, emptying the array or setting it to true if it does not exist in the local storage. 
 
 .. code-block:: html
 
@@ -392,7 +392,7 @@ Example Usage
 CreateFrame
 --------------
 
-This function
+This function creates a frame element for a given plot type name.
 
 .. code-block:: html
 
@@ -402,7 +402,7 @@ This function
 Parameter
 ~~~~~~~~~~~~~~~~~~
 
-- ``name``: 
+- ``name``: A string representing the name of the plot type. 
 
 Example Usage
 ~~~~~~~~~~~~~~~~~
@@ -417,7 +417,7 @@ Example Usage
 overlayImages
 --------------
 
-This function
+This function overlays two images with a specific alpha value, returning the resulting canvas element. 
 
 .. code-block:: html
 
@@ -450,9 +450,9 @@ This function
 Parameters
 ~~~~~~~~~~~~~~~~~~
 
-- ``image1``: 
-- ``image2``: 
-- ``alpha``: 
+- ``image1``: A string representing the base image in base64 format. 
+- ``image2``: A string representing the overlay image in base64 format. 
+- ``alpha``: A float representing the alpha value to control the transparency of the overlay image. 
 
 Example Usage
 ~~~~~~~~~~~~~~~~~
@@ -467,7 +467,8 @@ Example Usage
 RenderIMG
 --------------
 
-This function
+This function renders an image with the provided data and updates the page accordingly. 
+If gradCAM data is available, images are overlayed with the gradCAM data. 
 
 .. code-block:: html
 
@@ -526,9 +527,9 @@ This function
 Parameters
 ~~~~~~~~~~~~~~~~~~
 
-- ``data``: 
-- ``holder``: 
-- ``gradCAM``: 
+- ``data``: A string representing the image data in base64 format. 
+- ``holder``: A string representing the ID of the holder element to update with teh rendered image. 
+- ``gradCAM``: An optional string representing the gradCAM data in base64 format. Default is an empty string. 
 
 Example Usage
 ~~~~~~~~~~~~~~~~~
@@ -543,7 +544,7 @@ Example Usage
 zoomIMG
 --------------
 
-This function
+This function opens the image win a new window when the image is clicked. 
 
 .. code-block:: html
 
@@ -555,7 +556,7 @@ This function
 Parameter
 ~~~~~~~~~~~~~~~~~~
 
-- ``img``: 
+- ``img``: An HTML image element representing the image to open. 
 
 Example Usage
 ~~~~~~~~~~~~~~~~~
