@@ -4,7 +4,7 @@ labeler
 ===================
 
 This file allows experts to use Hydra's web-based labeler, assigning a label leader to each plot type.  
-It creates the various dropdown bars for selecting which experiments and plots the user will label, as well as the dropwdown bar for selecting a label. 
+It creates the various drop-down bars for selecting which experiments and plots the user will label, as well as the dropwdown bar for selecting a label. 
 It also generates the page with images, formatting them as needed.
 
 To learn about using the web-based labeler, see here: :ref:`labelerFE`
@@ -191,7 +191,7 @@ Example Usage
 startFocusOut
 -------------
 
-This function is used to hide a context menu or dropdown bar when the user interacts with other parts of the page. 
+This function is used to hide a context menu or drop-down bar when the user interacts with other parts of the page. 
 
 .. code-block:: html
 
