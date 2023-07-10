@@ -68,7 +68,6 @@ Check out the Github for further information.
 
    labelerFE
 
-
 .. toctree::
    :hidden:
    :caption: 📄HTML Pages

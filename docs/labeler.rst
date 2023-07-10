@@ -3,7 +3,7 @@
 labeler
 ===================
 
-This file allows experts to use Hydra's web-based labeler, assigning a label leader to each plot type.  
+This HTML file creates Hydra's web-based labeler, which allows experts to labels plots and assigns a label leader to each plot type.  
 It creates the various drop-down bars for selecting which experiments and plots the user will label, as well as the dropwdown bar for selecting a label. 
 It also generates the page with images, formatting them as needed.
 
@@ -348,7 +348,7 @@ Example Usage
 
 ------------------------------------------------------
 
-.. _populateSelector:
+.. _populateSelectorLabeler:
 
 populateSelector
 -------------
@@ -357,7 +357,6 @@ This function populates the selector element with options retrieved from a serve
 It fetches the options data and create the corresponding HTML elements. 
 
 It also calls a php file, which can be found here: :ref:`populateSelectors`
-
 
 .. code-block:: html
 
@@ -406,14 +405,14 @@ Example Usage
 
 ------------------------------------------------------
 
-.. _getLeader:
+.. _getLeaderLabeler:
 
 getLeader
 -------------
 
 This function retrieves the leader for a specific plot from the server, updating the listed leader on a page with their username. 
 
-It also calls a php file, which can be found here: :ref:`getLeaderBoard`
+It also calls a php file, which can be found here: :ref:`getLeaderBoardphp`
 
 .. code-block:: html
 
@@ -723,7 +722,7 @@ Example Usage
 
 ------------------------------------------------------
 
-.. _loginFunc:
+.. _loginFuncLabeler:
 
 Login
 -------------
