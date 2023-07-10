@@ -27,7 +27,16 @@ intersphinx_disabled_domains = ['std']
 
 templates_path = ['_templates']
 
+hoverxref_roles = ['term']
+
+ogp_site_url = "https://docs.hydra.org/en/latest/"
+ogp_site_name = "Hydra Documentation"
+ogp_image = "https://raw.githubusercontent.com/JeffersonLab/HydraDocumentation/blob/Development/docs/img/hydra_small_logo.png"
+
 # -- Options for HTML output
+
+html_title = "Hydra Docs"
+html_favicon = 'img/hydra_small_logo.png'
 
 html_theme = 'sphinx_rtd_theme'
 html_logo = 'img/hydra_logo.png'
@@ -35,7 +44,24 @@ html_theme_options = {
     'collapse_navigation': False,
     'display_version': False,
     'logo-only': False,
-    'sticky-naivigation': False
+    'sticky-navigation': False,
+    "sidebar_hide_name": True,
+     "dark_css_variables" : {
+        "color-background-primary": "#242c37",
+        "color-background-secondary": "#006492",
+        "color-background-hover": "#efeff400",
+        "color-background-hover--transparent": "#efeff400",
+        "color-brand-primary": "#ffd843",
+        "color-brand-secondary": "#39a4d5",
+        "color-brand-content": "#ffd843",
+        "color-foreground-primary": "#ffffff",
+        "color-foreground-secondary": "#ffffff",
+        "color-foreground-muted": "#ffffff",
+        "color-foreground-border": "transparent",
+        "color-background-border": "transparent",
+        "color-api-overall": "#101010",
+        "color-inline-code-background": "#0d0d0d",
+    }
 }
 html_show_sphinx = False
 html_show_sourceLink = False
