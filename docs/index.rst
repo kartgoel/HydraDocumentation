@@ -5,7 +5,7 @@ Hydra Docs
   :alt: Hydra
 
 
-.. image:: img/white_space.png
+.. image:: img/white.png
    :alt: Space
 
 
