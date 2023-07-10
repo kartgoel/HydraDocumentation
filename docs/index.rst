@@ -105,7 +105,6 @@ Check out the Github for further information.
    modelAnalysis
    assignTrainWeights
    simulateRunTime
-   test
 
 .. toctree::
    :hidden:
