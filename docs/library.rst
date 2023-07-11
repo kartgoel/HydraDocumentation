@@ -3,7 +3,7 @@
 Library
 =========================
 
-This HTML file 
+This HTML file creates Hydra's web-based library pages for the different JLab experiments. 
 
 To learn about using the web-based library, see here: :ref:`libraryFE`
 

@@ -3,9 +3,7 @@
 HydraRunHelp 
 ======================
 
-This HTML file 
-
-
+This HTML file runs background scripts for Hydra's web-based Run page. 
 
 Highlight 
 -----------------
