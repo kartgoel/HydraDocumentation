@@ -3,49 +3,13 @@
 library_utils
 ================
 
-This php file 
+This php file runs background processes to set threshold values and retrieve other model and plot data. 
 
 This php file is called in:
-
+ 
 - :ref:`editThresholdLibrary` function from the **Library.html** file.
 
 .. code-block:: php
-
-    <?php
-    $Exp=$_GET['Experiment'];
-    $Action=$_GET['action'];
-    $User=$_SERVER['PHP_AUTH_USER'];
-
-    if($Exp=="GlueX")
-    {
-        $servername = "hallddb";
-        $username = "aimon";
-        $password = "";
-        $dbname = "hydra";
-    }
-    else if($Exp=="SBS")
-    {
-        $servername = "epscidb";
-        $username = "sbsuser";
-        $password = "";
-        $dbname = "SBS_Hydra"; 
-    }
-    else if($Exp=="CLAS")
-    {
-        $servername = "epscidb";
-        $username = "clasuser";
-        $password = "";
-        $dbname = "CLAS_Hydra"; 
-    }
-
-
-    //echo $_GET['qs'] . " ---> " . $_GET['qe'];
-    // Create connection
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
 
     #$sql="SELECT * from RunTime where DateTime > now() - interval 10 SECOND;";
 
@@ -89,13 +53,11 @@ This php file is called in:
         //execute and commit
         
     }
-    ?>
 
 
 Parameters
 ~~~~~~~~~~~~~~~
 
-- ``Experiment``: A string representing which experiment to configure parameters for.
 - ``model_ID``: 
 - ``class_name``:
 - ``value``: 

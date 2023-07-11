@@ -3,7 +3,7 @@
 getModelInfo
 ==================
 
-This php file
+This php file retrieves the training sets, inference sets, and thresholds of certain plots from the database and stores them in an array. 
 
 This php file is called in:
 
@@ -30,7 +30,18 @@ This php file is called in:
 
     //$sql="SELECT * from RunTime where DateTime > now() - interval 10 SECOND;";
     //echo $sql . "<br>";
-    
+
+    $result = $conn->query($sql);
+    $data = array();
+    #var_dump($result);
+
+    if ($result->num_rows > 0) {
+    // output data of each row
+        while($row = $result->fetch_assoc()) {
+            $data[]=$row;
+        //echo "id: " . $row["id"]. " - Run: " . $row["run"]. "<br>";
+        }
+    } 
 
     //var_dump($data);
     //echo "<br>";
@@ -53,24 +64,9 @@ This php file is called in:
 
     $data["inference"]=$infr["COUNT(*)"];
 
-    //echo $thresholds;
-    //echo "<br>";
-    $threshq=$conn->query($thresholds);
-    $thld=array();
-    if ($threshq->num_rows > 0) {
-        // output data of each row
-            while($row = $threshq->fetch_assoc()) {
-                $thld[]=$row;
-            //echo "id: " . $row["id"]. " - Run: " . $row["run"]. "<br>";
-            }
-        }
-    $data["thresholds"]=$thld;
-
-    }
 
 
 Parameters
 ~~~~~~~~~~~~~~~
 
-- ``Experiment``: A string representing which experiment to configure parameters for.
 - ``model_ID``: 
