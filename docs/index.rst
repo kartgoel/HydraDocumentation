@@ -12,7 +12,7 @@ Check out the Github for further information.
    .. grid-item-card:: User Interface
       :link: docs/labelerFE
       :link-type: doc
-      :align: center
+      :text-align: center
 
       How to interact with Hydra's web-based pages. 
 
