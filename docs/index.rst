@@ -1,6 +1,3 @@
-Hydra Docs
-=========
-
 .. image:: img/hydra_logo.png
   :alt: Hydra
 
@@ -9,6 +6,61 @@ Welcome to Hydra's documentation! **Hydra** is an extensible framework for train
 deploying machine learning models for real time data quality monitoring.
 
 Check out the Github for further information.
+
+.. grid:: 1
+
+   .. grid-item-card:: User Interface
+      :link: docs/labelerFE
+      :link-type: doc
+
+      How to interact with Hydra's web-based pages. 
+
+.. grid:: 2
+
+   .. grid-item:: HTML Pages
+      :link: docs/labeler
+      :link-type: doc
+
+      The backend of Hydra's webpages.
+
+
+   .. grid-item-card:: HTML Integrations
+      :link: docs/getClassification
+      :link-type: doc
+
+      The link between Hydra's backend and frontend.  
+
+.. grid:: 2
+
+   .. grid-item:: HTML Utils
+      :link: docs/help
+      :link-type: doc
+
+      Background scripts for the frontend of Hydra.
+
+   .. grid-item-card:: Hydra Libraries
+      :link: docs/connectToDB
+      :link-type: doc
+
+      Background scripts for the backend of Hydra.
+
+.. grid:: 2 
+
+   .. grid-item:: Hydra Scripts
+      :link: docs/schemaSync
+      :link-type: doc
+
+      The main scripts that run Hydra. 
+
+   .. grid-item:: Hydra Utils
+      :link: docs/dependencies
+      :link-type: doc
+
+      Different dependencies, configurations, and connections that Hydra uses. 
+
+
+      
+
 
 
 .. note::
