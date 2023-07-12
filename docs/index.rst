@@ -12,12 +12,13 @@ Check out the Github for further information.
    .. grid-item-card:: User Interface
       :link: docs/labelerFE
       :link-type: doc
+      :align: center
 
       How to interact with Hydra's web-based pages. 
 
 .. grid:: 2
 
-   .. grid-item:: HTML Pages
+   .. grid-item-card:: HTML Pages
       :link: docs/labeler
       :link-type: doc
 
@@ -32,7 +33,7 @@ Check out the Github for further information.
 
 .. grid:: 2
 
-   .. grid-item:: HTML Utils
+   .. grid-item-card:: HTML Utils
       :link: docs/help
       :link-type: doc
 
@@ -46,13 +47,13 @@ Check out the Github for further information.
 
 .. grid:: 2 
 
-   .. grid-item:: Hydra Scripts
+   .. grid-item-card:: Hydra Scripts
       :link: docs/schemaSync
       :link-type: doc
 
       The main scripts that run Hydra. 
 
-   .. grid-item:: Hydra Utils
+   .. grid-item-card:: Hydra Utils
       :link: docs/dependencies
       :link-type: doc
 
