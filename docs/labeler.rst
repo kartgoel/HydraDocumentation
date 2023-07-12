@@ -709,7 +709,7 @@ populateImages
 -------------
 
 This function populates a table with images based on the selected plot type. 
-It handles AJAX requests to retrieveimage data from the server. 
+It handles AJAX requests to retrieve image data from the server. 
 
 .. code-block:: html
 
@@ -746,7 +746,7 @@ It updates the CSS classes and updates the labels associated with the cell.
 Parameter 
 ~~~~~~~~~~~~
 
-- ``cell``: An HTML element represting the cell image to be painted. 
+- ``cell``: An HTML element representing the cell image to be painted. 
 
 Example Usage
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -878,30 +878,59 @@ Example Usage
 
 ------------------------------------------------------
 
+.. _RecordLabelsLabeler: 
+
 RecordLabels
 -------------
 
-This function record the labels associated with the images in the grid. 
+This function records the labels associated with the images in the grid. 
 It sends an AJAX request to the server to store the labels for the selected experiment. 
+
+It also calls a php file, which can be found here: :ref:`record_labelsphp`
 
 .. code-block:: html
 
-    // Extended code found on GitHub
-    function RecordLabels(labels_to_record=jsonData)
+            function RecordLabels(labels_to_record=jsonData)
+            {
+                $("#imgTableBody").empty();
+                var plot_type_select=document.getElementById("Plot_Type");
+                var plot_type_selected=plot_type_select.options[plot_type_select.selectedIndex].value;
+                new_labels=0;
+                document.getElementById("applyButton").value="Apply 0 labels"
+                if (window.XMLHttpRequest) {
+                        // code for IE7+, Firefox, Chrome, Opera, Safari
+                        xmlhttp = new XMLHttpRequest();
+                    } else {
+                        // code for IE6, IE5
+                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    xmlhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            //console.log(this.responseText)
+                            if(this.responseText != "")
+                            {
+                                populateImages();
+                                jsonData={};
+                                labels=[];
+                                jsonData.labels=labels;
+                               
+                                getLeader(plot_type_selected)
+                                return "complete";
+                            }
+                        }
+                    };
+                    
+                    //console.log("populate_selectors.php?Selector="+id)
+                    php_call="./php/record_labels.php?Experiment="+Experiment+"&Labels="+JSON.stringify(labels_to_record)
+                    console.log(php_call)
+                    xmlhttp.open("POST",php_call,true);
+                    xmlhttp.send();
+            }
 
 Parameter
-~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
 
-- ``labels_to_record``: 
-
-record_labels.php
-~~~~~~~~~~~~~~~~~~~
-
-This segment 
-
-.. code-block:: html 
-
-    php_call="./php/record_labels.php?Experiment="+Experiment+"&Labels="+JSON.stringify(labels_to_record)
+- ``label_to_record``: An optional object representing the labels to be recorded in JSON format. Default is 'jsonData'.
 
 Example Usage
 ~~~~~~~~~~~~~~~~~~~~~~~~

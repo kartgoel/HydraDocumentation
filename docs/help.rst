@@ -1,7 +1,7 @@
 Help
 ===============
 
-This file contains classes that are referenced later on in html files for formatting purposes.
+This file contains classes that are referenced later on in HTML files for formatting purposes.
 
 .modal
 ---------

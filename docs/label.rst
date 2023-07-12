@@ -1,7 +1,7 @@
 label 
 =================
 
-This file contains classes and IDs that are referenced later on in html files for formatting purposes.
+This file contains classes and IDs that are referenced later on in HTML files for formatting purposes.
 
 .navbar
 -----------
@@ -24,7 +24,7 @@ This file contains classes and IDs that are referenced later on in html files fo
     
     .row.content {height: 450px}
 
-- Set height of the grid so .sidenav can be 100% (adjust as needed)
+- Set height of the grid so ``.sidenav`` can be 100% (adjust as needed)
 
 --------------------------
 
@@ -39,7 +39,8 @@ This file contains classes and IDs that are referenced later on in html files fo
         height: 75em;
       }
 
-- Set gray background color and 100% height
+- Set gray background color 
+- 100% height
 
 --------------------------
 
@@ -54,7 +55,9 @@ footer
         padding: 15px;
     }
     
-- Set black background color, white text and some padding
+- Set black background color
+- Set white text 
+- 15px padding
 
 --------------------------
 
@@ -381,7 +384,7 @@ label:last-of-type
 
     * - Status
       - Color
-      - border
+      - Border
     * - _Good.active
       - Light Green
       - None
@@ -427,7 +430,7 @@ label:last-of-type
 
     * - Status
       - Color
-      - border
+      - Border
     * - _Good
       - Light Green
       - None

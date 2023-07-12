@@ -151,7 +151,7 @@ This function initializes the page by setting the selected plot type based on UR
 getUrlVars
 -------------
 
-This function updates the corresponding unput elements on the page with parameter values. 
+This function updates the corresponding input elements on the page with parameter values. 
 
 .. code-block:: html 
 
@@ -285,7 +285,7 @@ This function creates the model selector dropdown on the page.
 Parameter
 ~~~~~~~~~~~~~
 
-- ``returned_info``: An object representign information about the available models. 
+- ``returned_info``: An object representing information about the available models. 
 
 
 --------------------------------
@@ -415,7 +415,7 @@ Parameters
 ~~~~~~~~~~~~~~~
 
 - ``model_ID``: An integer representing the ID of the model. 
-- ``classification``: A string representing the classificatio name. 
+- ``classification``: A string representing the classification name. 
 - ``value``: An integer representing the new threshold value. 
 
 
@@ -518,6 +518,6 @@ Parameters
 ~~~~~~~~~~~~~~~~~~
 
 - ``select``: An HTML element representing the select element. 
-- ``val``: A string representing the value o match in the select options. 
+- ``val``: A string representing the value to match in the select options. 
 
 

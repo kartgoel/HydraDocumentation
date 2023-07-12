@@ -5,14 +5,14 @@ HydraRun
 
 This HTML file create Hydra's web-based Run pages, which display plots as they are generated. 
 
-To learn about , see here: :ref:`hydraRunFE`
+To learn about using the web-based Run page, see here: :ref:`hydraRunFE`
 
 
 deltaAlpha
 --------------
 
 This function adjusts the overlay alpha value (opacity) by adding the specified delta value. 
-It ensure that the resulting overlpay alpha value is within the range of 0.0 to 1.0.
+It ensures that the resulting overlay alpha value is within the range of 0.0 to 1.0.
 
 .. code-block:: html
 
@@ -41,7 +41,7 @@ It ensure that the resulting overlpay alpha value is within the range of 0.0 to 
 Parameter
 ~~~~~~~~~~~~~~~~~~
 
-- ``delta``: A float representing a what value to add to the overlay alpha (opacity).
+- ``delta``: A float representing what value to add to the overlay alpha (opacity).
 
 Example Usage
 ~~~~~~~~~~~~~~~~~
@@ -109,7 +109,7 @@ Otherwise, it is set to 0.5.
 redrawIMGs
 --------------
 
-This function redraw the images on the page by overlaying the latest images with the current overlay alpha value. 
+This function redraws the images on the page by overlaying the latest images with the current overlay alpha value. 
 
 .. code-block:: html
 
@@ -141,7 +141,8 @@ setExp
 This function sets the experiment based on the current URL and updates the corresponding experiment logo. 
 
 .. code-block:: html
-        function setExp()
+
+            function setExp()
             {
                 cur_url=window.location.href
                 //check if cur_url contains halldweb
@@ -190,7 +191,7 @@ Example Usage
 pollRunTime
 --------------
 
-This function polls the server the get the latest runtime information for the plots, undating the page accordingly. 
+This function polls the server the get the latest runtime information for the plots, updating the page accordingly. 
 
 It also calls a php file, which can be found here: :ref:`pollRunTimephp`
 
@@ -243,7 +244,7 @@ Example Usage
 BuildRunHTML
 --------------
 
-This function builds the HTML content for the runtime plots by dynamically create frame elements based on the available plot types. 
+This function builds the HTML content for the runtime plots by dynamically creating frame elements based on the available plot types. 
 
 It also calls a php file, which can be found here: :ref:`getPlotTypesphp`
 
@@ -530,7 +531,7 @@ Parameters
 ~~~~~~~~~~~~~~~~~~
 
 - ``data``: A string representing the image data in base64 format. 
-- ``holder``: A string representing the ID of the holder element to update with teh rendered image. 
+- ``holder``: A string representing the ID of the holder element to update with the rendered image. 
 - ``gradCAM``: An optional string representing the gradCAM data in base64 format. Default is an empty string. 
 
 Example Usage
@@ -546,7 +547,7 @@ Example Usage
 zoomIMG
 --------------
 
-This function opens the image win a new window when the image is clicked. 
+This function opens the image in a new window when the image is clicked. 
 
 .. code-block:: html
 

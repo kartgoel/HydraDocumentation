@@ -1,6 +1,8 @@
 Executing Query in Database
 =======================
  
+These code segments are found in php files. 
+
 Connecting to Database
 -----------------
 

@@ -59,7 +59,7 @@ This php file is called in:
     }
 
 
-Parameters
+Parameter
 ~~~~~~~~~~~~~
 
 - ``plotType``: A string representing the plot type for which AI models are being retrieved. 

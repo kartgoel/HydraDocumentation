@@ -31,7 +31,7 @@ This php file is called in:
         }
     }
 
-Parameters
+Parameter
 ~~~~~~~~~~~~~~~~~~
 
 - ``Selector``: A string to determine what SQL query is performed. 

@@ -1,7 +1,8 @@
 Verifying Experiment
 ===================
 
-This configures connections to the database and server based on the experiment. 
+This code segment configures connections to the database and server based on the experiment. 
+It is found at the start of php files. 
 
 .. code-block:: php 
 

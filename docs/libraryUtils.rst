@@ -58,6 +58,5 @@ This php file is called in:
 Parameters
 ~~~~~~~~~~~~~~~
 
-- ``model_ID``: 
-- ``class_name``:
-- ``value``: 
+- ``model_ID``: An integer representing the ID of the model. 
+- ``class_name``: A string representing the classification name. 

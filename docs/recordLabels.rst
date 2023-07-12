@@ -1,7 +1,13 @@
+.. _record_labelsphp:
+
 record_labels
 =============
 
-This php file retreives user's labels and inserts them into user's plot history. 
+This php file retrieves the user's labels and inserts them into the user's plot history. 
+
+This php file is called in:
+
+- :ref:`RecordLabelsLabeler` function from the **labeler.html** file
 
 .. code-block:: php
 
