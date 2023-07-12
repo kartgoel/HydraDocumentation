@@ -15,7 +15,7 @@ build:
 sphinx:
   configuration: docs/conf.py
 
-requirements_file: requirements.txt
+requirements_file: requirments.txt
 
 sphinx:
   builder: html
