@@ -21,6 +21,9 @@
 #   # install:
 #   # - requirements: docs/requirements.txt
 
+# Required
+version: 2
+
 requirements_file: requirements.txt
 
 sphinx:
