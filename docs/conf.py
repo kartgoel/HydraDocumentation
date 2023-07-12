@@ -74,7 +74,7 @@ html_theme_options = {
         "color-foreground-secondary": "#39a4d5",
         "color-foreground-muted": "#2d2d2d",
         "color-foreground-border": "#ffffff",
-        "color-background-border": "ffffff",
+        "color-background-border": "#ffffff",
         "color-api-overall": "#101010",
         },
     "dark_css_variables" : {

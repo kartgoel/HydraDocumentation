@@ -10,7 +10,7 @@ Check out the Github for further information.
 .. grid:: 1
 
    .. grid-item-card:: User Interface
-      :link: labelerFE
+      :link: userInterface/labelerFE
       :link-type: doc
       :text-align: center
 
@@ -19,14 +19,14 @@ Check out the Github for further information.
 .. grid:: 2
 
    .. grid-item-card:: HTML Pages
-      :link: labeler
+      :link: htmlPages/labeler
       :link-type: doc
 
       The backend of Hydra's webpages.
 
 
    .. grid-item-card:: HTML Integrations
-      :link: getClassification
+      :link: htmlIntegrations/getClassification
       :link-type: doc
        
       The link between Hydra's backend and frontend.  
@@ -34,13 +34,13 @@ Check out the Github for further information.
 .. grid:: 2
 
    .. grid-item-card:: HTML Utils
-      :link: help
+      :link: htmlUtils/help
       :link-type: doc
        
       Background scripts for the frontend of Hydra.
 
    .. grid-item-card:: Hydra Libraries
-      :link: connectToDB
+      :link: hydraLibraries/connectToDB
       :link-type: doc
       
 
@@ -49,13 +49,13 @@ Check out the Github for further information.
 .. grid:: 2 
 
    .. grid-item-card:: Hydra Scripts
-      :link: schemaSync
+      :link: hydraScripts/schemaSync
       :link-type: doc
        
       The main scripts that run Hydra. 
 
    .. grid-item-card:: Hydra Utils
-      :link: dependencies
+      :link: hydraUtils/dependencies
       :link-type: doc
       
       Different dependencies, configurations, and connections that Hydra uses. 
@@ -74,83 +74,83 @@ Check out the Github for further information.
    :hidden:
    :caption: 🧑User Interface
 
-   labelerFE
-   libraryFE
-   hydraRunFE
+   userInterface/labelerFE
+   userInterface/libraryFE
+   userInterface/hydraRunFE
 
 .. toctree::
    :hidden:
    :caption: 📄HTML Pages
 
-   labeler
-   library
-   hydraRun
-   hydraRunHelp
+   htmlPages/labeler
+   htmlPages/library
+   htmlPages/hydraRun
+   htmlPages/hydraRunHelp
 
 
 .. toctree::
    :hidden:
    :caption: 🤖HTML Integrations
 
-   getClassification
-   getLeaderBoard
-   getLog
-   getModelsInfo
-   getModels
-   getPlotTypes
-   getImages
-   libraryUtils
-   login
-   pollRunTime
-   populateSelectors  
-   recordLabels
-   subNewPlot
+   htmlIntegrations/getClassification
+   htmlIntegrations/getLeaderBoard
+   htmlIntegrations/getLog
+   htmlIntegrations/getModelsInfo
+   htmlIntegrations/getModels
+   htmlIntegrations/getPlotTypes
+   htmlIntegrations/getImages
+   htmlIntegrations/libraryUtils
+   htmlIntegrations/login
+   htmlIntegrations/pollRunTime
+   htmlIntegrations/populateSelectors  
+   htmlIntegrations/recordLabels
+   htmlIntegrations/subNewPlot
 
 
 .. toctree::
    :hidden:
    :caption: 🖥️HTML Utils
 
-   help
-   label
-   executeQuery&Database
-   verifyExperiment
+   htmlUtils/help
+   htmlUtils/label
+   htmlUtils/executeQuery&Database
+   htmlUtils/verifyExperiment
 
 
 .. toctree::
    :hidden:
    :caption: 📚Hydra Libraries
    
-   connectToDB
-   aiReport
-   dataPreprocessing
-   inferenceEngine
-   gradcam
+   hydraLibraries/connectToDB
+   hydraLibraries/aiReport
+   hydraLibraries/dataPreprocessing
+   hydraLibraries/inferenceEngine
+   hydraLibraries/gradcam
 
 
 .. toctree::
    :hidden:
    :caption: 📝Hydra Scripts  
 
-   schemaSync
-   startHydra
-   hydraTrain
-   hydraCleaner
-   hydraFeeder
-   hydraPredict
-   hydraKeeper
-   helpers
-   imgCrawler
-   runGradCAM
-   modelAnalysis
-   assignTrainWeights
-   simulateRunTime
+   hydraScripts/schemaSync
+   hydraScripts/startHydra
+   hydraScripts/hydraTrain
+   hydraScripts/hydraCleaner
+   hydraScripts/hydraFeeder
+   hydraScripts/hydraPredict
+   hydraScripts/hydraKeeper
+   hydraScripts/helpers
+   hydraScripts/imgCrawler
+   hydraScripts/runGradCAM
+   hydraScripts/modelAnalysis
+   hydraScripts/assignTrainWeights
+   hydraScripts/simulateRunTime
 
 .. toctree::
    :hidden:
    :caption: 🔧Hydra Utils
 
-   dependencies
-   databaseConfig
-   establishingDBConnection
+   hydraUtils/dependencies
+   hydraUtils/databaseConfig
+   hydraUtils/establishingDBConnection
 
