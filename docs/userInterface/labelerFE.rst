@@ -8,7 +8,7 @@ Compete with other experts to dominate the leaderboard and be declared the Label
 
 For a more indepth description on the **labeler.html** file, see here: :ref:`labelerHTML`
 
-.. image:: docs/img/Labelerwebsite.png
+.. image:: ../img/Labelerwebsite.png
 	:align: center
 
 A 
