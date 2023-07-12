@@ -3,48 +3,13 @@
 getModelInfo
 ==================
 
-This php file
+This php file retrieves the training sets, inference sets, and thresholds of certain plots from the database and stores them in an array. 
 
 This php file is called in:
 
 - :ref:`GetModelInfoLibrary` function from the **Library.html** file
 
 .. code-block:: php
-
-    <?php
-    $Exp=$_GET['Experiment'];
-    $PID=$_GET['mID'];
-
-    if($Exp=="GlueX")
-    {
-        $servername = "hallddb";
-        $username = "aimon";
-        $password = "";
-        $dbname = "hydra";
-    }
-    else if($Exp=="SBS")
-    {
-        $servername = "epscidb";
-        $username = "sbsuser";
-        $password = "";
-        $dbname = "SBS_Hydra"; 
-    }
-    else if($Exp=="CLAS")
-    {
-        $servername = "epscidb";
-        $username = "clasuser";
-        $password = "";
-        $dbname = "CLAS_Hydra"; 
-    }
-
-
-    //echo $_GET['qs'] . " ---> " . $_GET['qe'];
-    // Create connection
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
 
     #$sql="SELECT * from RunTime where DateTime > now() - interval 10 SECOND;";
 
@@ -99,30 +64,9 @@ This php file is called in:
 
     $data["inference"]=$infr["COUNT(*)"];
 
-    //echo $thresholds;
-    //echo "<br>";
-    $threshq=$conn->query($thresholds);
-    $thld=array();
-    if ($threshq->num_rows > 0) {
-        // output data of each row
-            while($row = $threshq->fetch_assoc()) {
-                $thld[]=$row;
-            //echo "id: " . $row["id"]. " - Run: " . $row["run"]. "<br>";
-            }
-        }
-    $data["thresholds"]=$thld;
 
-    }
-
-
-    $conn->close();
-
-    echo json_encode($data);
-    return json_encode($data);
-    ?>
 
 Parameters
 ~~~~~~~~~~~~~~~
 
-- ``Experiment``: A string representing which experiment to configure parameters for.
 - ``model_ID``: 

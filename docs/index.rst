@@ -35,6 +35,7 @@ Check out the Github for further information.
    labeler
    library
    hydraRun
+   hydraRunHelp
 
 
 .. toctree::
@@ -62,6 +63,8 @@ Check out the Github for further information.
 
    help
    label
+   executeQuery&Database
+   verifyExperiment
 
 
 .. toctree::

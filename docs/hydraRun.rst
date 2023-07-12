@@ -3,7 +3,7 @@
 HydraRun
 ============================
 
-This HTML file 
+This HTML file create Hydra's web-based Run pages, which display plots as they are generated. 
 
 To learn about , see here: :ref:`hydraRunFE`
 
