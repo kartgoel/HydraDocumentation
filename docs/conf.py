@@ -28,35 +28,85 @@ extensions = [
     "sphinx_design"
 ]
 
+ogp_site_url = "https://docs.hydra.org/en/latest/"
+ogp_site_name = "Hydra Documentation"
+ogp_image = "https://raw.githubusercontent.com/JeffersonLab/HydraDocumentation/blob/Development/docs/img/hydra_small_logo.png"
+
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3/', None),
     'sphinx': ('https://www.sphinx-doc.org/en/master/', None),
 }
 
+templates_path = ['_templates']
+
+hoverxref_roles = ['term']
+
 intersphinx_disabled_domains = ['std']
 
 templates_path = ['_templates']
+
+html_static_path = ['_static']
+def setup(app):
+    app.add_css_file('theme_overrides.css')
+
+pygments_style = "sphinx"
 
 # -- Options for HTML output
 
 html_title = "Hydra Docs"
 html_favicon = "img/hydra_small_logo.png"
 
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'furo'
 html_logo = 'img/hydra_logo.png'
 html_theme_options = {
     'collapse_navigation': False,
     'display_version': False,
     'logo-only': True,
     'sticky-navigation': False,
-    "sidebar_hide_name": True
+    "sidebar_hide_name": True,
+    "light_css_variables": {
+        "font-stack": '-apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;',
+        "admonition-font-size": "1rem",
+        "admonition-title-font-size": "1rem",
+        "color-background-primary": "#ffffff",
+        "color-background-secondary": "#f7f7f7",
+        "color-background-hover": "#efeff400",
+        "color-background-hover--transparent": "#efeff400",
+        "color-brand-primary": "#006492",
+        "color-brand-content": "#006492",
+        "color-foreground-primary": "#2d2d2d",
+        "color-foreground-secondary": "#39a4d5",
+        "color-foreground-muted": "#2d2d2d",
+        "color-foreground-border": "#ffffff",
+        "color-background-border": "ffffff",
+        "color-api-overall": "#101010",
+        },
+    "dark_css_variables" : {
+        "color-background-primary": "#242c37",
+        "color-background-secondary": "#006492",
+        "color-background-hover": "#efeff400",
+        "color-background-hover--transparent": "#efeff400",
+        "color-brand-primary": "#ffd843",
+        "color-brand-secondary": "#39a4d5",
+        "color-brand-content": "#ffd843",
+        "color-foreground-primary": "#ffffff",
+        "color-foreground-secondary": "#ffffff",
+        "color-foreground-muted": "#ffffff",
+        "color-foreground-border": "transparent",
+        "color-background-border": "transparent",
+        "color-api-overall": "#101010",
+        "color-inline-code-background": "#0d0d0d",
+    },
 }
 html_show_sphinx = False
 html_show_sourceLink = False
 
-def setup(app):
-    app.add_css_file('theme_overrides.css')
+
 
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
+
+suppress_warnings = ['epub.unknown_project_files']
+
+sphinx_tabs_valid_builders = ['epub', 'linkcheck']
