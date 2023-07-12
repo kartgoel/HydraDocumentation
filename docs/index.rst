@@ -5,10 +5,6 @@ Hydra Docs
   :alt: Hydra
 
 
-.. image:: img/white.png
-   :alt: Space
-
-
 Welcome to Hydra's documentation! **Hydra** is an extensible framework for training, managing and 
 deploying machine learning models for real time data quality monitoring.
 
