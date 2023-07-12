@@ -78,7 +78,6 @@ html_theme_options = {
         "color-api-overall": "#101010",
         },
     "dark_css_variables" : {
-        # Background color of pages
         "color-background-primary": "#242c37",
         "color-background-secondary": "#0f3e3e",
         "color-background-hover": "#efeff400",
@@ -95,8 +94,8 @@ html_theme_options = {
         "color-inline-code-background": "#0d0d0d",
     },
 }
-html_show_sphinx = False
-html_show_sourceLink = False
+# html_show_sphinx = False
+# html_show_sourceLink = False
 
 
 
