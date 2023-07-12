@@ -11,6 +11,7 @@ Check out the Github for further information.
 
    .. grid-item-card:: User Interface
       :link: docs/labelerFE
+      :link-type: ref
       :text-align: center
 
       How to interact with Hydra's web-based pages. 
@@ -19,12 +20,14 @@ Check out the Github for further information.
 
    .. grid-item-card:: HTML Pages
       :link: docs/labeler
+      :link-type: ref
 
       The backend of Hydra's webpages.
 
 
    .. grid-item-card:: HTML Integrations
       :link: docs/getClassification
+      :link-type: ref
        
       The link between Hydra's backend and frontend.  
 
@@ -32,11 +35,13 @@ Check out the Github for further information.
 
    .. grid-item-card:: HTML Utils
       :link: docs/help
+      :link-type: ref
        
       Background scripts for the frontend of Hydra.
 
    .. grid-item-card:: Hydra Libraries
       :link: docs/connectToDB
+      :link-type: ref
       
 
       Background scripts for the backend of Hydra.
@@ -45,11 +50,13 @@ Check out the Github for further information.
 
    .. grid-item-card:: Hydra Scripts
       :link: docs/schemaSync
+      :link-type: ref
        
       The main scripts that run Hydra. 
 
    .. grid-item-card:: Hydra Utils
       :link: docs/dependencies
+      :link-type: ref
       
       Different dependencies, configurations, and connections that Hydra uses. 
 
