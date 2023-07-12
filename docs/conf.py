@@ -17,6 +17,15 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
+    "sphinx_rtd_theme",
+	'sphinx.ext.autosectionlabel',
+    'sphinx.ext.todo',
+    'sphinx_tabs.tabs',
+	'notfound.extension',
+    'sphinxext.remoteliteralinclude',
+	"sphinxext.opengraph",
+	"sphinxcontrib.ghcontributors",
+    "sphinx_design"
 ]
 
 intersphinx_mapping = {
