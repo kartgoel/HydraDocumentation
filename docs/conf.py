@@ -59,10 +59,6 @@ html_favicon = "img/hydra_small_logo.png"
 html_theme = 'furo'
 html_logo = 'img/hydra_logo.png'
 html_theme_options = {
-    'collapse_navigation': False,
-    'display_version': False,
-    'logo-only': True,
-    'sticky-navigation': False,
     "sidebar_hide_name": True,
     "light_css_variables": {
         "font-stack": '-apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;',
@@ -82,13 +78,14 @@ html_theme_options = {
         "color-api-overall": "#101010",
         },
     "dark_css_variables" : {
+        # Background color of pages
         "color-background-primary": "#242c37",
-        "color-background-secondary": "#006492",
+        "color-background-secondary": "#0f3e3e",
         "color-background-hover": "#efeff400",
         "color-background-hover--transparent": "#efeff400",
-        "color-brand-primary": "#ffd843",
+        "color-brand-primary": "#53c653",
         "color-brand-secondary": "#39a4d5",
-        "color-brand-content": "#ffd843",
+        "color-brand-content": "#53c653",
         "color-foreground-primary": "#ffffff",
         "color-foreground-secondary": "#ffffff",
         "color-foreground-muted": "#ffffff",
