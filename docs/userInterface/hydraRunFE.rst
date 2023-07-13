@@ -30,7 +30,7 @@ C
 ~~~~~~~~~~~~~
 
 More information about the Run page be found after clicking this button. 
-It can also be accessed `here<https://halldweb.jlab.org/hydra/HydraRunHelp.html>`_. 
+It can also be accessed `here. <https://halldweb.jlab.org/hydra/HydraRunHelp.html>`_
 
 
 Reading the Images 
@@ -66,5 +66,5 @@ The different colors are:
 
 .. note::
 
-    For a better visual representation of these image effects, see `here<https://halldweb.jlab.org/hydra/HydraRunHelp.html>`_. 
+    For a better visual representation of these image effects, see `here. <https://halldweb.jlab.org/hydra/HydraRunHelp.html>`_
 
