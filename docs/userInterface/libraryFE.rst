@@ -3,7 +3,8 @@
 How to Use Library
 ==============
 
-This is Hydra's web-based library, which visually represents the training data of a specified AI model. 
+This is Hydra's web-based library, which visually represents the training data of AI models on an array. 
+It stores data about all trained models for different JLab experiments and allows verified users to alter threshold values. 
 
 
 For a more indepth description on the **Library.html** file, see here: :ref:`LibraryHTML`
@@ -15,8 +16,7 @@ For a more indepth description on the **Library.html** file, see here: :ref:`Lib
 A 
 ~~~~~~~~~~~~~~
 
-This drop-down bar allows the user to select which AI model to view. 
-
+This drop-down bar allows the user to select which trained AI model to view. 
 
 B
 ~~~~~~~~~~~~~~
@@ -52,9 +52,10 @@ The y-axis is the number of times the AI model had a specific certainty for its 
 E
 ~~~~~~~~~~~~~
 
-This gives information about the trained model, like number of images used to train the AI model. 
+This shows additional information about the trained model, like the number of images used to train the AI model. 
 
 F 
 ~~~~~~~~~~
 
-A user with access can edit these values depending on how confident they wan the AI model to in order to alert the user of a certain plot. 
+A user with access can edit these values depending on how confident they want the AI model to be in order to alert the user of a certain plot. 
+In this case, user 'tbritton' has set the minumum confidence for a plot the AI labeled 'Bad' to 0.65 in order for it to be verified. 
