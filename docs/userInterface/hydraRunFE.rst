@@ -18,7 +18,9 @@ A
 This notifies how many seconds ago since the last image was seen. 
 If the text turns red, it could indicate a problem with Hydra or that the data taking has stopped. 
 Before any images are seen, the time since the last database poll is given.
-Clicking on this will take the user to to a strip-chart view of Hydra sentiments with Grafana. 
+Clicking on this will take the user to to a strip-chart view of Hydra sentiments with `Grafana. <https://epsciweb.jlab.org/grafana/d/RTCut2c4z/halld_hydra?orgId=1&var-Panels=All&refresh=10s&search=open&query=folder:current>`_ 
+
+Learn more about Grafana here: :ref:`GrafanaFE`
 
 B 
 ~~~~~~~~~~
