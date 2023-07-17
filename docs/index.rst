@@ -77,6 +77,7 @@ Check out the Github for further information.
    userInterface/labelerFE
    userInterface/libraryFE
    userInterface/hydraRunFE
+   userInterface/grafanaFE
 
 .. toctree::
    :hidden:
