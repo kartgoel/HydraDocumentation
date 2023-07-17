@@ -141,7 +141,7 @@ Check out the Github for further information.
    hydraScripts/hydraPredict
    hydraScripts/hydraKeeper
    hydraScripts/helpers
-   hydraScripts/imgCrawler
+   hydraScripts/hydraImgCrawler
    hydraScripts/runGradCAM
    hydraScripts/modelAnalysis
    hydraScripts/assignTrainWeights

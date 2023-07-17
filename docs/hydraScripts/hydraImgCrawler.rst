@@ -1,4 +1,4 @@
-imgCrawler
+hydra_imgCrawler
 =================
 
 This file scans and processes image files, interacting with the MySQL database to query and update information related to the plots. 
@@ -12,13 +12,12 @@ For each location, it retrieves the list of files and their information and inse
 .. code-block:: python 
 
     # Extended code available on Github
-    def ScanLocations(root_loc, locations):
+    def ScanLocations(locations):
 
 
 Parameters 
 ~~~~~~~~~~~~~~~~~~~~
 
-- ``root_loc``: A string representing the location where the image files are stored. 
 - ``locations``: A list containing the specific locations to scan for image files. 
 
 
