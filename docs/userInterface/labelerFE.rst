@@ -1,6 +1,6 @@
 .. _labelerFE:
 
-How to Label Plots
+Image Labeler
 =======================
 
 This is Hydra's web-based labeler, which allows experts to label plots and assigns each plot type a label leader. 
