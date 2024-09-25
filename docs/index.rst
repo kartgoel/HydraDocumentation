@@ -2,10 +2,10 @@
   :alt: Hydra
 
 
-Welcome to Hydra's documentation! **Hydra** is an extensible framework for training, managing and 
-deploying machine learning models for real time data quality monitoring.
+Welcome to Hydra's documentation! We're so glad you are here. Hydra is an extensible framework for training, managing and 
+deploying machine learning models for real time data quality monitoring. It aims to partner with humans to perform tedious monitoring tasks. 
 
-Check out the Github for further information.
+Hydra is managed via GitHub repositories. 
 
 .. grid:: 1
 
